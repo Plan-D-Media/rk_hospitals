@@ -1,0 +1,9 @@
+# Ramakrishna Multispeciality Hospital — robots.txt
+User-agent: *
+Allow: /
+
+# Paid-ad landing variant should not compete in organic search
+Disallow: /landing
+Disallow: /landing.html
+
+Sitemap: https://TODO_DOMAIN.in/sitemap.xml

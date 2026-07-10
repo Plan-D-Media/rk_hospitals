@@ -1,0 +1,423 @@
+/* ============================================================
+   rk-home-v2.css — homepage elevation layer
+   Loads AFTER rk-theme.css and rk-home.css, on index.html only.
+
+   Everything here is scoped to `body.home` (or to classes that
+   exist only on the homepage), so nothing in this file can change
+   landing.html, pricing-*.html, all-doctors.html or any other page
+   that also loads rk-home.css.
+
+   Contents
+     1. Utilities — sr-only, scroll reveal
+     2. Inline SVG icon system (replaces Font Awesome on this page)
+     3. Hero background slider
+     4. Typed line (rk-text-type.js)
+     5. Quick actions
+     6. Specialty tiles + why cards
+     7. Diagnostics list
+     8. Doctors preview
+     9. Empanelment logo wall
+    10. Reviews slot
+    11. Emergency band
+    12. Rhythm + type scale
+    13. Reduced motion
+   ============================================================ */
+
+/* ---------- 1. UTILITIES ---------- */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* Scroll reveal. Gated on `.js` so the content is never invisible
+   if JavaScript fails to run. Transform/opacity only => no CLS. */
+.js .reveal { opacity: 0; transform: translateY(18px); }
+.js .reveal.is-in { opacity: 1; transform: none; transition: opacity .62s ease, transform .62s cubic-bezier(.22,.8,.3,1); }
+
+/* ---------- 2. INLINE SVG ICON SYSTEM ---------- */
+/* One 24×24 stroke set, embedded as a <symbol> sprite in index.html.
+   Sized in `em` so it inherits whatever font-size its container sets. */
+.ico {
+  width: 1em; height: 1em; flex: none; display: inline-block;
+  vertical-align: -0.14em;
+  fill: none; stroke: currentColor; stroke-width: 1.8;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.ico--solid { fill: currentColor; stroke: none; }
+
+/* Mirror the `i`-element rules from rk-theme.css / rk-home.css that
+   this page no longer has elements for. */
+.home .btn .ico { width: 1.05em; height: 1.05em; }
+.home .chip .ico,
+.home .util-left .loc .ico { color: var(--magenta); }
+.home .about-list .ico { color: var(--magenta); margin-top: 4px; }
+.home .diag-list .d .ico { color: var(--magenta); margin-top: 2px; font-size: 1.18rem; }
+.home .pkg-card ul .ico { color: var(--magenta); margin-top: 5px; }
+.home .footer-nap .ico { color: var(--magenta); margin-top: 4px; }
+.home .footer-social .ico { width: 17px; height: 17px; }
+.home .nav-toggle .ico { width: 1em; height: 1em; }
+
+/* The dropdown caret was a Font Awesome glyph (content: "\f107").
+   Rebuild it as a pure-CSS chevron. */
+.home .nav-links .has-sub > a::after {
+  content: ""; font-family: inherit;
+  width: .42em; height: .42em; margin-left: .1em;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg) translate(-2px, -2px);
+  opacity: .55;
+}
+
+/* ---------- 3. HERO BACKGROUND SLIDER ---------- */
+/* Reserved height => the slider can never shift the page. */
+.hero-slider {
+  --hs-fade: 900ms;
+  --hs-h: clamp(560px, 88vh, 920px);
+  position: relative;
+  min-height: var(--hs-h);
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+  background: var(--ink); /* paints before the first image decodes */
+  isolation: isolate;
+}
+
+.hs-track { position: absolute; inset: 0; z-index: 0; }
+
+.hs-slide {
+  position: absolute; inset: 0;
+  opacity: 0;
+  transition: opacity var(--hs-fade) ease;
+  pointer-events: none;
+}
+.hs-slide.is-active { opacity: 1; }
+
+.hs-slide img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  display: block;
+  transform: scale(1.02);
+}
+/* Ken Burns — only on the visible slide, only when motion is welcome. */
+.hs-slide.is-active img { animation: hs-kenburns 9.5s ease-out both; }
+@keyframes hs-kenburns {
+  from { transform: scale(1.02); }
+  to   { transform: scale(1.09); }
+}
+
+/* Magenta-tinted scrim. Two stacked gradients guarantee WCAG AA for
+   white text over ANY photograph, including a pure-white one:
+   worst case measures 13.4:1 on desktop, 10.1:1 on mobile.
+   Future occasion photos will vary in brightness — do not lighten this. */
+.hs-scrim {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    linear-gradient(100deg,
+      rgba(26,10,17,.90) 0%,
+      rgba(38,12,25,.80) 34%,
+      rgba(96,20,52,.42) 66%,
+      rgba(140,28,72,.28) 100%),
+    linear-gradient(180deg,
+      rgba(20,8,14,.55) 0%,
+      rgba(20,8,14,.30) 40%,
+      rgba(20,8,14,.68) 100%);
+}
+
+.hs-content {
+  position: relative; z-index: 2;
+  padding-top: clamp(56px, 8vh, 104px);
+  padding-bottom: clamp(88px, 11vh, 132px);
+  /* width:100% is load-bearing: .hs-content is a grid item, and with the
+     default width:auto it shrink-wraps to its content and the grid centers
+     it. width:100% makes it a full-bleed container that its own max-width +
+     margin:auto center like the nav — so the copy's left edge lands on the
+     header gutter (under the logo) instead of floating in the middle. */
+  width: 100%;
+  max-width: var(--container);
+}
+/* Left column: the block's left edge is the container gutter (lines up under
+   the logo). Capped at ~640px (~54% of the 1180 container) so lines don't run
+   wide and more of the slide image shows on the right. It stays left-aligned
+   at every width; the hero grid keeps it vertically centered. */
+.hs-copy { max-width: 40rem; color: #fff; }
+
+.hero-slider .eyebrow { color: #fff; opacity: .85; }
+.hero-slider h1 {
+  color: #fff;
+  font-size: clamp(2.05rem, 4.4vw, 3.5rem);
+  line-height: 1.08;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 24px rgba(0,0,0,.28);
+}
+.hero-slider h1 .accent { color: #FFC2D5; }
+
+.hero-slider .hero-cta { margin: 30px 0 26px; }
+.hero-slider .hero-chips { gap: 10px; }
+.hero-slider .chip {
+  background: rgba(255,255,255,.10);
+  border-color: rgba(255,255,255,.24);
+  color: #fff;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.hero-slider .chip .ico { color: #FFC2D5; }
+
+/* Controls: dot indicators only (no prev/next arrows). Manual navigation is
+   the dots + touch-swipe + arrow keys when a dot is focused. */
+/* The quick-action cards overlap the bottom of the hero (.quick has a
+   negative margin), so the dots must sit clear of that overlap. */
+.hs-dots {
+  position: absolute; z-index: 3;
+  left: 50%; transform: translateX(-50%);
+  bottom: clamp(78px, 10vh, 104px);
+  display: flex; gap: 10px;
+}
+.hs-dot {
+  width: 10px; height: 10px; padding: 0;
+  border-radius: 999px; cursor: pointer;
+  background: rgba(255,255,255,.42);
+  border: 0;
+  transition: width .28s ease, background .28s ease;
+}
+.hs-dot.is-active { width: 30px; background: var(--magenta); }
+.hs-dot:hover { background: #fff; }
+
+/* Signature: a magenta rail that fills as the slide dwells.
+   It sits at the TOP of the hero — the bottom edge is covered by the
+   quick-action cards that overlap upward into it. */
+.hs-progress {
+  position: absolute; left: 0; top: 0; z-index: 3;
+  height: 3px; width: 100%;
+  background: rgba(255,255,255,.14);
+  overflow: hidden;
+}
+.hs-progress::after {
+  content: ""; display: block; height: 100%; width: 100%;
+  background: var(--magenta);
+  transform: scaleX(0); transform-origin: left;
+}
+.hs-progress.is-running::after {
+  /* Duration comes from --hs-interval, set by the slider JS from
+     RK_HERO_CONFIG.interval, so the rail always matches the dwell time. */
+  animation: hs-drain var(--hs-interval, 13000ms) linear forwards;
+}
+@keyframes hs-drain { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+@media (max-width: 900px) {
+  .hero-slider { --hs-h: 640px; }
+  /* Text runs full width on mobile, so the scrim must be even across it. */
+  .hs-scrim {
+    background:
+      linear-gradient(180deg,
+        rgba(26,10,17,.78) 0%,
+        rgba(26,10,17,.70) 45%,
+        rgba(26,10,17,.90) 100%),
+      linear-gradient(0deg, rgba(60,14,34,.35), rgba(60,14,34,.35));
+  }
+  /* CTAs stack full-width so they never overflow the narrow column. */
+  .hero-slider .hero-cta .btn { flex: 1 1 100%; justify-content: center; }
+}
+@media (max-width: 560px) {
+  .hs-dots { bottom: 26px; }
+}
+
+/* ---------- 4. TYPED LINE ---------- */
+/* min-height reserves the tallest wrap so the line never shifts. */
+.typed-line {
+  min-height: 1.62em;
+  margin: 0 0 6px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.05rem, 1.8vw, 1.4rem);
+  line-height: 1.55;
+  color: #FFC2D5;
+  letter-spacing: -.005em;
+}
+.tt-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  color: var(--magenta);
+  color: #FF8FB4;
+  font-weight: 400;
+  animation: tt-blink 1s step-end infinite;
+}
+[data-text-type].is-typing .tt-cursor { animation: none; opacity: 1; }
+@keyframes tt-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+@media (max-width: 900px) { .typed-line { min-height: 3.2em; } }
+
+/* Specialties rotator in the section head — inherits the section's colour. */
+.coe-rotator { color: var(--magenta); }
+.coe-rotator .tt-cursor { color: var(--magenta); }
+
+/* ---------- 5. QUICK ACTIONS ---------- */
+.home .quick-item {
+  border-radius: var(--r-lg);
+  padding: 26px 14px;
+  position: relative;
+  overflow: hidden;
+}
+.home .quick-item .qi {
+  width: 56px; height: 56px; border-radius: 18px;
+  font-size: 1.45rem;
+  transition: background .18s ease, color .18s ease, transform .18s ease;
+}
+.home .quick-item:hover .qi { background: var(--magenta); color: #fff; transform: translateY(-2px); }
+.home .quick-item.is-emg:hover .qi { background: var(--red); color: #fff; }
+.home .quick-item span:not(.qi) { font-size: .92rem; letter-spacing: -.005em; }
+
+/* ---------- 6. SPECIALTY TILES + WHY CARDS ---------- */
+/* Rounded geometry echoes the logo's soft mark; the hairline top rule
+   lights up magenta on hover so the whole grid reads as one system. */
+.home .coe-tile {
+  border-radius: var(--r-lg);
+  padding: 30px 26px 26px;
+  position: relative;
+  overflow: hidden;
+}
+.home .coe-tile::before {
+  content: ""; position: absolute; inset: 0 auto auto 0;
+  height: 3px; width: 100%;
+  background: var(--magenta);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .32s cubic-bezier(.22,.8,.3,1);
+}
+.home .coe-tile:hover::before { transform: scaleX(1); }
+.home .coe-tile .ci {
+  width: 58px; height: 58px; border-radius: 18px;
+  font-size: 1.5rem;
+  transition: background .18s ease, color .18s ease;
+}
+.home .coe-tile:hover .ci { background: var(--magenta); color: #fff; }
+.home .coe-tile h3 { font-size: 1.14rem; letter-spacing: -.015em; }
+.home .coe-tile p { min-height: 2.9em; }
+.home .coe-tile .more .ico { transition: transform .18s ease; }
+.home .coe-tile:hover .more .ico { transform: translateX(3px); }
+
+.home .why-card { border-radius: var(--r-lg); padding: 32px 28px; }
+.home .why-card .wi { width: 54px; height: 54px; border-radius: 17px; font-size: 1.4rem; }
+
+/* ---------- 7. DIAGNOSTICS LIST ---------- */
+.home .diag-list .d {
+  border-radius: var(--r);
+  padding: 16px 18px;
+  transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+.home .diag-list .d:hover {
+  border-color: #efd7e0;
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
+}
+
+/* ---------- 8. DOCTORS PREVIEW ---------- */
+.home .doc-card { border-radius: var(--r-lg); }
+.home .doc-card .doc-body { padding: 20px 22px 24px; }
+.home .doc-card .dept {
+  display: inline-block;
+  background: var(--magenta-wash);
+  color: var(--magenta);
+  padding: 4px 10px; border-radius: 999px;
+  font-size: .7rem; letter-spacing: .07em;
+}
+.home .doc-card h3 { font-size: 1.16rem; margin: 12px 0 6px; letter-spacing: -.015em; }
+/* Credentials are the trust signal — give them weight, not grey. */
+.home .doc-card .qual {
+  font-size: .88rem; font-weight: 600; color: var(--ink-soft);
+  margin: 0 0 16px; padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+/* ---------- 9. EMPANELMENT LOGO WALL ---------- */
+.logo-wall-head {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px 20px;
+  margin-bottom: 30px; padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+.logo-wall-head .lw-num {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(2.4rem, 4.5vw, 3.4rem); line-height: 1;
+  color: var(--magenta); letter-spacing: -.03em;
+}
+.logo-wall-head .lw-lbl { font-size: 1.02rem; color: var(--ink-soft); max-width: 46ch; }
+
+.logo-wall { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+.lw-item {
+  background: #fff; border: 1px solid var(--line); border-radius: var(--r);
+  padding: 16px 12px 14px;
+  display: grid; gap: 10px; justify-items: center; text-align: center;
+  transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+.lw-item:hover { border-color: #efd7e0; box-shadow: var(--shadow-sm); transform: translateY(-3px); }
+.lw-item img { width: 100%; height: auto; max-width: 120px; border-radius: 6px; }
+.lw-item .lw-name {
+  font-size: .8rem; font-weight: 600; color: var(--ink-soft);
+  line-height: 1.35; letter-spacing: -.005em;
+}
+#empanel-extra.show { display: contents; }
+.logo-wall-more { margin-top: 26px; text-align: center; }
+.logo-wall-note { margin-top: 14px; font-size: .84rem; color: var(--muted); }
+
+@media (max-width: 1040px) { .logo-wall { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 680px)  { .logo-wall { grid-template-columns: repeat(3, 1fr); gap: 10px; } .lw-item { padding: 12px 8px 10px; } }
+@media (max-width: 420px)  { .logo-wall { grid-template-columns: repeat(2, 1fr); } }
+
+/* ---------- 10. REVIEWS SLOT ---------- */
+/* Height is reserved now so dropping the embed in later shifts nothing. */
+.reviews-slot {
+  max-width: 780px; margin: 0 auto;
+  min-height: 300px;
+  display: grid; place-content: center; justify-items: center;
+  gap: 8px; text-align: center;
+  padding: 44px 30px;
+  border: 1.5px dashed var(--line); border-radius: var(--r-lg);
+  background: #fff;
+}
+.reviews-slot .qic {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--magenta-wash); color: var(--magenta);
+  display: grid; place-items: center; font-size: 1.35rem;
+  margin-bottom: 8px;
+}
+.reviews-slot h3 { font-size: 1.2rem; margin-bottom: 4px; }
+.reviews-slot p { color: var(--muted); margin: 0; max-width: 46ch; }
+
+/* ---------- 11. EMERGENCY BAND ---------- */
+/* Unmissable: full-bleed red, a barber-stripe texture, oversized number. */
+.home .emg-band { position: relative; overflow: hidden; }
+.home .emg-band::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(255,255,255,.055) 0 14px,
+    transparent 14px 28px);
+}
+.home .emg-band .container { position: relative; padding-top: 48px; padding-bottom: 48px; }
+.home .emg-band h2 { font-size: clamp(1.45rem, 2.4vw, 1.95rem); letter-spacing: -.02em; }
+.home .emg-band .btn--white { font-size: clamp(1.05rem, 1.7vw, 1.25rem); font-weight: 800; }
+.home .emg-band .pulse { width: 16px; height: 16px; }
+
+/* ---------- 12. RHYTHM + TYPE SCALE ---------- */
+.home .section-head h2 { font-size: clamp(1.7rem, 3.2vw, 2.35rem); letter-spacing: -.025em; }
+.home .section-head p { max-width: 60ch; margin-inline: auto; }
+.home .eyebrow { letter-spacing: .18em; }
+/* One rhythm for every band on the page. */
+.home main > .section { padding-block: clamp(64px, 7.5vw, 108px); }
+.home .quick { margin-top: -52px; }
+@media (max-width: 460px) { .home .quick { margin-top: -34px; } }
+
+/* ---------- 13. REDUCED MOTION ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .hs-slide { transition: none; }
+  .hs-slide.is-active img { animation: none; transform: none; }
+  .hs-progress { display: none; }
+  .tt-cursor { animation: none; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+  .home .coe-tile::before,
+  .home .coe-tile .more .ico,
+  .home .diag-list .d,
+  .home .lw-item,
+  .home .quick-item .qi { transition: none; }
+  .home .lw-item:hover,
+  .home .diag-list .d:hover,
+  .home .quick-item:hover .qi { transform: none; }
+}

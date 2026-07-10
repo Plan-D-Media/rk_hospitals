@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- PRIMARY META -->
+  <title>Best Multispeciality Hospital in Barrackpore — 24×7 Emergency &amp; Critical Care | Ramakrishna Multispeciality Hospital</title>
+  <meta name="description" content="Ramakrishna Multispeciality Hospital, Barrackpore — 24×7 emergency, critical care (ICU, HDU, NICU, PICU) and in-house diagnostics up to CT. Cashless &amp; TPA. Book an appointment or call now.">
+  <link rel="canonical" href="https://TODO_DOMAIN.in/landing">
+  <meta name="robots" content="noindex, follow"><!-- paid-ad landing page: kept out of organic index -->
+  <meta name="theme-color" content="#BD2754">
+
+  <!-- OPEN GRAPH / TWITTER -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Best Multispeciality Hospital in Barrackpore — 24×7 Emergency &amp; Critical Care">
+  <meta property="og:description" content="24×7 emergency, critical care and in-house diagnostics up to CT in Barrackpore. Cashless &amp; TPA. Book an appointment or call now.">
+  <meta property="og:url" content="https://TODO_DOMAIN.in/landing">
+  <meta property="og:image" content="https://TODO_DOMAIN.in/images/Ramakrishna-Hospitality-030123-300x68-1.png"><!-- TODO: real 1200x630 social share image -->
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- FAVICON -->
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+  <!-- FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- ICONS -->
+  <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet" crossorigin="anonymous">
+
+  <!-- STYLES -->
+  <link href="css/rk-theme.css" rel="stylesheet">
+  <link href="css/rk-home.css" rel="stylesheet">
+  <link href="css/rk-inner.css" rel="stylesheet">
+
+  <!-- TODO: paste real GTM container id (GTM-XXXX) -->
+  <!-- Google Ads / gtag placeholder: gtag('config','AW-XXXX') · conversion event on form submit -->
+  <!-- Meta Pixel placeholder: fbq('init','PIXEL_ID') · Lead event on form submit -->
+
+  <style>
+    /* ---- Landing-only: minimal top bar + form-first hero + minimal footer ---- */
+    .lp-bar { position: sticky; top: 0; z-index: 900; background: #fff; border-bottom: 1px solid var(--line); }
+    .lp-bar .container { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 66px; }
+    .lp-bar .brand img { height: 40px; width: auto; }
+    .lp-call { display: inline-flex; align-items: center; gap: 9px; background: var(--red); color: #fff; font-weight: 700; padding: 11px 20px; border-radius: 999px; box-shadow: 0 8px 20px rgba(226,58,46,.28); }
+    .lp-call:hover { background: var(--red-dark); color: #fff; }
+    @media (max-width: 420px) { .lp-call .lbl { display: none; } }
+
+    .lp-hero { background: linear-gradient(180deg, #fff 0%, var(--magenta-wash) 100%); }
+    .lp-hero .container { display: grid; grid-template-columns: 1.02fr .98fr; gap: clamp(28px, 5vw, 60px); align-items: start; padding-top: clamp(32px, 4vw, 54px); padding-bottom: clamp(40px, 5vw, 64px); }
+    .lp-hero h1 { margin-bottom: 16px; }
+    .lp-hero h1 .accent { color: var(--magenta); }
+    .lp-hero .sub { font-size: 1.12rem; color: var(--ink-soft); max-width: 52ch; margin-bottom: 22px; }
+    .lp-trust { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
+    .lp-trust .t { display: flex; gap: 11px; align-items: flex-start; background: #fff; border: 1px solid var(--line); border-radius: var(--r-sm); padding: 13px 15px; box-shadow: var(--shadow-sm); }
+    .lp-trust .t i { color: var(--magenta); margin-top: 3px; }
+    .lp-trust .t strong { display: block; font-family: var(--font-display); font-size: .96rem; color: var(--ink); }
+    .lp-trust .t span { font-size: .82rem; color: var(--muted); }
+    @media (max-width: 900px) { .lp-hero .container { grid-template-columns: 1fr; } .lp-hero .appt-card { order: -1; } }
+    @media (max-width: 440px) { .lp-trust { grid-template-columns: 1fr; } }
+
+    .lp-strip { background: var(--ink); color: #e7e2e6; }
+    .lp-strip .container { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 30px; padding: 16px 0; text-align: center; }
+    .lp-strip .s { display: inline-flex; align-items: center; gap: 9px; font-size: .92rem; font-weight: 600; }
+    .lp-strip .s i { color: var(--magenta); }
+
+    .lp-footer { background: var(--ink); color: #a49ea3; padding: 34px 0; border-top: 1px solid rgba(255,255,255,.1); }
+    .lp-footer .container { display: flex; flex-wrap: wrap; gap: 18px 30px; align-items: center; justify-content: space-between; }
+    .lp-footer .nap { display: grid; gap: 6px; font-size: .9rem; }
+    .lp-footer .nap .row { display: flex; gap: 10px; align-items: flex-start; }
+    .lp-footer .nap i { color: var(--magenta); margin-top: 4px; }
+    .lp-footer a { color: #c9c3c8; }
+    .lp-footer a:hover { color: #fff; }
+    .lp-footer .legal { font-size: .84rem; color: #948e93; }
+    .lp-footer .legal a { color: #948e93; }
+  </style>
+</head>
+
+<body>
+
+<!-- ============ MINIMAL TOP BAR (no nav) ============ -->
+<div class="lp-bar">
+  <div class="container">
+    <a class="brand" href="#lp-form" aria-label="Ramakrishna Multispeciality Hospital"><img src="images/Ramakrishna-Hospitality-030123-300x68-1.png" width="300" height="68" alt="Ramakrishna Multispeciality Hospital logo"></a>
+    <a class="lp-call" href="tel:+918240842519"><i class="fas fa-phone-alt"></i> <span class="lbl">Call 24×7</span></a>
+  </div>
+</div>
+
+<main id="main">
+
+  <!-- ============ HERO: benefit copy + appointment form above the fold ============ -->
+  <section class="lp-hero">
+    <div class="container">
+      <div class="hero-copy">
+        <h1>Best Multispeciality Hospital in <span class="accent">Barrackpore</span> — 24×7 Emergency, Critical Care &amp; Diagnostics up to CT</h1>
+        <p class="sub">Serious specialist care close to home on Ghoshpara Road — round-the-clock emergency with triage, complete critical care and in-house diagnostics. Cashless &amp; TPA for eligible schemes and PSUs.</p>
+        <div class="lp-trust">
+          <div class="t"><i class="fas fa-ambulance"></i><div><strong>24×7 Emergency</strong><span>With triage, any hour</span></div></div>
+          <div class="t"><i class="fas fa-id-card"></i><div><strong>Cashless &amp; TPA</strong><span>Schemes, PSUs &amp; insurers</span></div></div>
+          <div class="t"><i class="fas fa-x-ray"></i><div><strong>In-house CT</strong><span>Diagnostics up to CT scan</span></div></div>
+          <div class="t"><i class="fas fa-procedures"></i><div><strong>ICU · HDU · NICU · PICU</strong><span>Complete critical care</span></div></div>
+        </div>
+      </div>
+
+      <!-- Appointment form (form-first) -->
+      <div class="appt-card" id="lp-form">
+        <h2>Book an appointment</h2>
+        <p style="color:var(--muted);margin-top:-6px;margin-bottom:18px">Share a few details and our team will call you back to confirm your slot.</p>
+        <form id="landing-form" data-lead-form="hero" novalidate>
+          <!-- honeypot -->
+          <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <div class="form-row">
+            <div class="field">
+              <label for="lf-name">Full name <span class="req">*</span></label>
+              <input id="lf-name" name="name" type="text" required autocomplete="name" placeholder="Your name">
+            </div>
+            <div class="field">
+              <label for="lf-phone">Phone <span class="req">*</span></label>
+              <input id="lf-phone" name="phone" type="tel" required autocomplete="tel" pattern="[0-9+\-\s]{10,15}" placeholder="10-digit mobile">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="lf-dept">Department <span class="req">*</span></label>
+              <select id="lf-dept" name="department" required>
+                <option value="" selected disabled>Select a department</option>
+                <option>Emergency &amp; Trauma</option>
+                <option>Cardiology</option>
+                <option>Critical Care (ICU/HDU)</option>
+                <option>Gastroenterology</option>
+                <option>ENT</option>
+                <option>General Medicine</option>
+                <option>General &amp; Laparoscopic Surgery</option>
+                <option>Orthopaedics</option>
+                <option>Gynaecology &amp; Obstetrics</option>
+                <option>Paediatrics &amp; Neonatology</option>
+                <option>Pulmonology</option>
+                <option>Urology</option>
+                <option>Endocrinology</option>
+                <option>Nephrology / Dialysis</option>
+                <option>Dentistry</option>
+                <option>Health Check-up</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="lf-date">Preferred date</label>
+              <input id="lf-date" name="preferred_date" type="date">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="lf-msg">Message</label>
+            <textarea id="lf-msg" name="message" placeholder="Briefly describe your concern (optional)"></textarea>
+          </div>
+
+          <button class="btn btn--primary btn--block btn--lg" type="submit"><i class="fas fa-calendar-check"></i> Request Appointment</button>
+          <p class="form-note" style="margin-top:12px">By submitting, you agree to be contacted about your appointment. We don't share your details.</p>
+
+          <div class="form-success" role="status">
+            <strong>Thank you — request received.</strong> Our team will call you shortly to confirm your appointment.
+          </div>
+          <div class="form-error" role="alert">
+            <strong>Sorry — we couldn&rsquo;t send your request.</strong> Please check your connection and try again, or call us on <a data-fallback-phone href="tel:+918240842519">+91 82408 42519</a> and we&rsquo;ll book you in.
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TRUST / EMPANELMENT STRIP ============ -->
+  <div class="lp-strip">
+    <div class="container">
+      <span class="s"><i class="fas fa-check-circle"></i> 16+ specialities under one roof</span>
+      <span class="s"><i class="fas fa-check-circle"></i> Cashless for government schemes, PSUs &amp; TPAs</span>
+      <span class="s"><i class="fas fa-check-circle"></i> On Ghoshpara Road, Barrackpore</span>
+    </div>
+  </div>
+
+  <!-- ============ DOCTORS (4 verified) ============ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Meet the specialists</span>
+        <h2>Doctors you can book with</h2>
+        <p>A specialist-led team across our core departments.</p>
+      </div>
+      <div class="docs-grid">
+        <article class="card doc-card">
+          <div class="doc-photo"><!-- TODO: real photo of Dr. Gourab Chatterjee --><img src="images/placeholders/ph-400x400.svg" width="400" height="400" alt="Dr. Gourab Chatterjee, Orthopaedics"></div>
+          <div class="doc-body">
+            <span class="dept">Orthopaedics</span>
+            <h3>Dr. Gourab Chatterjee</h3>
+            <p class="qual">MBBS, DNB (Ortho), MNAMS</p>
+            <a class="btn btn--ghost" href="#lp-form">Book now</a>
+          </div>
+        </article>
+        <article class="card doc-card">
+          <div class="doc-photo"><!-- TODO: real photo of Dr. Shyan Kumar Biswas --><img src="images/placeholders/ph-400x400.svg" width="400" height="400" alt="Dr. Shyan Kumar Biswas, General Medicine"></div>
+          <div class="doc-body">
+            <span class="dept">General Medicine</span>
+            <h3>Dr. Shyan Kumar Biswas</h3>
+            <p class="qual">MBBS, MD (Physician), CCEBDM</p>
+            <a class="btn btn--ghost" href="#lp-form">Book now</a>
+          </div>
+        </article>
+        <article class="card doc-card">
+          <div class="doc-photo"><!-- TODO: real photo of Dr. Debosmita Roy --><img src="images/placeholders/ph-400x400.svg" width="400" height="400" alt="Dr. Debosmita Roy, Gynaecology & Obstetrics"></div>
+          <div class="doc-body">
+            <span class="dept">Gynaecology &amp; Obstetrics</span>
+            <h3>Dr. Debosmita Roy</h3>
+            <p class="qual">MBBS</p>
+            <a class="btn btn--ghost" href="#lp-form">Book now</a>
+          </div>
+        </article>
+        <article class="card doc-card">
+          <div class="doc-photo"><!-- TODO: real photo of Dr. Aniket Sarkar --><img src="images/placeholders/ph-400x400.svg" width="400" height="400" alt="Dr. Aniket Sarkar, Dental — Oral & Maxillofacial Surgery"></div>
+          <div class="doc-body">
+            <span class="dept">Dental</span>
+            <h3>Dr. Aniket Sarkar</h3>
+            <p class="qual">BDS, MDS (Oral &amp; Maxillofacial Surgery)</p>
+            <a class="btn btn--ghost" href="#lp-form">Book now</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EMERGENCY CTA BAND ============ -->
+  <section class="emg-band">
+    <div class="container">
+      <div class="l">
+        <span class="pulse" aria-hidden="true"></span>
+        <div>
+          <h2>Medical emergency? We're open 24×7.</h2>
+          <p>Emergency department with triage, on Ghoshpara Road, Barrackpore.</p>
+        </div>
+      </div>
+      <a class="btn btn--white btn--lg" href="tel:+918240842519"><i class="fas fa-phone-alt"></i> Call +91 82408 42519</a>
+    </div>
+  </section>
+
+  <!-- ============ NAP + MAP ============ -->
+  <section class="section section--neutral">
+    <div class="container">
+      <div class="loc-split">
+        <div class="loc-map">
+          <iframe
+            title="Map to Ramakrishna Multispeciality Hospital, Barrackpore"
+            src="https://www.google.com/maps?q=203%2F1%20Ghoshpara%20Road%2C%20Barrackpore%2C%20Kolkata%20700120&output=embed"
+            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <!-- TODO: confirm exact Google Maps pin / place for the hospital -->
+        </div>
+        <div class="appt-card">
+          <span class="eyebrow">Visit us</span>
+          <h2>Ramakrishna Multispeciality Hospital</h2>
+          <div class="side-contact" style="display:grid;gap:14px;margin-top:14px">
+            <div class="row" style="display:flex;gap:11px;align-items:flex-start"><i class="fas fa-map-marker-alt" style="color:var(--magenta);margin-top:4px"></i><span>203/1, Ghoshpara Road, Airport Area, Barrackpore, Barrackpur Cantonment, Kolkata, West Bengal 700120</span></div>
+            <div class="row" style="display:flex;gap:11px;align-items:flex-start"><i class="fas fa-phone-alt" style="color:var(--magenta);margin-top:4px"></i><span><a href="tel:+918240842519">+91 82408 42519</a> · <a href="tel:+918777424002">+91 87774 24002</a></span></div>
+            <div class="row" style="display:flex;gap:11px;align-items:flex-start"><i class="fas fa-ambulance" style="color:var(--magenta);margin-top:4px"></i><span>Emergency open 24×7</span></div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:22px">
+            <a class="btn btn--primary" href="#lp-form"><i class="fas fa-calendar-check"></i> Book Appointment</a>
+            <a class="btn btn--emergency" href="tel:+918240842519"><i class="fas fa-phone-alt"></i> Call 24×7</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ MINIMAL FOOTER (NAP + legal, no big nav) ============ -->
+<footer class="lp-footer">
+  <div class="container">
+    <div class="nap">
+      <div class="row"><i class="fas fa-hospital"></i><span><strong style="color:#fff">Ramakrishna Multispeciality Hospital</strong> — a unit of Sarbani Hospitality and HealthCare Services Pvt Ltd</span></div>
+      <div class="row"><i class="fas fa-map-marker-alt"></i><span>203/1, Ghoshpara Road, Airport Area, Barrackpore, Barrackpur Cantonment, Kolkata, West Bengal 700120</span></div>
+      <div class="row"><i class="fas fa-phone-alt"></i><span><a href="tel:+918240842519">+91 82408 42519</a> · <a href="tel:+918777424002">+91 87774 24002</a></span></div>
+    </div>
+    <div class="legal">
+      <span>© <span id="rk-year">2026</span> Ramakrishna Multispeciality Hospital.</span><br>
+      <a href="/terms#privacy">Privacy</a> · <a href="/terms#disclaimer">Disclaimer</a> · <a href="/terms#terms">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating WhatsApp + mobile call bar -->
+<a class="wa-float" href="https://wa.me/918240842519?text=Hi%2C%20I%27d%20like%20to%20book%20an%20appointment%20at%20Ramakrishna%20Hospital" aria-label="Chat on WhatsApp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+<div class="mobile-callbar">
+  <a class="mc-book" href="#lp-form"><i class="fas fa-calendar-check"></i> Book Appointment</a>
+  <a class="mc-call" href="tel:+918240842519"><i class="fas fa-phone-alt"></i> Emergency</a>
+</div>
+
+<script src="js/rk-main.js" defer></script>
+</body>
+</html>

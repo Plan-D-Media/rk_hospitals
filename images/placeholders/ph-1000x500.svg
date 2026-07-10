@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" width="1000" height="500" role="img">
+  <title>Photo coming soon</title>
+  <rect width="1000" height="500" fill="#F7F7F8"/>
+  <rect x="22" y="22" width="956" height="456" rx="16" fill="none" stroke="#E4DCE0" stroke-width="2" stroke-dasharray="10 8"/>
+  <g transform="translate(439.3 172.2) scale(4.333)" fill="none" stroke="#BD2754" stroke-width="0.531" stroke-linecap="round" stroke-linejoin="round" opacity=".45">
+    <path d="M3 8.5h5.2l2-3.2h7.6l2 3.2H25a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-12a2 2 0 0 1 2-2z"/>
+    <circle cx="14" cy="16.5" r="5.4"/>
+  </g>
+  <text x="500.0" y="323.9" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="19" font-weight="600" fill="#8A828B" letter-spacing=".04em">Photo coming soon</text>
+</svg>
