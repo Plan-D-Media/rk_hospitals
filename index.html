@@ -26,24 +26,19 @@
   <link rel="icon" href="images/favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 
-  <!-- LCP: the first hero slide. If you reorder the slides in the
-       "HERO SLIDES" block below, update this href to match the new
-       first image (and its `type` when a real .jpg/.webp lands). -->
-  <link rel="preload" as="image" href="images/placeholders/hero-1.png" type="image/png" fetchpriority="high">
+  <!-- LCP: the hero image. -->
+  <link rel="preload" as="image" href="images/interim/hero-reception-16x10.webp" type="image/webp" fetchpriority="high">
 
   <!-- FONTS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- display=optional: if a web font isn't cached within ~100ms, the page keeps
-       the fallback for this load (fonts apply on the next, cached, visit) instead
-       of swapping late. That late swap reflowed the H1 and nav and was the sole
-       source of hero CLS; optional drops it from ~0.13 to ~0. Home page only. -->
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=optional" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,500..600,0,0&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Instrument+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
 
   <!-- ICONS: none. This page uses the inline <symbol> sprite below,
        so there is no Font Awesome CDN request and no icon webfont. -->
 
   <!-- STYLES -->
+  <link href="css/rk-system.css" rel="stylesheet">
   <link href="css/rk-theme.css" rel="stylesheet">
   <link href="css/rk-home.css" rel="stylesheet">
   <link href="css/rk-home-v2.css" rel="stylesheet">
@@ -249,28 +244,13 @@
            If you reorder slides, update <link rel="preload"> in <head>.
            ================================================= -->
 
-      <!-- SLIDE 1 — eager. This is the LCP image. -->
+      <!-- SLIDE 1 — eager. This is the LCP image.
+           INTERIM IMAGE — AI-generated, not this hospital. See IMAGE-BRIEF.md
+           ("Interim" section) for the P0 replacement shot. -->
       <div class="hs-slide is-active" role="group" aria-roledescription="slide">
-        <!-- TODO: real photo: hospital exterior on Ghoshpara Road, 1920x1080 -->
-        <img src="images/placeholders/hero-1.png" width="1920" height="1080"
-             alt="Ramakrishna Multispeciality Hospital on Ghoshpara Road, Barrackpore"
+        <img src="images/interim/hero-reception-16x10.webp" width="1200" height="750"
+             alt="Reception at Ramakrishna Multispeciality Hospital, Barrackpore"
              fetchpriority="high" decoding="async">
-      </div>
-
-      <!-- SLIDE 2 -->
-      <div class="hs-slide" role="group" aria-roledescription="slide">
-        <!-- TODO: real photo: emergency and critical care team at work, 1920x1080 -->
-        <img src="images/placeholders/hero-2.png" width="1920" height="1080"
-             alt="Emergency and critical care team at Ramakrishna Multispeciality Hospital"
-             loading="lazy" decoding="async">
-      </div>
-
-      <!-- SLIDE 3 -->
-      <div class="hs-slide" role="group" aria-roledescription="slide">
-        <!-- TODO: real photo: in-house diagnostics, radiology up to CT, 1920x1080 -->
-        <img src="images/placeholders/hero-3.png" width="1920" height="1080"
-             alt="In-house diagnostics and radiology at Ramakrishna Multispeciality Hospital"
-             loading="lazy" decoding="async">
       </div>
       <!-- ============== END HERO SLIDES ================== -->
     </div>
@@ -354,8 +334,8 @@
     <div class="container">
       <div class="about-split">
         <div class="about-media">
-          <!-- TODO: real photo: hospital building / founder, 700x700 -->
-          <img src="images/placeholders/ph-700x700.svg" width="700" height="700" alt="Ramakrishna Multispeciality Hospital building in Barrackpore" loading="lazy">
+          <!-- TODO: real photo: hospital building / founder, 1200x1200 -->
+          <img src="images/placeholders/ph-building-1x1.svg" width="1200" height="1200" alt="Ramakrishna Multispeciality Hospital building in Barrackpore" loading="lazy">
         </div>
         <div class="about-copy">
           <span class="eyebrow">About the hospital</span>
@@ -516,8 +496,8 @@
           <div style="margin-top:26px"><a class="btn btn--ghost" href="/all-services">See all diagnostics <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a></div>
         </div>
         <div class="diag-media">
-          <!-- TODO: real photo: in-house diagnostics / lab, 700x700 -->
-          <img src="images/placeholders/ph-700x700.svg" width="700" height="700" alt="In-house diagnostic laboratory at Ramakrishna Multispeciality Hospital" loading="lazy">
+          <!-- TODO: real photo: in-house diagnostics / lab, 1200x1200 -->
+          <img src="images/placeholders/ph-diagnostic-1x1.svg" width="1200" height="1200" alt="In-house diagnostic laboratory at Ramakrishna Multispeciality Hospital" loading="lazy">
         </div>
       </div>
     </div>
@@ -535,7 +515,7 @@
       </div>
       <div class="docs-grid">
         <article class="card doc-card">
-          <div class="doc-photo"><!-- TODO: real photo: Dr. Gourab Chatterjee headshot, 400x400 --><img src="images/placeholders/ph-400x400.svg" width="400" height="400" alt="Dr. Gourab Chatterjee, Orthopaedics" loading="lazy"></div>
+          <div class="doc-photo"><!-- TODO: real photo: Dr. Gourab Chatterjee headshot, 800x1000 --><img src="images/placeholders/ph-portrait-4x5.svg" width="800" height="1000" alt="Dr. Gourab Chatterjee, Orthopaedics" loading="lazy"></div>
           <div class="doc-body">
             <span class="dept">Orthopaedics</span>
             <h3>Dr. Gourab Chatterjee</h3>
@@ -544,7 +524,7 @@
           </div>
         </article>
         <article class="card doc-card">
-          <div class="doc-photo"><!-- TODO: real photo: Dr. Shyan Kumar Biswas headshot, 400x400 --><img src="images/placeholders/ph-400x400.svg" width="400" height="400" alt="Dr. Shyan Kumar Biswas, General Medicine" loading="lazy"></div>
+          <div class="doc-photo"><!-- TODO: real photo: Dr. Shyan Kumar Biswas headshot, 800x1000 --><img src="images/placeholders/ph-portrait-4x5.svg" width="800" height="1000" alt="Dr. Shyan Kumar Biswas, General Medicine" loading="lazy"></div>
           <div class="doc-body">
             <span class="dept">General Medicine</span>
             <h3>Dr. Shyan Kumar Biswas</h3>
@@ -553,7 +533,7 @@
           </div>
         </article>
         <article class="card doc-card">
-          <div class="doc-photo"><!-- TODO: real photo: Dr. Debosmita Roy headshot, 400x400 --><img src="images/placeholders/ph-400x400.svg" width="400" height="400" alt="Dr. Debosmita Roy, Gynaecology &amp; Obstetrics" loading="lazy"></div>
+          <div class="doc-photo"><!-- TODO: real photo: Dr. Debosmita Roy headshot, 800x1000 --><img src="images/placeholders/ph-portrait-4x5.svg" width="800" height="1000" alt="Dr. Debosmita Roy, Gynaecology &amp; Obstetrics" loading="lazy"></div>
           <div class="doc-body">
             <span class="dept">Gynaecology &amp; Obstetrics</span>
             <h3>Dr. Debosmita Roy</h3>
@@ -562,7 +542,7 @@
           </div>
         </article>
         <article class="card doc-card">
-          <div class="doc-photo"><!-- TODO: real photo: Dr. Aniket Sarkar headshot, 400x400 --><img src="images/placeholders/ph-400x400.svg" width="400" height="400" alt="Dr. Aniket Sarkar, Dental — Oral &amp; Maxillofacial Surgery" loading="lazy"></div>
+          <div class="doc-photo"><!-- TODO: real photo: Dr. Aniket Sarkar headshot, 800x1000 --><img src="images/placeholders/ph-portrait-4x5.svg" width="800" height="1000" alt="Dr. Aniket Sarkar, Dental — Oral &amp; Maxillofacial Surgery" loading="lazy"></div>
           <div class="doc-body">
             <span class="dept">Dental</span>
             <h3>Dr. Aniket Sarkar</h3>
@@ -814,8 +794,8 @@
       </div>
       <div class="blog-grid">
         <article class="card blog-card">
-          <a class="thumb" href="/single-post"><!-- TODO: real photo: guidance on when to visit hospital emergency, 800x500 -->
-<img src="images/placeholders/ph-800x500.svg" width="800" height="500" alt="Guidance on when to visit hospital emergency" loading="lazy"></a>
+          <a class="thumb" href="/single-post"><!-- TODO: real photo: guidance on when to visit hospital emergency, 1280x800 -->
+<img src="images/placeholders/ph-article-8x5.svg" width="1280" height="800" alt="Guidance on when to visit hospital emergency" loading="lazy"></a>
           <div class="bc-body">
             <span class="cat">Emergency care</span>
             <h3><a href="/single-post">When should you go to Emergency instead of waiting for OPD?</a></h3>
@@ -824,8 +804,8 @@
           </div>
         </article>
         <article class="card blog-card">
-          <a class="thumb" href="/single-post"><!-- TODO: real photo: heart health check-up guidance, 800x500 -->
-<img src="images/placeholders/ph-800x500.svg" width="800" height="500" alt="Heart health check-up guidance" loading="lazy"></a>
+          <a class="thumb" href="/single-post"><!-- TODO: real photo: heart health check-up guidance, 1280x800 -->
+<img src="images/placeholders/ph-article-8x5.svg" width="1280" height="800" alt="Heart health check-up guidance" loading="lazy"></a>
           <div class="bc-body">
             <span class="cat">Heart health</span>
             <h3><a href="/single-post">A simple guide to your first heart check-up</a></h3>
@@ -834,8 +814,8 @@
           </div>
         </article>
         <article class="card blog-card">
-          <a class="thumb" href="/single-post"><!-- TODO: real photo: cashless hospitalisation guidance, 800x500 -->
-<img src="images/placeholders/ph-800x500.svg" width="800" height="500" alt="Cashless hospitalisation guidance" loading="lazy"></a>
+          <a class="thumb" href="/single-post"><!-- TODO: real photo: cashless hospitalisation guidance, 1280x800 -->
+<img src="images/placeholders/ph-article-8x5.svg" width="1280" height="800" alt="Cashless hospitalisation guidance" loading="lazy"></a>
           <div class="bc-body">
             <span class="cat">Patient guide</span>
             <h3><a href="/single-post">How cashless hospitalisation works with TPAs &amp; schemes</a></h3>

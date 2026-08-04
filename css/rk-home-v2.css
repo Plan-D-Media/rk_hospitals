@@ -23,30 +23,14 @@
     13. Reduced motion
    ============================================================ */
 
-/* ---------- 1. UTILITIES ---------- */
-.sr-only {
-  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
-}
+/* ---------- 1–2. UTILITIES + ICON BASE — MOVED ----------
+   .sr-only, .js .reveal, .ico and .ico--solid now live in rk-system.css
+   so all 39 pages share one definition. The stroke weight is 1.5 there;
+   this file previously set 1.8, which would have made the homepage's
+   icons heavier than every other page's.
 
-/* Scroll reveal. Gated on `.js` so the content is never invisible
-   if JavaScript fails to run. Transform/opacity only => no CLS. */
-.js .reveal { opacity: 0; transform: translateY(18px); }
-.js .reveal.is-in { opacity: 1; transform: none; transition: opacity .62s ease, transform .62s cubic-bezier(.22,.8,.3,1); }
-
-/* ---------- 2. INLINE SVG ICON SYSTEM ---------- */
-/* One 24×24 stroke set, embedded as a <symbol> sprite in index.html.
-   Sized in `em` so it inherits whatever font-size its container sets. */
-.ico {
-  width: 1em; height: 1em; flex: none; display: inline-block;
-  vertical-align: -0.14em;
-  fill: none; stroke: currentColor; stroke-width: 1.8;
-  stroke-linecap: round; stroke-linejoin: round;
-}
-.ico--solid { fill: currentColor; stroke: none; }
-
-/* Mirror the `i`-element rules from rk-theme.css / rk-home.css that
-   this page no longer has elements for. */
+   What remains below are the per-context colour mirrors, which die as
+   each component is rebuilt. */
 .home .btn .ico { width: 1.05em; height: 1.05em; }
 .home .chip .ico,
 .home .util-left .loc .ico { color: var(--magenta); }

@@ -1,304 +1,191 @@
 /* ============================================================
-   Ramakrishna Multispeciality Hospital — Design System
-   Palette locked from logo (magenta #BD2754). See TODO.md.
+   rk-theme.css — MIGRATION HOLDING FILE
+   Loaded after rk-system.css on every page.
+
+   Tokens, reset, typography, layout, buttons, chips, cards, forms
+   and utilities have all moved to rk-system.css. What remains here
+   are the components not yet rebuilt:
+
+     - legacy component aliases (delete as each consumer migrates)
+     - header + nav            -> rebuilt in step 3
+     - doctor card             -> rebuilt in step 6
+     - footer                  -> rebuilt in step 7
+     - floating actions        -> rebuilt in step 7
+     - breadcrumb              -> rebuilt in step 8
+
+   This file should be empty and deleted by the end of the migration.
    ============================================================ */
 
-/* ---------- Tokens ---------- */
-:root {
-  /* Brand */
-  --magenta: #BD2754;
-  --magenta-dark: #A21F49;
-  --magenta-wash: #FBEAF0;
-  /* System */
-  --red: #E23A2E;          /* emergency band + call buttons (large/bold only) */
-  --red-dark: #C62828;     /* small red text / hover */
-  --ink: #2E2E33;
-  --wa: #25D366;
-  /* Neutrals (faint warm bias) */
-  --paper: #FFFFFF;
-  --neutral: #F7F7F8;
-  --line: #E9E4E6;
-  --muted: #6B646A;
-  --ink-soft: #4A4650;
+/* ------------------------------------------------------------
+   LEGACY COMPONENT ALIASES — TRANSITIONAL
+   Existing markup across 39 pages still uses these class names.
+   Each block dies when its consumers are rebuilt.
+   ------------------------------------------------------------ */
 
-  /* Type */
-  --font-display: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+/* Old surface modifiers -> new surface rhythm. */
+.section--neutral { background: var(--surface); }
+.section--wash { background: var(--brand-050); }
 
-  /* Spacing / radius / shadow */
-  --r-sm: 8px;
-  --r: 14px;
-  --r-lg: 22px;
-  --shadow-sm: 0 1px 2px rgba(46,46,51,.06), 0 4px 12px rgba(46,46,51,.05);
-  --shadow: 0 2px 6px rgba(46,46,51,.06), 0 14px 40px rgba(46,46,51,.08);
-  --shadow-magenta: 0 10px 26px rgba(189,39,84,.28);
-  --container: 1180px;
-  --header-h: 76px;
+/* .btn--ghost was a crimson outline button. The system's .btn--outline is
+   ink; keep the crimson variant until every consumer is re-labelled. */
+.btn--ghost {
+  --btn-bg: transparent;
+  --btn-fg: var(--brand-600);
+  --btn-bd: var(--brand-600);
 }
+.btn--ghost:hover { --btn-bg: var(--brand-600); --btn-fg: var(--paper); color: var(--paper); }
 
-/* ---------- Reset / base ---------- */
-*, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-body {
-  margin: 0;
-  font-family: var(--font-body);
-  color: var(--ink);
-  background: var(--paper);
-  line-height: 1.65;
-  font-size: 16.5px;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-img { max-width: 100%; height: auto; display: block; }
-a { color: var(--magenta); text-decoration: none; }
-a:hover { color: var(--magenta-dark); }
-h1, h2, h3, h4 { font-family: var(--font-display); color: var(--ink); line-height: 1.12; margin: 0 0 .5em; letter-spacing: -.02em; text-wrap: balance; font-weight: 800; }
-h1 { font-size: clamp(2rem, 5vw, 3.35rem); }
-h2 { font-size: clamp(1.6rem, 3.4vw, 2.5rem); }
-h3 { font-size: 1.3rem; }
-p { margin: 0 0 1rem; }
-ul { margin: 0; padding: 0; }
-:focus-visible { outline: 3px solid rgba(189,39,84,.45); outline-offset: 2px; border-radius: 4px; }
-
-/* ---------- Layout helpers ---------- */
-.container { max-width: var(--container); margin: 0 auto; padding: 0 clamp(18px, 4vw, 40px); }
-.section { padding: clamp(56px, 8vw, 104px) 0; }
-.section--neutral { background: var(--neutral); }
-.section--wash { background: var(--magenta-wash); }
-.section-head { max-width: 720px; margin: 0 auto clamp(36px, 5vw, 60px); text-align: center; }
-.eyebrow {
-  display: inline-block; font-family: var(--font-body); font-weight: 700;
-  font-size: .78rem; letter-spacing: .16em; text-transform: uppercase;
-  color: var(--magenta); margin-bottom: 14px;
-}
-.section-head p { color: var(--muted); font-size: 1.075rem; margin: .5rem 0 0; }
-.lede { font-size: 1.12rem; color: var(--ink-soft); }
-.text-center { text-align: center; }
-
-/* ---------- Buttons ---------- */
-.btn {
-  --btn-bg: var(--magenta); --btn-fg: #fff;
-  font-family: var(--font-body); font-weight: 700; font-size: 1rem; line-height: 1;
-  cursor: pointer; border: 2px solid transparent; border-radius: 999px;
-  padding: 15px 30px; display: inline-flex; align-items: center; gap: 10px;
-  background: var(--btn-bg); color: var(--btn-fg);
-  transition: background .16s ease, box-shadow .16s ease, transform .05s ease, color .16s;
-  white-space: nowrap;
-}
+/* Font Awesome <i> icons still exist on 37 pages (removed in step 3). */
 .btn i { font-size: .95em; }
-.btn:hover { transform: translateY(-1px); }
-.btn:active { transform: translateY(0); }
-.btn--primary { box-shadow: var(--shadow-magenta); color: #fff; }
-.btn--primary:hover { background: var(--magenta-dark); color: #fff; }
-.btn--emergency { --btn-bg: var(--red); box-shadow: 0 10px 24px rgba(226,58,46,.3); color: #fff; }
-.btn--emergency:hover { background: var(--red-dark); color: #fff; }
-.btn--ghost { background: transparent; color: var(--magenta); border-color: var(--magenta); }
-.btn--ghost:hover { background: var(--magenta); color: #fff; }
-.btn--white { background: #fff; color: var(--magenta); }
-.btn--white:hover { background: var(--magenta-wash); color: var(--magenta-dark); }
-.btn--lg { padding: 17px 36px; font-size: 1.06rem; }
-.btn--block { display: flex; width: 100%; justify-content: center; }
-.btn[disabled] { opacity: .55; cursor: not-allowed; transform: none; }
+.chip i { color: var(--care-600); }
 
-/* ---------- Chips / pills ---------- */
-.chips { display: flex; flex-wrap: wrap; gap: 10px; }
-.chip {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: #fff; border: 1px solid var(--line); border-radius: 999px;
-  padding: 8px 16px; font-size: .9rem; font-weight: 600; color: var(--ink-soft);
-}
-.chip i { color: var(--magenta); }
+/* Legacy cards hovered by default; the system makes that opt-in via
+   .card--interactive. Preserve the old behaviour for un-migrated pages. */
+.card:hover { transform: translateY(-4px); box-shadow: var(--sh-2); border-color: var(--care-400); }
 
-/* ---------- Cards ---------- */
-.card {
-  background: #fff; border: 1px solid var(--line); border-radius: var(--r);
-  box-shadow: var(--shadow-sm); transition: transform .18s ease, box-shadow .18s ease, border-color .18s;
-}
-.card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: #efd7e0; }
+.grid { display: grid; gap: 24px; }
 
 /* ============================================================
-   HEADER  (utility bar + main nav)
+   HEADER  (utility bar + main nav)          [rebuilt in step 3]
    ============================================================ */
-.rk-header { position: sticky; top: 0; z-index: 900; background: #fff; }
+.rk-header { position: sticky; top: 0; z-index: 900; background: var(--paper); }
 
 /* Utility bar */
-.util-bar { background: var(--ink); color: #fff; font-size: .86rem; }
+.util-bar { background: var(--ink-900); color: #fff; font-size: var(--fs-sm); }
 .util-bar .container { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 42px; }
 .util-bar a { color: #fff; }
 .util-left { display: flex; align-items: center; gap: 22px; }
-.util-left .loc { color: #cfc9cd; display: inline-flex; align-items: center; gap: 7px; }
-.util-left .loc i { color: var(--magenta); }
+.util-left .loc { color: rgba(255,255,255,.72); display: inline-flex; align-items: center; gap: 7px; }
+.util-left .loc i, .util-left .loc .ico { color: var(--brand-300); }
 .util-right { display: flex; align-items: center; gap: 10px; }
-.util-emg { display: inline-flex; align-items: center; gap: 8px; color: #fff !important; font-weight: 700; background: var(--red); padding: 6px 14px; border-radius: 999px; }
-.util-emg:hover { background: var(--red-dark); }
-.util-cb { color: #fff !important; display: inline-flex; align-items: center; gap: 7px; font-weight: 600; }
-.util-cb:hover { color: var(--magenta-wash) !important; }
+.util-emg { display: inline-flex; align-items: center; gap: 8px; color: #fff !important; font-weight: 600; background: var(--emergency); padding: 6px 14px; border-radius: var(--r-pill); }
+.util-emg:hover { background: var(--brand-700); }
+.util-cb { color: #fff !important; display: inline-flex; align-items: center; gap: 7px; font-weight: 500; }
+.util-cb:hover { color: var(--brand-100) !important; }
 @media (max-width: 900px) { .util-bar .util-left .loc { display: none; } }
 @media (max-width: 560px) { .util-cb span { display: none; } }
 
 /* Main nav */
 .nav-main { border-bottom: 1px solid var(--line); }
-.nav-main .container { display: flex; align-items: center; justify-content: space-between; min-height: var(--header-h); gap: 20px; }
-/* Logo: native 300×68. Fix the height, let width follow the ratio (~194px)
-   so the wordmark never distorts.
-   flex-shrink:0 is load-bearing — .brand is a flex child of the nav row, and
-   without it the wide primary nav squeezes the logo down to ~30px. max-width:none
-   stops the img from then being clamped to that squeezed parent width. */
+.nav-main .container { display: flex; align-items: center; justify-content: space-between; min-height: 76px; gap: 20px; }
+/* Logo: native 300x68. Fix the height, let width follow the ratio (~194px)
+   so the wordmark never distorts. flex-shrink:0 is load-bearing — without it
+   the wide primary nav squeezes the logo down to ~30px. */
 .brand { display: inline-flex; align-items: center; padding: 6px 0; flex: 0 0 auto; }
 .brand img { height: 44px; width: auto; max-width: none; flex: none; display: block; }
 .nav-links { display: flex; align-items: center; gap: 2px; list-style: none; }
 .nav-links > li { position: relative; }
 .nav-links > li > a {
   display: inline-flex; align-items: center; gap: 6px; padding: 12px 11px;
-  color: var(--ink); font-weight: 600; font-size: .95rem; border-radius: 8px;
+  color: var(--ink-800); font-weight: 500; font-size: var(--fs-sm); border-radius: 8px;
 }
-.nav-links > li > a:hover, .nav-links > li.active > a { color: var(--magenta); background: var(--magenta-wash); }
-.nav-links .has-sub > a::after { content: "\f107"; font-family: "Font Awesome 5 Free"; font-weight: 900; font-size: .7rem; opacity: .6; }
+.nav-links > li > a:hover, .nav-links > li.active > a { color: var(--brand-600); background: var(--brand-050); }
 
 /* Dropdown */
 .subnav {
   position: absolute; top: calc(100% + 8px); left: 0; min-width: 250px;
-  background: #fff; border: 1px solid var(--line); border-radius: var(--r);
-  box-shadow: var(--shadow); padding: 8px; list-style: none;
+  background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-md);
+  box-shadow: var(--sh-2); padding: 8px; list-style: none;
   opacity: 0; visibility: hidden; transform: translateY(6px); transition: .16s ease; z-index: 20;
 }
 .nav-links > li:hover .subnav, .nav-links > li:focus-within .subnav { opacity: 1; visibility: visible; transform: translateY(0); }
-.subnav a { display: block; padding: 10px 14px; border-radius: 8px; color: var(--ink-soft); font-weight: 500; font-size: .93rem; }
-.subnav a:hover, .subnav a.active { background: var(--magenta-wash); color: var(--magenta); }
-.subnav a.active { font-weight: 700; }
-/* 15 specialities — keep a long dropdown on screen; single column, no wide panel. */
+.subnav a { display: block; padding: 10px 14px; border-radius: 8px; color: var(--body); font-weight: 400; font-size: var(--fs-sm); }
+.subnav a:hover, .subnav a.active { background: var(--brand-050); color: var(--brand-600); }
+.subnav a.active { font-weight: 600; }
 @media (min-width: 1201px) { .subnav { max-height: min(70vh, 640px); overflow-y: auto; } }
 
 .nav-cta { display: flex; align-items: center; gap: 12px; flex: 0 0 auto; }
-/* The nav-bar book button is the tightest constraint on the row; keep it
-   compact so the full logo + 8-item nav all fit before the mobile breakpoint. */
-.nav-cta .btn--book-desktop { padding: 12px 18px; font-size: .93rem; }
-.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; color: var(--ink); font-size: 1.5rem; }
+.nav-cta .btn--book-desktop { min-height: 44px; padding: 11px 18px; font-size: var(--fs-sm); }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; color: var(--ink-800); font-size: 1.5rem; }
 
-/* Mobile nav. Breakpoint raised to 1200px: the full 8-item nav + 194px logo
-   + book button cannot fit the 1180px container below ~1200px, so the drawer
-   takes over there rather than overflowing the row. */
+/* Mobile nav. Breakpoint at 1200px: the full 8-item nav + 194px logo + book
+   button cannot fit the container below ~1200px. */
 @media (max-width: 1200px) {
   .nav-toggle { display: inline-flex; }
   .nav-links {
     position: fixed; inset: 0 0 0 auto; width: min(340px, 84vw);
-    flex-direction: column; align-items: stretch; gap: 2px; background: #fff;
-    padding: 84px 18px 24px; box-shadow: -10px 0 40px rgba(0,0,0,.14);
-    transform: translateX(100%); transition: transform .24s ease; overflow-y: auto; z-index: 950;
+    flex-direction: column; align-items: stretch; gap: 2px; background: var(--paper);
+    padding: 84px 18px 24px; box-shadow: -10px 0 40px rgba(14,31,51,.14);
+    transform: translateX(100%); transition: transform var(--dur-mid) ease; overflow-y: auto; z-index: 950;
   }
   .nav-links.open { transform: translateX(0); }
   .nav-links > li > a { padding: 14px 12px; border-radius: 8px; }
   .subnav { position: static; opacity: 1; visibility: visible; transform: none; box-shadow: none; border: none; padding: 0 0 6px 12px; min-width: 0; }
-  .nav-backdrop { position: fixed; inset: 0; background: rgba(20,16,20,.5); opacity: 0; visibility: hidden; transition: .2s; z-index: 940; }
+  .nav-backdrop { position: fixed; inset: 0; background: rgba(14,31,51,.5); opacity: 0; visibility: hidden; transition: .2s; z-index: 940; }
   .nav-backdrop.open { opacity: 1; visibility: visible; }
   .nav-cta .btn--book-desktop { display: none; }
 }
 @media (max-width: 640px) { .brand img { height: 36px; } }
 
 /* ============================================================
-   FOOTER
+   FOOTER                                    [rebuilt in step 7]
    ============================================================ */
-.rk-footer { background: var(--ink); color: #c9c3c8; padding: clamp(56px,7vw,84px) 0 0; }
-.rk-footer a { color: #c9c3c8; }
+.rk-footer { background: var(--ink-900); color: rgba(255,255,255,.72); padding: clamp(56px,7vw,84px) 0 0; }
+.rk-footer a { color: rgba(255,255,255,.72); }
 .rk-footer a:hover { color: #fff; }
 .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.4fr; gap: 40px; }
 /* width:auto is load-bearing — the width="300" attribute is a presentational
-   hint, so without it the 300×68 logo renders 300×44 and squashes. */
+   hint, so without it the 300x68 logo renders 300x44 and squashes. */
 .footer-brand img { height: 44px; width: auto; display: block; margin-bottom: 18px; filter: brightness(0) invert(1); }
-.footer-brand p { font-size: .93rem; line-height: 1.7; color: #a49ea3; max-width: 34ch; }
-.footer-col h4 { color: #fff; font-size: .82rem; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 18px; }
-.footer-col ul { list-style: none; display: grid; gap: 11px; font-size: .93rem; }
-.footer-nap { display: grid; gap: 12px; font-size: .93rem; }
+.footer-brand p { font-size: var(--fs-sm); line-height: 1.7; color: rgba(255,255,255,.62); max-width: 34ch; }
+.footer-col h4 { color: #fff; font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: var(--tr-mono); text-transform: uppercase; margin-bottom: 18px; }
+.footer-col ul { list-style: none; display: grid; gap: 11px; font-size: var(--fs-sm); }
+.footer-nap { display: grid; gap: 12px; font-size: var(--fs-sm); }
 .footer-nap .row { display: flex; gap: 11px; align-items: flex-start; }
-.footer-nap i { color: var(--magenta); margin-top: 4px; }
+.footer-nap i, .footer-nap .ico { color: var(--brand-300); margin-top: 4px; }
 .footer-social { display: flex; gap: 10px; margin-top: 18px; }
 .footer-social a { width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,.08); display: grid; place-items: center; color: #fff; }
-.footer-social a:hover { background: var(--magenta); }
-.footer-bottom { border-top: 1px solid rgba(255,255,255,.1); margin-top: 52px; padding: 22px 0; font-size: .85rem; color: #948e93; }
+.footer-social a:hover { background: var(--brand-500); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,.1); margin-top: 52px; padding: 22px 0; font-size: var(--fs-sm); color: rgba(255,255,255,.55); }
 .footer-bottom .container { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; align-items: center; }
-.footer-bottom a { color: #948e93; }
+.footer-bottom a { color: rgba(255,255,255,.55); }
 @media (max-width: 860px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; } }
 @media (max-width: 520px) { .footer-grid { grid-template-columns: 1fr; } }
 
-/* Doctor card — shared by home, landing, all-doctors and department pages. */
-.doc-card { overflow: hidden; text-align: left; }
-.doc-photo { aspect-ratio: 1 / 1; background: var(--magenta-wash); overflow: hidden; }
-.doc-photo img { width: 100%; height: 100%; object-fit: cover; }
-.doc-body { padding: 18px 20px 22px; }
-.doc-body .dept { font-size: .78rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--magenta); }
-.doc-body h3 { font-size: 1.12rem; margin: 6px 0 4px; }
-.doc-body .qual { font-size: .86rem; color: var(--muted); margin: 0 0 14px; }
-.doc-body .btn { padding: 10px 18px; font-size: .88rem; }
-
 /* ============================================================
-   FORMS
+   DOCTOR CARD — home, landing, all-doctors, department pages
+                                             [rebuilt in step 6]
    ============================================================ */
-.field { display: grid; gap: 6px; margin-bottom: 14px; }
-.field label { font-size: .86rem; font-weight: 600; color: var(--ink-soft); }
-.field label .req { color: var(--red-dark); }
-.field input, .field select, .field textarea {
-  font-family: var(--font-body); font-size: 1rem; color: var(--ink);
-  padding: 13px 15px; border: 1.5px solid var(--line); border-radius: var(--r-sm);
-  background: #fff; width: 100%; transition: border-color .15s, box-shadow .15s;
-}
-.field input:focus, .field select:focus, .field textarea:focus {
-  outline: none; border-color: var(--magenta); box-shadow: 0 0 0 3px rgba(189,39,84,.14);
-}
-.field textarea { resize: vertical; min-height: 96px; }
-.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-.form-note { font-size: .82rem; color: var(--muted); }
-.form-success { display: none; padding: 20px; border-radius: var(--r); background: #ecfaf0; border: 1px solid #b7e6c4; color: #166534; }
-.form-success.show { display: block; }
-
-/* Network / send failure — never leave the user on a dead form. */
-.form-error { display: none; margin-top: 16px; padding: 20px; border-radius: var(--r); background: #fdeceb; border: 1px solid #f3bdb8; color: var(--red-dark); }
-.form-error.show { display: block; }
-.form-error a { color: var(--red-dark); font-weight: 700; text-decoration: underline; }
-
-/* Per-field validation message */
-.field-error { margin: 0; font-size: .8rem; font-weight: 600; color: var(--red-dark); }
-.field input[aria-invalid="true"], .field select[aria-invalid="true"], .field textarea[aria-invalid="true"] {
-  border-color: var(--red); background: #fffafa;
-}
-.field input[aria-invalid="true"]:focus, .field select[aria-invalid="true"]:focus, .field textarea[aria-invalid="true"]:focus {
-  box-shadow: 0 0 0 3px rgba(226,58,46,.16);
-}
+.doc-card { overflow: hidden; text-align: left; }
+.doc-photo { aspect-ratio: 4 / 5; background: var(--surface-2); overflow: hidden; }
+.doc-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.doc-body { padding: 18px 20px 22px; }
+.doc-body .dept { font-family: var(--font-mono); font-size: var(--fs-xs); font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--brand-600); }
+.doc-body h3 { font-size: var(--fs-lg); margin: 6px 0 4px; }
+.doc-body .qual { font-size: var(--fs-sm); color: var(--muted); margin: 0 0 14px; }
+.doc-body .btn { min-height: 40px; padding: 10px 18px; font-size: var(--fs-sm); }
 
 /* ============================================================
    FLOATING ACTIONS  (WhatsApp + mobile call bar)
+                                             [rebuilt in step 7]
    ============================================================ */
 .wa-float {
   position: fixed; right: 20px; bottom: 20px; z-index: 800;
   width: 58px; height: 58px; border-radius: 50%; background: var(--wa);
   display: grid; place-items: center; color: #fff; font-size: 1.7rem;
-  box-shadow: 0 8px 24px rgba(37,211,102,.45);
+  box-shadow: 0 8px 24px rgba(37,211,102,.4);
 }
-.wa-float:hover { color: #fff; transform: scale(1.06); transition: transform .15s; }
+.wa-float:hover { color: #fff; }
 
 .mobile-callbar { display: none; }
 @media (max-width: 720px) {
   .mobile-callbar {
     display: grid; grid-template-columns: 1fr 1fr; position: fixed; bottom: 0; left: 0; right: 0;
-    z-index: 810; box-shadow: 0 -4px 20px rgba(0,0,0,.12);
+    z-index: 810; box-shadow: 0 -4px 20px rgba(14,31,51,.12);
   }
-  .mobile-callbar a { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 15px; font-weight: 700; color: #fff; font-size: .98rem; }
-  .mobile-callbar .mc-book { background: var(--magenta); }
-  .mobile-callbar .mc-call { background: var(--red); }
+  .mobile-callbar a { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 15px; font-weight: 600; color: #fff; }
+  .mobile-callbar .mc-book { background: var(--brand-500); }
+  .mobile-callbar .mc-call { background: var(--emergency); }
   .wa-float { bottom: 74px; }
   body { padding-bottom: 56px; }
 }
 
 /* ============================================================
-   BREADCRUMB (inner pages)
+   BREADCRUMB (inner pages)                  [rebuilt in step 8]
    ============================================================ */
-.breadcrumb { background: var(--neutral); border-bottom: 1px solid var(--line); padding: 16px 0; font-size: .88rem; }
+.breadcrumb { background: var(--surface); border-bottom: 1px solid var(--line); padding: 16px 0; font-size: var(--fs-sm); }
 .breadcrumb ol { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; color: var(--muted); }
 .breadcrumb li:not(:last-child)::after { content: "/"; margin-left: 8px; opacity: .5; }
 .breadcrumb a { color: var(--muted); }
-.breadcrumb a:hover { color: var(--magenta); }
-.breadcrumb li[aria-current] { color: var(--ink); font-weight: 600; }
-
-/* ---------- utilities ---------- */
-.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-.grid { display: grid; gap: 24px; }
+.breadcrumb a:hover { color: var(--brand-600); }
+.breadcrumb li[aria-current] { color: var(--ink-900); font-weight: 500; }

@@ -21,9 +21,10 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,500..600,0,0&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Instrument+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet" crossorigin="anonymous">
 
+  <link href="css/rk-system.css" rel="stylesheet">
   <link href="css/rk-theme.css" rel="stylesheet">
   <link href="css/rk-inner.css" rel="stylesheet">
 
@@ -170,7 +171,7 @@
           <h2>Doctors &amp; departments you can book with</h2>
           <p>These are the specialists currently listed at the hospital. OPD timings are confirmed at the time of booking.</p>
 
-          <div class="tt-scroll">
+          <div class="tt-scroll" tabindex="0" role="region" aria-label="Specialists and OPD timings (scrollable)">
             <table class="tt-table">
               <thead>
                 <tr>
@@ -208,7 +209,7 @@
           <h2>Other departments &amp; services</h2>
           <p>Consultations across the hospital's other specialities and diagnostic services are also arranged by appointment. Weekly OPD timings are being confirmed.</p>
 
-          <div class="tt-scroll">
+          <div class="tt-scroll" tabindex="0" role="region" aria-label="Other specialities and diagnostic services (scrollable)">
             <table class="tt-table">
               <thead>
                 <tr>
