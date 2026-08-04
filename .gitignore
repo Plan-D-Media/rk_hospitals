@@ -1,12 +1,7 @@
 node_modules/
-.vercel
-.DS_Store
-
+npm-debug.log*
 .vercel
 .env*
-
-node_modules/
-npm-debug.log*
 screenshots/
 scratch/
 .DS_Store
