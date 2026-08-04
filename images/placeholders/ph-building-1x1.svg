@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200" role="img" aria-label="Hospital exterior — 1200×1200">
+  <title>Hospital exterior — 1200×1200</title>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#EEF2F6"/>
+      <stop offset="1" stop-color="#F6F8FA"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="1200" fill="url(#g)"/>
+  <rect x="3.5" y="3.5" width="1193" height="1193" fill="none" stroke="#DFE6ED" stroke-width="7"/>
+  <g transform="translate(513.0 463.8) scale(7.2500)" fill="none" stroke="#8FA3B8" stroke-width="0.21" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M12 6h.01"/><path d="M16 6h.01"/><path d="M8 10h.01"/><path d="M12 10h.01"/><path d="M16 10h.01"/><path d="M8 14h.01"/><path d="M16 14h.01"/>
+  </g>
+  <text x="600.0" y="724.7" text-anchor="middle" font-family="ui-monospace,'IBM Plex Mono','SFMono-Regular',Menlo,Consolas,monospace" font-size="48" fill="#5C7186" letter-spacing="2.88">Hospital exterior — 1200×1200</text>
+</svg>

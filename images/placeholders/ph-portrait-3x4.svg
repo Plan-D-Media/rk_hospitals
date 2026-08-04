@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200" width="900" height="1200" role="img" aria-label="Doctor portrait — 900×1200">
+  <title>Doctor portrait — 900×1200</title>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#EEF2F6"/>
+      <stop offset="1" stop-color="#F6F8FA"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="1200" fill="url(#g)"/>
+  <rect x="2.5" y="2.5" width="895" height="1195" fill="none" stroke="#DFE6ED" stroke-width="5"/>
+  <g transform="translate(385.0 498.1) scale(5.4167)" fill="none" stroke="#8FA3B8" stroke-width="0.28" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+  </g>
+  <text x="450.0" y="693.3" text-anchor="middle" font-family="ui-monospace,'IBM Plex Mono','SFMono-Regular',Menlo,Consolas,monospace" font-size="36" fill="#5C7186" letter-spacing="2.16">Doctor portrait — 900×1200</text>
+</svg>
