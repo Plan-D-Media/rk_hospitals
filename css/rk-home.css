@@ -1,6 +1,10 @@
 /* ============================================================
-   Homepage-specific styles — Ramakrishna Multispeciality Hospital
-   Loads after rk-theme.css.
+   rk-home.css — LANDING PAGE ONLY
+
+   Every homepage rule has been retired into rk-blocks.css. What remains is
+   the .lp-* set for landing.html, a paid-traffic page with a deliberately
+   stripped header, plus .appt-card which a few pages still reference.
+   Can be renamed rk-landing.css once those migrate in step 8.
    ============================================================ */
 
 /* HERO + QUICK ACTIONS — superseded in step 4.
@@ -16,66 +20,6 @@
    rk-blocks.css sections 12-14. */
 
 /* DOCTORS — rebuilt in step 5. */
-
-/* ---------- CASHLESS / EMPANELMENT ---------- */
-.empanel-wrap { background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg); padding: clamp(26px,4vw,42px); box-shadow: var(--shadow-sm); }
-.empanel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin-top: 8px; }
-.empanel-grid .e { display: flex; align-items: center; gap: 10px; padding: 13px 16px; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--neutral); font-weight: 600; font-size: .9rem; }
-.empanel-grid .e i { color: var(--magenta); font-size: .8rem; }
-.empanel-more { margin-top: 20px; text-align: center; }
-#empanel-extra { display: none; }
-#empanel-extra.show { display: contents; }
-
-/* ---------- HEALTH CHECKS ---------- */
-.pkg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.pkg-card { padding: 28px 26px; display: flex; flex-direction: column; }
-.pkg-card.is-featured { border-color: var(--magenta); box-shadow: var(--shadow-magenta); }
-.pkg-card .tag { align-self: flex-start; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--magenta); background: var(--magenta-wash); padding: 4px 10px; border-radius: 999px; margin-bottom: 14px; }
-.pkg-card h3 { font-size: 1.25rem; }
-.pkg-card .price { font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; color: var(--ink); margin: 6px 0 4px; }
-.pkg-card .price small { font-size: .8rem; color: var(--muted); font-weight: 500; }
-.pkg-card ul { list-style: none; display: grid; gap: 9px; margin: 16px 0 22px; font-size: .93rem; }
-.pkg-card ul li { display: flex; gap: 10px; align-items: flex-start; color: var(--ink-soft); }
-.pkg-card ul i { color: var(--magenta); margin-top: 4px; }
-.pkg-card .btn { margin-top: auto; }
-@media (max-width: 860px) { .pkg-grid { grid-template-columns: 1fr; } }
-
-/* ---------- TESTIMONIALS (placeholder) ---------- */
-.reviews-empty { max-width: 640px; margin: 0 auto; text-align: center; padding: 40px 28px; border: 1.5px dashed var(--line); border-radius: var(--r-lg); background: #fff; color: var(--muted); }
-.reviews-empty .qic { width: 54px; height: 54px; border-radius: 50%; background: var(--magenta-wash); color: var(--magenta); display: grid; place-items: center; margin: 0 auto 16px; font-size: 1.4rem; }
-
-/* ---------- EMERGENCY BAND ---------- */
-.emg-band { background: var(--red); color: #fff; }
-.emg-band .container { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 22px; padding-top: 40px; padding-bottom: 40px; }
-.emg-band .l { display: flex; align-items: center; gap: 18px; }
-.emg-band .pulse { width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 0 rgba(255,255,255,.7); animation: emgpulse 1.9s infinite; flex: none; }
-@keyframes emgpulse { 70% { box-shadow: 0 0 0 14px rgba(255,255,255,0); } 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); } }
-@media (prefers-reduced-motion: reduce) { .emg-band .pulse { animation: none; } }
-.emg-band h2 { color: #fff; margin: 0 0 4px; font-size: 1.5rem; }
-.emg-band p { margin: 0; opacity: .92; font-size: .98rem; }
-.emg-band .btn--white { color: var(--red-dark); font-size: 1.15rem; }
-.emg-band .btn--white:hover { color: var(--red-dark); background: #fff; }
-
-/* ---------- LOCATION + FORM ---------- */
-.loc-split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px,4vw,48px); align-items: stretch; }
-.loc-map { border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-sm); min-height: 420px; border: 1px solid var(--line); }
-.loc-map iframe { width: 100%; height: 100%; min-height: 420px; border: 0; display: block; }
-.appt-card { background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--shadow); padding: clamp(26px,3.5vw,38px); }
-.appt-card h2 { font-size: 1.7rem; }
-.appt-card .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-@media (max-width: 900px) { .loc-split { grid-template-columns: 1fr; } }
-@media (max-width: 480px) { .appt-card .form-row { grid-template-columns: 1fr; } }
-
-/* ---------- BLOG TEASER ---------- */
-.blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-.blog-card { overflow: hidden; }
-.blog-card .thumb { aspect-ratio: 16/10; overflow: hidden; }
-.blog-card .thumb img { width: 100%; height: 100%; object-fit: cover; }
-.blog-card .bc-body { padding: 20px 22px 24px; }
-.blog-card .cat { font-size: .76rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--magenta); }
-.blog-card h3 { font-size: 1.1rem; margin: 8px 0 8px; }
-.blog-card p { font-size: .9rem; color: var(--muted); margin: 0; }
-@media (max-width: 860px) { .blog-grid { grid-template-columns: 1fr; } }
 
 /* ============================================================
    LANDING PAGE (landing.html) — paid-ad variant, no nav.

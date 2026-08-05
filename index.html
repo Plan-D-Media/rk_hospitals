@@ -33,7 +33,7 @@
        and both files then downloaded. Two media-scoped preloads mirror the
        <picture> breakpoint exactly, so exactly one crop is fetched. -->
   <link rel="preload" as="image" media="(min-width: 861px)" fetchpriority="high"
-        href="images/interim/hero-reception-4x5.webp" type="image/webp">
+        href="images/interim/hero-reception-desk.webp" type="image/webp">
   <link rel="preload" as="image" media="(max-width: 860.98px)" fetchpriority="high"
         href="images/interim/hero-reception-16x10.webp" type="image/webp">
   <!-- Self-hosted display font: Fraunces sets the h1 and is ~15% wider than
@@ -50,7 +50,6 @@
   <link href="css/rk-blocks.css" rel="stylesheet">
   <link href="css/rk-theme.css" rel="stylesheet">
   <link href="css/rk-home.css" rel="stylesheet">
-  <link href="css/rk-home-v2.css" rel="stylesheet">
 
   <!-- ============ GTM (placeholder — replace GTM-XXXX) ============ -->
   <!-- TODO: paste real GTM container id -->
@@ -448,8 +447,8 @@
       <div class="hero__media">
         <figure class="hero__frame">
           <picture>
-            <source media="(min-width: 861px)" srcset="images/interim/hero-reception-4x5.webp" type="image/webp">
-            <source media="(min-width: 861px)" srcset="images/interim/hero-reception-4x5.jpg" type="image/jpeg">
+            <source media="(min-width: 861px)" srcset="images/interim/hero-reception-desk.webp" type="image/webp">
+            <source media="(min-width: 861px)" srcset="images/interim/hero-reception-desk.jpg" type="image/jpeg">
             <source srcset="images/interim/hero-reception-16x10.webp" type="image/webp">
             <img src="images/interim/hero-reception-16x10.jpg" width="1200" height="750"
                  alt="Reception at Ramakrishna Multispeciality Hospital, Barrackpore"
@@ -908,113 +907,120 @@
   <!-- ============================================================
        10 · HEALTH CHECK-UP PACKAGES
        ============================================================ -->
-  <section class="section section--neutral reveal">
+  <section class="section reveal">
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Health check-ups</span>
         <h2>Preventive health packages</h2>
-        <p>Catch problems early with a check-up built around your age and needs. Package details are being finalised.</p>
+        <p>Catch problems early with a check-up built around your age and needs.</p>
       </div>
       <div class="pkg-grid">
-        <div class="card pkg-card">
-          <span class="tag">Everyday</span>
+        <div class="pkg">
+          <span class="pkg__tag">Everyday</span>
           <h3>Basic Health Check</h3>
-          <div class="price">₹ —<small>&nbsp;/ package</small></div><!-- TODO: package price from client -->
-          <ul>
+          <!-- No price is confirmed. "Price on request" is the honest state;
+               a real figure drops into .price with no other change. -->
+          <p class="pkg__price"><span class="price">Price on request</span></p>
+          <ul class="pkg__list">
             <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Core blood investigations</li>
             <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Blood pressure &amp; BMI</li>
             <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Physician consultation</li>
           </ul>
-          <a class="btn btn--ghost btn--block" href="#appointment">Enquire</a>
+          <a class="btn btn--outline btn--block" href="/appointment">Get package price</a>
         </div>
-        <div class="card pkg-card is-featured">
-          <span class="tag">Most popular</span>
+        <div class="pkg pkg--featured">
+          <span class="pkg__ribbon">Most popular</span>
+          <span class="pkg__tag">Most popular</span>
           <h3>Comprehensive Health Check</h3>
-          <div class="price">₹ —<small>&nbsp;/ package</small></div><!-- TODO: package price from client -->
-          <ul>
+          <!-- No price is confirmed. "Price on request" is the honest state;
+               a real figure drops into .price with no other change. -->
+          <p class="pkg__price"><span class="price">Price on request</span></p>
+          <ul class="pkg__list">
             <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Extended blood &amp; metabolic panel</li>
             <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> ECG &amp; chest imaging</li>
             <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Specialist consultation</li>
           </ul>
-          <a class="btn btn--primary btn--block" href="#appointment">Enquire</a>
+          <a class="btn btn--primary btn--block" href="/appointment">Get package price</a>
         </div>
-        <div class="card pkg-card">
-          <span class="tag">Cardiac</span>
+        <div class="pkg">
+          <span class="pkg__tag">Cardiac</span>
           <h3>Heart / Executive Check</h3>
-          <div class="price">₹ —<small>&nbsp;/ package</small></div><!-- TODO: package price from client -->
-          <ul>
+          <!-- No price is confirmed. "Price on request" is the honest state;
+               a real figure drops into .price with no other change. -->
+          <p class="pkg__price"><span class="price">Price on request</span></p>
+          <ul class="pkg__list">
             <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Echo, ECG &amp; TMT</li>
             <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Full cardiac blood workup</li>
             <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Cardiology consultation</li>
           </ul>
-          <a class="btn btn--ghost btn--block" href="#appointment">Enquire</a>
+          <a class="btn btn--outline btn--block" href="/appointment">Get package price</a>
         </div>
       </div>
-      <!-- TODO: confirm real package names, inclusions and prices from client -->
     </div>
   </section>
 
   <!-- ============================================================
-       11 · TESTIMONIALS / GOOGLE REVIEWS (reserved — nothing fabricated)
+       11 · PATIENT STORIES — REMOVED FROM THE DOM, DELIBERATELY.
+       ------------------------------------------------------------
+       There are no verified reviews yet. The previous version shipped an
+       empty state that said "Reviews are on the way" — a homepage should
+       not announce what it lacks.
+
+       TO RE-ENABLE once real reviews exist:
+         1. Uncomment the block below.
+         2. Replace the placeholder list with either
+            (a) client-supplied testimonials, each with a real first name
+                and consent on file, or
+            (b) a Google Reviews embed — drop the widget inside
+                .reviews-embed, which already reserves its height so the
+                embed cannot shift the page when it loads.
+         3. Never fabricate a review, a rating or a patient name.
+
+       <section class="section section--surface reveal" id="reviews">
+         <div class="container">
+           <div class="section-head">
+             <span class="eyebrow">Patient stories</span>
+             <h2>What our patients say</h2>
+           </div>
+           <div class="reviews-embed" style="min-height:300px"></div>
+         </div>
+       </section>
        ============================================================ -->
-  <section class="section reveal">
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">Patient stories</span>
-        <h2>What our patients say</h2>
-      </div>
-      <!-- Height is reserved so the real embed drops in without shifting the page. -->
-      <div class="reviews-slot">
-        <span class="qic"><svg class="ico" aria-hidden="true"><use href="#i-quote"/></svg></span>
-        <h3>Reviews are on the way</h3>
-        <p>We're collecting verified reviews from our patients and from Google. Nothing appears here until it is real.</p>
-        <!-- TODO: reviews embed -->
-        <!-- TODO: real Google reviews / client-supplied testimonials -->
-      </div>
-    </div>
-  </section>
 
   <!-- ============================================================
        12 · EMERGENCY CTA BAND
        ============================================================ -->
-  <section class="emg-band">
+  <section class="emg on-ink">
     <div class="container">
-      <div class="l">
-        <span class="pulse" aria-hidden="true"></span>
-        <div>
-          <h2>Medical emergency? We're open 24×7.</h2>
-          <p>Emergency department with triage, on Ghoshpara Road, Barrackpore. <!-- TODO: confirm which number is the 24×7 emergency line --></p>
-        </div>
+      <span class="emg__ring" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg></span>
+      <div class="emg__copy">
+        <h2>Medical emergency? We&rsquo;re open 24&times;7.</h2>
+        <p>Emergency department with triage, on Ghoshpara Road, Barrackpore.</p>
       </div>
-      <a class="btn btn--white btn--lg" href="tel:+918240842519"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg> Call +91 82408 42519</a>
+      <a class="btn btn--white btn--lg emg__num" href="tel:+918240842519">
+        <span class="tel">+91 82408 42519</span>
+      </a>
     </div>
   </section>
 
   <!-- ============================================================
-       13 · LOCATION + APPOINTMENT FORM
+       13 · APPOINTMENT + CONTACT
+       VISUAL ONLY. No submission wiring changed: LEAD_WEBHOOK_URL in
+       js/rk-main.js is still unset, so the form shows its guarded error
+       state and tells the visitor to phone. See DEFERRED.md.
        ============================================================ -->
-  <section class="section reveal" id="appointment">
+  <section class="section section--surface reveal" id="appointment">
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Book &amp; visit</span>
         <h2>Request an appointment</h2>
         <p>Share a few details and our team will call you back to confirm your slot.</p>
       </div>
-      <div class="loc-split">
-        <div class="loc-map">
-          <iframe
-            title="Map to Ramakrishna Multispeciality Hospital, Barrackpore"
-            src="https://www.google.com/maps?q=203%2F1%20Ghoshpara%20Road%2C%20Barrackpore%2C%20Kolkata%20700120&output=embed"
-            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          <!-- TODO: confirm exact Google Maps pin / place for the hospital -->
-        </div>
 
-        <div class="appt-card">
-          <h2>Book an appointment</h2>
+      <div class="appt">
+        <div class="appt__card">
           <form id="appointment-form" data-lead-form="appointment" novalidate>
-            <!-- honeypot -->
             <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
-
             <div class="form-row">
               <div class="field">
                 <label for="af-name">Full name <span class="req">*</span></label>
@@ -1022,32 +1028,22 @@
               </div>
               <div class="field">
                 <label for="af-phone">Phone <span class="req">*</span></label>
-                <input id="af-phone" name="phone" type="tel" required autocomplete="tel" pattern="[0-9+\-\s]{10,15}" placeholder="10-digit mobile">
+                <input id="af-phone" name="phone" type="tel" required autocomplete="tel" placeholder="10-digit mobile">
               </div>
             </div>
-
             <div class="form-row">
               <div class="field">
                 <label for="af-dept">Department <span class="req">*</span></label>
                 <select id="af-dept" name="department" required>
                   <option value="" selected disabled>Select a department</option>
-                  <option>Emergency &amp; Trauma</option>
-                  <option>Cardiology</option>
-                  <option>Critical Care (ICU/HDU)</option>
-                  <option>Gastroenterology</option>
-                  <option>ENT</option>
-                  <option>General Medicine</option>
-                  <option>General &amp; Laparoscopic Surgery</option>
-                  <option>Orthopaedics</option>
-                  <option>Gynaecology &amp; Obstetrics</option>
-                  <option>Paediatrics &amp; Neonatology</option>
-                  <option>Pulmonology</option>
-                  <option>Urology</option>
-                  <option>Endocrinology</option>
-                  <option>Nephrology / Dialysis</option>
-                  <option>Dentistry</option>
-                  <option>Health Check-up</option>
-                  <option>Other</option>
+                  <option>Emergency &amp; Trauma</option><option>Cardiology</option>
+                  <option>Critical Care (ICU/HDU)</option><option>Gastroenterology</option>
+                  <option>ENT</option><option>General Medicine</option>
+                  <option>General &amp; Laparoscopic Surgery</option><option>Orthopaedics</option>
+                  <option>Gynaecology &amp; Obstetrics</option><option>Paediatrics &amp; Neonatology</option>
+                  <option>Pulmonology</option><option>Urology</option><option>Endocrinology</option>
+                  <option>Nephrology / Dialysis</option><option>Dentistry</option>
+                  <option>Health Check-up</option><option>Other</option>
                 </select>
               </div>
               <div class="field">
@@ -1055,67 +1051,92 @@
                 <input id="af-date" name="preferred_date" type="date">
               </div>
             </div>
-
             <div class="field">
               <label for="af-msg">Message</label>
               <textarea id="af-msg" name="message" placeholder="Briefly describe your concern (optional)"></textarea>
             </div>
-
-            <button class="btn btn--primary btn--block btn--lg" type="submit"><svg class="ico" aria-hidden="true"><use href="#i-calendar-check"/></svg> Request Appointment</button>
-            <p class="form-note" style="margin-top:12px">By submitting, you agree to be contacted about your appointment. We don't share your details.</p>
-
+            <button class="btn btn--primary btn--block btn--lg" type="submit">
+              <svg class="ico" aria-hidden="true"><use href="#i-calendar-check"/></svg> Request appointment
+            </button>
+            <p class="form-note" style="margin-top:12px">By submitting, you agree to be contacted about your appointment. We do not share your details.</p>
             <div class="form-success" role="status">
-              <strong>Thank you — request received.</strong> Our team will call you shortly to confirm your appointment.
+              <strong>Thank you &mdash; request received.</strong> Our team will call you shortly to confirm your appointment.
             </div>
             <div class="form-error" role="alert">
-              <strong>Sorry — we couldn&rsquo;t send your request.</strong> Please check your connection and try again, or call us on <a data-fallback-phone href="tel:+918240842519">+91 82408 42519</a> and we&rsquo;ll book you in.
+              <strong>Sorry &mdash; we could not send your request.</strong> Please check your connection and try again, or call us on <a data-fallback-phone href="tel:+918240842519">+91 82408 42519</a> and we will book you in.
             </div>
           </form>
+        </div>
+
+        <div class="appt__map">
+          <div class="map-frame">
+            <iframe title="Map to Ramakrishna Multispeciality Hospital, Barrackpore"
+              src="https://www.google.com/maps?q=203%2F1%20Ghoshpara%20Road%2C%20Barrackpore%2C%20Kolkata%20700120&amp;output=embed"
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+          <div class="map-card">
+            <div class="map-card__row"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg><span>203/1, Ghoshpara Road, Airport Area, Barrackpore, Kolkata, West Bengal 700120</span></div>
+            <div class="map-card__row"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg><span><a class="tel" href="tel:+918240842519">+91 82408 42519</a> &middot; <a class="tel" href="tel:+918777424002">+91 87774 24002</a></span></div>
+            <div class="map-card__row"><svg class="ico" aria-hidden="true"><use href="#i-ambulance"/></svg><span>24&times;7 Emergency</span></div>
+            <a class="link-arrow" href="https://www.google.com/maps?q=203%2F1%20Ghoshpara%20Road%2C%20Barrackpore%2C%20Kolkata%20700120" target="_blank" rel="noopener">Get directions <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============================================================
-       14 · HEALTH TIPS / BLOG TEASER
+       14 · HEALTH TIPS
        ============================================================ -->
-  <section class="section section--neutral reveal">
+  <section class="section reveal">
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Health tips</span>
         <h2>From our doctors</h2>
-        <p>Practical health information for Barrackpore families. New articles coming soon.</p>
+        <p>Practical health information for Barrackpore families.</p>
       </div>
-      <div class="blog-grid">
-        <article class="card blog-card">
-          <a class="thumb" href="/single-post"><!-- TODO: real photo: guidance on when to visit hospital emergency, 1280x800 -->
-<img src="images/placeholders/ph-article-8x5.svg" width="1280" height="800" alt="Guidance on when to visit hospital emergency" loading="lazy"></a>
-          <div class="bc-body">
-            <span class="cat">Emergency care</span>
-            <h3><a href="/single-post">When should you go to Emergency instead of waiting for OPD?</a></h3>
-            <p>Chest pain, breathlessness, high fever in infants — signs that shouldn't wait.</p>
-            <!-- TODO: real article content -->
-          </div>
+      <div class="post-grid">
+        <article class="post">
+          <a class="post__link" href="/single-post">
+            <span class="post__thumb frame frame--8x5">
+              <!-- TODO: real photo, 1280x800 -->
+              <img src="images/placeholders/ph-article-8x5.svg" width="1280" height="800" alt="Guidance on when to visit hospital emergency" loading="lazy" decoding="async">
+            </span>
+            <span class="post__body">
+              <span class="chip chip--care post__cat">Emergency care</span>
+              <h3>When should you go to Emergency instead of waiting for OPD?</h3>
+              <p>Chest pain, breathlessness, high fever in infants &mdash; signs that should not wait.</p>
+              <span class="link-arrow post__more">Read <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+            </span>
+          </a>
         </article>
-        <article class="card blog-card">
-          <a class="thumb" href="/single-post"><!-- TODO: real photo: heart health check-up guidance, 1280x800 -->
-<img src="images/placeholders/ph-article-8x5.svg" width="1280" height="800" alt="Heart health check-up guidance" loading="lazy"></a>
-          <div class="bc-body">
-            <span class="cat">Heart health</span>
-            <h3><a href="/single-post">A simple guide to your first heart check-up</a></h3>
-            <p>What an ECG, Echo and TMT actually tell your cardiologist.</p>
-            <!-- TODO: real article content -->
-          </div>
+        <article class="post">
+          <a class="post__link" href="/single-post">
+            <span class="post__thumb frame frame--8x5">
+              <!-- TODO: real photo, 1280x800 -->
+              <img src="images/placeholders/ph-article-8x5.svg" width="1280" height="800" alt="Heart health check-up guidance" loading="lazy" decoding="async">
+            </span>
+            <span class="post__body">
+              <span class="chip chip--care post__cat">Heart health</span>
+              <h3>A simple guide to your first heart check-up</h3>
+              <p>What an ECG, Echo and TMT actually tell your cardiologist.</p>
+              <span class="link-arrow post__more">Read <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+            </span>
+          </a>
         </article>
-        <article class="card blog-card">
-          <a class="thumb" href="/single-post"><!-- TODO: real photo: cashless hospitalisation guidance, 1280x800 -->
-<img src="images/placeholders/ph-article-8x5.svg" width="1280" height="800" alt="Cashless hospitalisation guidance" loading="lazy"></a>
-          <div class="bc-body">
-            <span class="cat">Patient guide</span>
-            <h3><a href="/single-post">How cashless hospitalisation works with TPAs &amp; schemes</a></h3>
-            <p>What to bring and what to expect for a cashless admission.</p>
-            <!-- TODO: real article content -->
-          </div>
+        <article class="post">
+          <a class="post__link" href="/single-post">
+            <span class="post__thumb frame frame--8x5">
+              <!-- TODO: real photo, 1280x800 -->
+              <img src="images/placeholders/ph-article-8x5.svg" width="1280" height="800" alt="Cashless hospitalisation guidance" loading="lazy" decoding="async">
+            </span>
+            <span class="post__body">
+              <span class="chip chip--care post__cat">Patient guide</span>
+              <h3>How cashless hospitalisation works with TPAs &amp; schemes</h3>
+              <p>What to bring and what to expect for a cashless admission.</p>
+              <span class="link-arrow post__more">Read <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+            </span>
+          </a>
         </article>
       </div>
     </div>

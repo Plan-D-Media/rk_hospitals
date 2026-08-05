@@ -465,13 +465,14 @@
    page sideways.
 
    The effective viewport is capped at 1600px. The crop is 752x940 native, so
-   beyond that the bleed would upscale it and go visibly soft on a DPR-1
-   desktop. Above 1600px the canvas simply shows to the right of the photo.  */
+   The desktop crop is 1000x941 taken from the 1672x941 master, so the bleed
+   can now reach the viewport edge at 1920 without upscaling. Cap raised to
+   2100px, which is where 1000px of source would start to stretch.  */
 .hero__media {
   position: relative;
   align-self: stretch;
   min-height: 460px;
-  margin-right: calc(-1 * (max(0px, (min(100vw, 1600px) - var(--container)) / 2) + var(--gutter)));
+  margin-right: calc(-1 * (max(0px, (min(100vw, 2100px) - var(--container)) / 2) + var(--gutter)));
 }
 /* Absolutely positioned so the photo FILLS the row rather than defining it.
    With height:100% the frame's height and the row's height each depended on
@@ -834,3 +835,91 @@
   .docs-grid::-webkit-scrollbar { display: none; }
   .doc-card { flex: 0 0 78%; scroll-snap-align: start; }
 }
+
+/* ------------------------------------------------------------
+   16. PACKAGES
+   ------------------------------------------------------------ */
+.pkg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
+.pkg {
+  position: relative; display: flex; flex-direction: column;
+  padding: 30px 28px;
+  background: var(--paper); border: 1px solid var(--line);
+  border-radius: var(--r-lg); box-shadow: var(--sh-1);
+}
+.pkg--featured { border-color: var(--brand-300); box-shadow: var(--sh-3); transform: scale(1.03); z-index: 1; }
+.pkg__ribbon {
+  position: absolute; top: -12px; left: 28px;
+  padding: 5px 14px; border-radius: var(--r-pill);
+  background: var(--brand-500); color: var(--paper);
+  font-family: var(--font-mono); font-size: var(--fs-xs);
+  letter-spacing: var(--tr-mono); text-transform: uppercase;
+}
+.pkg__tag { font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: var(--tr-mono); text-transform: uppercase; color: var(--care-700); }
+.pkg--featured .pkg__tag { visibility: hidden; }   /* the ribbon says it */
+.pkg h3 { margin: 10px 0 6px; font-size: var(--fs-xl); }
+/* Never a dash where a number belongs. A real figure replaces the text
+   inside .price and nothing else changes. */
+.pkg__price { margin: 0 0 4px; }
+.pkg__price .price { font-family: var(--font-mono); font-size: var(--fs-base); color: var(--muted); }
+.pkg__list { list-style: none; display: grid; gap: 10px; margin: 18px 0 24px; }
+.pkg__list li { display: flex; gap: 10px; align-items: flex-start; font-size: var(--fs-sm); color: var(--body); }
+.pkg__list .ico { color: var(--care-600); margin-top: 4px; flex: none; }
+.pkg .btn { margin-top: auto; }
+@media (max-width: 900px) { .pkg-grid { grid-template-columns: 1fr; } .pkg--featured { transform: none; } }
+
+/* ------------------------------------------------------------
+   17. EMERGENCY BAND
+   ------------------------------------------------------------ */
+.emg { background: linear-gradient(135deg, var(--brand-700), var(--brand-500)); color: #fff; }
+.emg .container { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 20px 28px; padding-block: clamp(40px, 5vw, 60px); text-align: center; }
+.emg__ring { position: relative; display: grid; place-items: center; width: 54px; height: 54px; border-radius: 50%; background: rgba(255,255,255,.16); color: #fff; font-size: 22px; flex: none; }
+.emg__ring::after { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 2px solid rgba(255,255,255,.5); animation: rk-pulse 2s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .emg__ring::after { animation: none; opacity: .6; } }
+.emg__copy { text-align: left; }
+.emg h2 { color: #fff; margin: 0 0 4px; font-size: var(--fs-2xl); }
+.emg p { margin: 0; color: rgba(255,255,255,.86); font-size: var(--fs-sm); }
+.emg__num { font-size: var(--fs-xl); }
+.emg__num .tel { color: var(--brand-700); }
+@media (max-width: 720px) {
+  .emg .container { flex-direction: column; }
+  .emg__copy { text-align: center; }
+  .emg__num { width: 100%; min-height: 56px; }
+}
+
+/* ------------------------------------------------------------
+   18. APPOINTMENT + MAP
+   ------------------------------------------------------------ */
+.appt { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 4vw, 48px); align-items: start; }
+.appt > * { min-width: 0; }
+.appt__card { background: var(--paper); border-radius: var(--r-xl); box-shadow: var(--sh-3); padding: clamp(26px, 3vw, 40px); }
+.appt__map { position: relative; padding-bottom: 92px; }
+.map-frame { border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--sh-2); background: var(--surface-2); aspect-ratio: 4 / 3; }
+.map-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+.map-card {
+  position: absolute; left: 0; right: 24%; bottom: 0;
+  display: grid; gap: 10px;
+  padding: 20px 22px;
+  background: var(--paper); border-radius: var(--r-lg); box-shadow: var(--sh-3);
+}
+.map-card__row { display: flex; gap: 11px; align-items: flex-start; font-size: var(--fs-sm); color: var(--body); }
+.map-card__row .ico { color: var(--brand-600); margin-top: 3px; flex: none; }
+@media (max-width: 900px) {
+  .appt { grid-template-columns: 1fr; }
+  .appt__map { padding-bottom: 0; }
+  .map-card { position: static; right: auto; margin-top: 14px; }
+}
+
+/* ------------------------------------------------------------
+   19. HEALTH TIPS
+   ------------------------------------------------------------ */
+.post-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.post { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; transition: transform var(--dur-fast) var(--ease-card), box-shadow var(--dur-fast) var(--ease-card), border-color var(--dur-fast) var(--ease-card); }
+.post:hover { transform: translateY(-4px); box-shadow: var(--sh-2); border-color: var(--care-400); }
+.post__link { display: block; color: inherit; }
+.post__thumb { border-radius: 0; }
+.post__body { display: block; padding: 20px 22px 24px; }
+.post__cat { margin-bottom: 12px; }
+.post h3 { font-family: var(--font-display); font-variation-settings: "opsz" 144, "SOFT" 0, "WONK" 0; font-weight: 600; font-size: var(--fs-xl); margin: 0 0 8px; letter-spacing: var(--tr-display); }
+.post p { font-size: var(--fs-sm); color: var(--muted); margin: 0 0 12px; }
+.post__more { font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: var(--tr-mono); text-transform: uppercase; min-height: 0; }
+@media (max-width: 900px) { .post-grid { grid-template-columns: 1fr; } }
