@@ -6,14 +6,14 @@
 
   <title>Book an Appointment in Barrackpore | Ramakrishna Multispeciality Hospital</title>
   <meta name="description" content="Book an appointment at Ramakrishna Multispeciality Hospital, Barrackpore. Share a few details and our team calls you back to confirm your slot — 24×7 emergency, in-house diagnostics up to CT, cashless &amp; TPA.">
-  <link rel="canonical" href="https://TODO_DOMAIN.in/appointment">
+  <link rel="canonical" href="https://rkhospitals.in/appointment">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#BD2754">
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="Book an Appointment | Ramakrishna Multispeciality Hospital, Barrackpore">
   <meta property="og:description" content="Request an appointment and our team will call you back to confirm your slot. 24×7 emergency, critical care and in-house diagnostics up to CT in Barrackpore.">
-  <meta property="og:url" content="https://TODO_DOMAIN.in/appointment">
+  <meta property="og:url" content="https://rkhospitals.in/appointment">
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="images/favicon.ico" type="image/x-icon">
@@ -25,15 +25,14 @@
   <link href="css/rk-inner.css" rel="stylesheet">
   <link href="css/rk-home.css" rel="stylesheet">
 
-  <!-- TODO: paste real GTM container id (GTM-XXXX) -->
 
   <!-- JSON-LD: BreadcrumbList -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org", "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://TODO_DOMAIN.in/" },
-      { "@type": "ListItem", "position": 2, "name": "Book an Appointment", "item": "https://TODO_DOMAIN.in/appointment" }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://rkhospitals.in/" },
+      { "@type": "ListItem", "position": 2, "name": "Book an Appointment", "item": "https://rkhospitals.in/appointment" }
     ]
   }
   </script>
@@ -371,6 +370,7 @@
           <form id="appointment-form" data-lead-form="appointment" novalidate>
             <!-- honeypot -->
             <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <p class="form-lead-in">Send us a request and our desk will call you to confirm a time.</p>
 
             <div class="form-row">
               <div class="field">
@@ -418,12 +418,11 @@
               <textarea id="af-msg" name="message" placeholder="Briefly describe your concern (optional)"></textarea>
             </div>
 
-            <button class="btn btn--primary btn--block btn--lg" type="submit"><svg class="ico" aria-hidden="true"><use href="#i-calendar-check"/></svg> Request Appointment</button>
+            <button class="btn btn--primary btn--block btn--lg" type="submit"><svg class="ico" aria-hidden="true"><use href="#i-calendar-check"/></svg> Request appointment</button>
             <p class="form-note" style="margin-top:12px">By submitting, you agree to be contacted about your appointment. We don't share your details.</p>
 
             <div class="form-success" role="status">
-              <strong>Thank you — request received.</strong> Our team will call you shortly to confirm your appointment.
-            </div>
+              <strong>Thank you &mdash; we have your request.</strong> This is an enquiry, not a confirmed appointment. Our desk will call you on the number you gave to agree a time. For anything urgent, call <a class="tel" href="tel:+918240842519">+91 82408 42519</a> &mdash; the emergency department is open 24&times;7.</div>
             <div class="form-error" role="alert">
               <strong>Sorry — we couldn&rsquo;t send your request.</strong> Please check your connection and try again, or call us on <a data-fallback-phone href="tel:+918240842519">+91 82408 42519</a> and we&rsquo;ll book you in.
             </div>
@@ -435,7 +434,8 @@
           <div class="side-card">
             <h3>Why book with us</h3>
             <div class="side-contact">
-              <div class="row"><svg class="ico" aria-hidden="true"><use href="#i-ambulance"/></svg><span>24×7 emergency department with triage</span></div>
+              <div class="row"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg><span><a href="mailto:gurukulsarbani@gmail.com">gurukulsarbani@gmail.com</a></span></div>
+          <span>24×7 emergency department with triage</span></div>
               <div class="row"><svg class="ico" aria-hidden="true"><use href="#i-id-card"/></svg><span>Cashless &amp; TPA for government schemes, PSUs and major insurers</span></div>
               <div class="row"><svg class="ico" aria-hidden="true"><use href="#i-scan"/></svg><span>In-house diagnostics up to CT — fewer trips, faster decisions</span></div>
               <div class="row"><svg class="ico" aria-hidden="true"><use href="#i-headset"/></svg><span>A real person calls you back to confirm your slot</span></div>
@@ -497,11 +497,6 @@
       <div class="footer-brand">
         <img src="images/Ramakrishna-Hospitality-030123-300x68-1.png" width="300" height="68" alt="Ramakrishna Multispeciality Hospital">
         <p>A unit of Sarbani Hospitality and HealthCare Services Pvt Ltd. Multispeciality care with 24×7 emergency, critical care and in-house diagnostics — in Barrackpore, Kolkata.</p>
-        <div class="footer-social">
-          <a href="#" aria-label="Facebook"><svg class="ico ico--solid" aria-hidden="true"><use href="#i-facebook"/></svg></a>
-          <a href="#" aria-label="Instagram"><svg class="ico" aria-hidden="true"><use href="#i-instagram"/></svg></a>
-          <a href="#" aria-label="Google"><svg class="ico ico--solid" aria-hidden="true"><use href="#i-google"/></svg></a>
-        </div>
       </div>
       <div class="footer-col">
         <h4>Specialities</h4>
@@ -550,6 +545,7 @@
 </div>
 
 <script src="js/rk-ui.js" defer></script>
+<script src="js/rk-scoped-booking.js" defer></script>
 <script src="js/rk-main.js" defer></script>
 </body>
 </html>

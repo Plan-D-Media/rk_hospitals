@@ -6,4 +6,4 @@ Allow: /
 Disallow: /landing
 Disallow: /landing.html
 
-Sitemap: https://TODO_DOMAIN.in/sitemap.xml
+Sitemap: https://rkhospitals.in/sitemap.xml

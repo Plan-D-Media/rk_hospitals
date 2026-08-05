@@ -7,7 +7,7 @@
   <!-- PRIMARY META -->
   <title>Multispeciality Hospital in Barrackpore — 24×7 Emergency &amp; Critical Care | Ramakrishna Multispeciality Hospital</title>
   <meta name="description" content="Ramakrishna Multispeciality Hospital, Barrackpore — 24×7 emergency, critical care (ICU, HDU, NICU, PICU) and in-house diagnostics up to CT. Cashless &amp; TPA. Book an appointment or call now.">
-  <link rel="canonical" href="https://TODO_DOMAIN.in/landing">
+  <link rel="canonical" href="https://rkhospitals.in/landing">
   <meta name="robots" content="noindex, follow"><!-- paid-ad landing page: kept out of organic index -->
   <meta name="theme-color" content="#BD2754">
 
@@ -15,8 +15,8 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Multispeciality Hospital in Barrackpore — 24×7 Emergency &amp; Critical Care">
   <meta property="og:description" content="24×7 emergency, critical care and in-house diagnostics up to CT in Barrackpore. Cashless &amp; TPA. Book an appointment or call now.">
-  <meta property="og:url" content="https://TODO_DOMAIN.in/landing">
-  <meta property="og:image" content="https://TODO_DOMAIN.in/images/Ramakrishna-Hospitality-030123-300x68-1.png"><!-- TODO: real 1200x630 social share image -->
+  <meta property="og:url" content="https://rkhospitals.in/landing">
+  <meta property="og:image" content="https://rkhospitals.in/images/Ramakrishna-Hospitality-030123-300x68-1.png"><!-- TODO: real 1200x630 social share image -->
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- FAVICON -->
@@ -33,9 +33,6 @@
   <link href="css/rk-home.css" rel="stylesheet">
   <link href="css/rk-inner.css" rel="stylesheet">
 
-  <!-- TODO: paste real GTM container id (GTM-XXXX) -->
-  <!-- Google Ads / gtag placeholder: gtag('config','AW-XXXX') · conversion event on form submit -->
-  <!-- Meta Pixel placeholder: fbq('init','PIXEL_ID') · Lead event on form submit -->
 
   <style>
     /* ---- Landing-only: minimal top bar + form-first hero + minimal footer ---- */
@@ -192,6 +189,7 @@
         <form id="landing-form" data-lead-form="hero" novalidate>
           <!-- honeypot -->
           <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <p class="form-lead-in">Send us a request and our desk will call you to confirm a time.</p>
 
           <div class="form-row">
             <div class="field">
@@ -239,12 +237,11 @@
             <textarea id="lf-msg" name="message" placeholder="Briefly describe your concern (optional)"></textarea>
           </div>
 
-          <button class="btn btn--primary btn--block btn--lg" type="submit"><svg class="ico" aria-hidden="true"><use href="#i-calendar-check"/></svg> Request Appointment</button>
+          <button class="btn btn--primary btn--block btn--lg" type="submit"><svg class="ico" aria-hidden="true"><use href="#i-calendar-check"/></svg> Request appointment</button>
           <p class="form-note" style="margin-top:12px">By submitting, you agree to be contacted about your appointment. We don't share your details.</p>
 
           <div class="form-success" role="status">
-            <strong>Thank you — request received.</strong> Our team will call you shortly to confirm your appointment.
-          </div>
+            <strong>Thank you &mdash; we have your request.</strong> This is an enquiry, not a confirmed appointment. Our desk will call you on the number you gave to agree a time. For anything urgent, call <a class="tel" href="tel:+918240842519">+91 82408 42519</a> &mdash; the emergency department is open 24&times;7.</div>
           <div class="form-error" role="alert">
             <strong>Sorry — we couldn&rsquo;t send your request.</strong> Please check your connection and try again, or call us on <a data-fallback-phone href="tel:+918240842519">+91 82408 42519</a> and we&rsquo;ll book you in.
           </div>

@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Ramakrishna Multispeciality Hospital — sitemap. Clean, extensionless URLs.
-     BEFORE LAUNCH: find-replace TODO_DOMAIN.in with the real domain (single swap, site-wide). -->
+     BEFORE LAUNCH: find-replace rkhospitals.in with the real domain (single swap, site-wide). -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://TODO_DOMAIN.in/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/about-us</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/who-we-are</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/all-departments</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/department-single</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>  <!-- Cardiology -->
-  <url><loc>https://TODO_DOMAIN.in/department-emergency-critical-care</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/department-nicu-picu</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/department-gastroenterology</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/department-dialysis</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/department-ent</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/department-general-medicine</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/department-general-laparoscopic-surgery</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/department-orthopaedics</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/department-gynaecology-obstetrics</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/department-paediatrics-neonatology</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/department-pulmonology</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/department-urology</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/department-endocrinology</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/department-dentistry</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/all-doctors</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/doctor-1</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/doctor-2</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/doctor-3</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/doctor-4</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/all-services</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/appointment</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/pricing-1</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/pricing-2</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/faqs</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/contacts-1</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/contacts-2</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/service-1</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/service-2</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/timetable</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/gallery</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/blog-listing</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/single-post</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://TODO_DOMAIN.in/terms</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://rkhospitals.in/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://rkhospitals.in/about-us</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rkhospitals.in/who-we-are</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rkhospitals.in/all-departments</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://rkhospitals.in/department-single</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>  <!-- Cardiology -->
+  <url><loc>https://rkhospitals.in/department-emergency-critical-care</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rkhospitals.in/department-nicu-picu</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rkhospitals.in/department-gastroenterology</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rkhospitals.in/department-dialysis</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rkhospitals.in/department-ent</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rkhospitals.in/department-general-medicine</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rkhospitals.in/department-general-laparoscopic-surgery</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rkhospitals.in/department-orthopaedics</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rkhospitals.in/department-gynaecology-obstetrics</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rkhospitals.in/department-paediatrics-neonatology</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rkhospitals.in/department-pulmonology</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rkhospitals.in/department-urology</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rkhospitals.in/department-endocrinology</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rkhospitals.in/department-dentistry</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rkhospitals.in/all-doctors</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://rkhospitals.in/doctor-1</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rkhospitals.in/doctor-2</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rkhospitals.in/doctor-3</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rkhospitals.in/doctor-4</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rkhospitals.in/all-services</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rkhospitals.in/appointment</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://rkhospitals.in/pricing-1</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rkhospitals.in/pricing-2</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rkhospitals.in/faqs</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rkhospitals.in/contacts-1</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rkhospitals.in/contacts-2</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://rkhospitals.in/service-1</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rkhospitals.in/service-2</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rkhospitals.in/timetable</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://rkhospitals.in/gallery</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://rkhospitals.in/blog-listing</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rkhospitals.in/single-post</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://rkhospitals.in/terms</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>
