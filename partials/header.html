@@ -1,0 +1,209 @@
+<!-- ============================================================
+     HEADER — REFERENCE COPY (see partials/README.md)
+     Inlined verbatim into every page except landing.html.
+     The ONLY per-page difference is aria-current="page" on the
+     current nav item. Nothing else may diverge.
+
+     Nav is 6 items. "Home" is deliberately absent — the logo is the
+     home link and is the universal convention; Home lives in the
+     mobile drawer only, where a logo is not read as a control.
+     ============================================================ -->
+<header class="rk-header" data-header>
+
+  <!-- Utility bar: ONE line, one action. Emergency lives in the header
+       row below, not here — it was duplicated across both. -->
+  <div class="util-bar">
+    <div class="container">
+      <span class="util-loc">
+        <svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>
+        203/1 Ghoshpara Road, Barrackpore, Kolkata 700120
+      </span>
+      <a class="util-cb" href="/appointment">
+        <svg class="ico" aria-hidden="true"><use href="#i-headset"/></svg>
+        Request a call back
+      </a>
+    </div>
+  </div>
+
+  <div class="nav-bar">
+    <div class="container">
+      <a class="brand" href="/" aria-label="Ramakrishna Multispeciality Hospital — home">
+        <img src="images/Ramakrishna-Hospitality-030123-300x68-1.png" width="300" height="68"
+             alt="Ramakrishna Multispeciality Hospital logo">
+      </a>
+
+      <nav class="nav-primary" aria-label="Primary">
+        <ul class="nav-list">
+          <li><a href="/about-us">About</a></li>
+
+          <li class="nav-has-panel" data-nav-item>
+            <button type="button" class="nav-panel-toggle" aria-expanded="false" aria-controls="panel-specialities" data-nav-toggle>
+              Specialities
+              <svg class="ico nav-caret" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+            </button>
+
+            <div class="mega" id="panel-specialities" data-nav-panel hidden>
+              <div class="mega-inner">
+                <div class="mega-col">
+                  <p class="mega-head">Emergency &amp; Critical Care</p>
+                  <ul>
+                    <li><a href="/department-emergency-critical-care"><svg class="ico" aria-hidden="true"><use href="#i-ambulance"/></svg> Emergency &amp; Critical Care</a></li>
+                    <li><a href="/department-nicu-picu"><svg class="ico" aria-hidden="true"><use href="#i-baby"/></svg> NICU &amp; PICU</a></li>
+                    <li><a href="/department-single"><svg class="ico" aria-hidden="true"><use href="#i-heart-pulse"/></svg> Cardiology</a></li>
+                    <li><a href="/department-dialysis"><svg class="ico" aria-hidden="true"><use href="#i-droplet"/></svg> Dialysis</a></li>
+                  </ul>
+                </div>
+
+                <div class="mega-col">
+                  <p class="mega-head">Surgical</p>
+                  <ul>
+                    <li><a href="/department-general-laparoscopic-surgery"><svg class="ico" aria-hidden="true"><use href="#i-scissors"/></svg> General &amp; Laparoscopic Surgery</a></li>
+                    <li><a href="/department-orthopaedics"><svg class="ico" aria-hidden="true"><use href="#i-bone"/></svg> Orthopaedics</a></li>
+                    <li><a href="/department-ent"><svg class="ico" aria-hidden="true"><use href="#i-ear"/></svg> ENT</a></li>
+                    <li><a href="/department-urology"><svg class="ico" aria-hidden="true"><use href="#i-vial"/></svg> Urology</a></li>
+                    <li><a href="/department-gynaecology-obstetrics"><svg class="ico" aria-hidden="true"><use href="#i-user"/></svg> Gynaecology &amp; Obstetrics</a></li>
+                    <li><a href="/department-dentistry"><svg class="ico" aria-hidden="true"><use href="#i-tooth"/></svg> Dentistry</a></li>
+                  </ul>
+                </div>
+
+                <div class="mega-col">
+                  <p class="mega-head">Medical &amp; Diagnostic</p>
+                  <ul>
+                    <li><a href="/department-general-medicine"><svg class="ico" aria-hidden="true"><use href="#i-stethoscope"/></svg> General Medicine</a></li>
+                    <li><a href="/department-gastroenterology"><svg class="ico" aria-hidden="true"><use href="#i-clipboard"/></svg> Gastroenterology</a></li>
+                    <li><a href="/department-pulmonology"><svg class="ico" aria-hidden="true"><use href="#i-lungs"/></svg> Pulmonology</a></li>
+                    <li><a href="/department-endocrinology"><svg class="ico" aria-hidden="true"><use href="#i-activity"/></svg> Endocrinology</a></li>
+                    <li><a href="/department-paediatrics-neonatology"><svg class="ico" aria-hidden="true"><use href="#i-user-md"/></svg> Paediatrics &amp; Neonatology</a></li>
+                  </ul>
+                </div>
+
+                <a class="mega-all" href="/all-departments">
+                  <svg class="ico ico--lg" aria-hidden="true"><use href="#i-grid"/></svg>
+                  <span class="mega-all__t">All specialities</span>
+                  <span class="mega-all__s">Every department, in one place</span>
+                  <span class="mega-all__go">View all <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li><a href="/all-doctors">Doctors</a></li>
+          <li><a href="/all-services">Diagnostics</a></li>
+
+          <li class="nav-has-panel" data-nav-item>
+            <!-- A <button>, not <a href="#">: this item has no page of its
+                 own, so a link would be a keyboard trap that goes nowhere. -->
+            <button type="button" class="nav-panel-toggle" aria-expanded="false" aria-controls="panel-patients" data-nav-toggle>
+              For Patients
+              <svg class="ico nav-caret" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+            </button>
+            <div class="mega mega--narrow" id="panel-patients" data-nav-panel hidden>
+              <div class="mega-inner">
+                <div class="mega-col">
+                  <ul>
+                    <li><a href="/pricing-1"><svg class="ico" aria-hidden="true"><use href="#i-id-card"/></svg> Cashless &amp; TPA</a></li>
+                    <li><a href="/pricing-1"><svg class="ico" aria-hidden="true"><use href="#i-handshake"/></svg> Corporate / PSU</a></li>
+                    <li><a href="/pricing-2"><svg class="ico" aria-hidden="true"><use href="#i-heart-pulse"/></svg> Health Check-ups</a></li>
+                    <li><a href="/faqs"><svg class="ico" aria-hidden="true"><use href="#i-message"/></svg> Patient Guide &amp; FAQs</a></li>
+                    <li><a href="/department-emergency-critical-care"><svg class="ico" aria-hidden="true"><use href="#i-ambulance"/></svg> 24&times;7 Emergency</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li><a href="/contacts-1">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Emergency is an OUTLINE affordance, never a second crimson fill.
+             See the action hierarchy rule in rk-system.css. -->
+        <a class="nav-emg" href="tel:+918240842519">
+          <svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>
+          <span class="nav-emg__l">24&times;7 Emergency</span>
+          <span class="tel">+91 82408 42519</span>
+        </a>
+        <a class="btn btn--primary nav-book" href="/appointment">Book Appointment</a>
+        <button type="button" class="nav-burger" aria-expanded="false" aria-controls="rk-drawer" aria-label="Open menu" data-drawer-open>
+          <svg class="ico" aria-hidden="true"><use href="#i-menu"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile drawer. Lives outside <header> so the sticky header cannot
+     clip it and so the focus trap has a clean container. -->
+<div class="drawer" id="rk-drawer" data-drawer hidden>
+  <div class="drawer__scrim" data-drawer-close></div>
+  <div class="drawer__panel" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="drawer__top">
+      <a class="brand" href="/" aria-label="Ramakrishna Multispeciality Hospital — home">
+        <img src="images/Ramakrishna-Hospitality-030123-300x68-1.png" width="300" height="68" alt="Ramakrishna Multispeciality Hospital logo">
+      </a>
+      <button type="button" class="drawer__close" aria-label="Close menu" data-drawer-close>
+        <svg class="ico" aria-hidden="true"><use href="#i-x"/></svg>
+      </button>
+    </div>
+
+    <nav class="drawer__nav" aria-label="Mobile">
+      <ul>
+        <!-- Home appears here only: on mobile a logo is not reliably read
+             as a control, so the explicit link earns its place. -->
+        <li><a href="/">Home</a></li>
+        <li><a href="/about-us">About</a></li>
+
+        <li class="drawer__acc">
+          <button type="button" aria-expanded="false" aria-controls="dacc-spec" data-acc-toggle>
+            Specialities <svg class="ico" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+          </button>
+          <ul id="dacc-spec" hidden>
+            <li><a href="/department-emergency-critical-care">Emergency &amp; Critical Care</a></li>
+            <li><a href="/department-nicu-picu">NICU &amp; PICU</a></li>
+            <li><a href="/department-single">Cardiology</a></li>
+            <li><a href="/department-dialysis">Dialysis</a></li>
+            <li><a href="/department-general-laparoscopic-surgery">General &amp; Laparoscopic Surgery</a></li>
+            <li><a href="/department-orthopaedics">Orthopaedics</a></li>
+            <li><a href="/department-ent">ENT</a></li>
+            <li><a href="/department-urology">Urology</a></li>
+            <li><a href="/department-gynaecology-obstetrics">Gynaecology &amp; Obstetrics</a></li>
+            <li><a href="/department-dentistry">Dentistry</a></li>
+            <li><a href="/department-general-medicine">General Medicine</a></li>
+            <li><a href="/department-gastroenterology">Gastroenterology</a></li>
+            <li><a href="/department-pulmonology">Pulmonology</a></li>
+            <li><a href="/department-endocrinology">Endocrinology</a></li>
+            <li><a href="/department-paediatrics-neonatology">Paediatrics &amp; Neonatology</a></li>
+            <li><a href="/all-departments">All specialities &rarr;</a></li>
+          </ul>
+        </li>
+
+        <li><a href="/all-doctors">Doctors</a></li>
+        <li><a href="/all-services">Diagnostics</a></li>
+
+        <li class="drawer__acc">
+          <button type="button" aria-expanded="false" aria-controls="dacc-pat" data-acc-toggle>
+            For Patients <svg class="ico" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+          </button>
+          <ul id="dacc-pat" hidden>
+            <li><a href="/pricing-1">Cashless &amp; TPA</a></li>
+            <li><a href="/pricing-1">Corporate / PSU</a></li>
+            <li><a href="/pricing-2">Health Check-ups</a></li>
+            <li><a href="/faqs">Patient Guide &amp; FAQs</a></li>
+            <li><a href="/department-emergency-critical-care">24&times;7 Emergency</a></li>
+          </ul>
+        </li>
+
+        <li><a href="/contacts-1">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="drawer__foot">
+      <a class="btn btn--primary btn--block" href="/appointment">Book Appointment</a>
+      <a class="btn btn--emergency btn--block" href="tel:+918240842519">
+        <svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>
+        Call 24&times;7 &mdash; <span class="tel">+91 82408 42519</span>
+      </a>
+    </div>
+  </div>
+</div>

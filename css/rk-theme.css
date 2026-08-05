@@ -7,7 +7,6 @@
    are the components not yet rebuilt:
 
      - legacy component aliases (delete as each consumer migrates)
-     - header + nav            -> rebuilt in step 3
      - doctor card             -> rebuilt in step 6
      - footer                  -> rebuilt in step 7
      - floating actions        -> rebuilt in step 7
@@ -35,9 +34,7 @@
 }
 .btn--ghost:hover { --btn-bg: var(--brand-600); --btn-fg: var(--paper); color: var(--paper); }
 
-/* Font Awesome <i> icons still exist on 37 pages (removed in step 3). */
-.btn i { font-size: .95em; }
-.chip i { color: var(--care-600); }
+/* Font Awesome is fully removed — no <i> icon elements remain anywhere. */
 
 /* Legacy cards hovered by default; the system makes that opt-in via
    .card--interactive. Preserve the old behaviour for un-migrated pages. */
@@ -45,77 +42,7 @@
 
 .grid { display: grid; gap: 24px; }
 
-/* ============================================================
-   HEADER  (utility bar + main nav)          [rebuilt in step 3]
-   ============================================================ */
-.rk-header { position: sticky; top: 0; z-index: 900; background: var(--paper); }
-
-/* Utility bar */
-.util-bar { background: var(--ink-900); color: #fff; font-size: var(--fs-sm); }
-.util-bar .container { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 42px; }
-.util-bar a { color: #fff; }
-.util-left { display: flex; align-items: center; gap: 22px; }
-.util-left .loc { color: rgba(255,255,255,.72); display: inline-flex; align-items: center; gap: 7px; }
-.util-left .loc i, .util-left .loc .ico { color: var(--brand-300); }
-.util-right { display: flex; align-items: center; gap: 10px; }
-.util-emg { display: inline-flex; align-items: center; gap: 8px; color: #fff !important; font-weight: 600; background: var(--emergency); padding: 6px 14px; border-radius: var(--r-pill); }
-.util-emg:hover { background: var(--brand-700); }
-.util-cb { color: #fff !important; display: inline-flex; align-items: center; gap: 7px; font-weight: 500; }
-.util-cb:hover { color: var(--brand-100) !important; }
-@media (max-width: 900px) { .util-bar .util-left .loc { display: none; } }
-@media (max-width: 560px) { .util-cb span { display: none; } }
-
-/* Main nav */
-.nav-main { border-bottom: 1px solid var(--line); }
-.nav-main .container { display: flex; align-items: center; justify-content: space-between; min-height: 76px; gap: 20px; }
-/* Logo: native 300x68. Fix the height, let width follow the ratio (~194px)
-   so the wordmark never distorts. flex-shrink:0 is load-bearing — without it
-   the wide primary nav squeezes the logo down to ~30px. */
-.brand { display: inline-flex; align-items: center; padding: 6px 0; flex: 0 0 auto; }
-.brand img { height: 44px; width: auto; max-width: none; flex: none; display: block; }
-.nav-links { display: flex; align-items: center; gap: 2px; list-style: none; }
-.nav-links > li { position: relative; }
-.nav-links > li > a {
-  display: inline-flex; align-items: center; gap: 6px; padding: 12px 11px;
-  color: var(--ink-800); font-weight: 500; font-size: var(--fs-sm); border-radius: 8px;
-}
-.nav-links > li > a:hover, .nav-links > li.active > a { color: var(--brand-600); background: var(--brand-050); }
-
-/* Dropdown */
-.subnav {
-  position: absolute; top: calc(100% + 8px); left: 0; min-width: 250px;
-  background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-md);
-  box-shadow: var(--sh-2); padding: 8px; list-style: none;
-  opacity: 0; visibility: hidden; transform: translateY(6px); transition: .16s ease; z-index: 20;
-}
-.nav-links > li:hover .subnav, .nav-links > li:focus-within .subnav { opacity: 1; visibility: visible; transform: translateY(0); }
-.subnav a { display: block; padding: 10px 14px; border-radius: 8px; color: var(--body); font-weight: 400; font-size: var(--fs-sm); }
-.subnav a:hover, .subnav a.active { background: var(--brand-050); color: var(--brand-600); }
-.subnav a.active { font-weight: 600; }
-@media (min-width: 1201px) { .subnav { max-height: min(70vh, 640px); overflow-y: auto; } }
-
-.nav-cta { display: flex; align-items: center; gap: 12px; flex: 0 0 auto; }
-.nav-cta .btn--book-desktop { min-height: 44px; padding: 11px 18px; font-size: var(--fs-sm); }
-.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; color: var(--ink-800); font-size: 1.5rem; }
-
-/* Mobile nav. Breakpoint at 1200px: the full 8-item nav + 194px logo + book
-   button cannot fit the container below ~1200px. */
-@media (max-width: 1200px) {
-  .nav-toggle { display: inline-flex; }
-  .nav-links {
-    position: fixed; inset: 0 0 0 auto; width: min(340px, 84vw);
-    flex-direction: column; align-items: stretch; gap: 2px; background: var(--paper);
-    padding: 84px 18px 24px; box-shadow: -10px 0 40px rgba(14,31,51,.14);
-    transform: translateX(100%); transition: transform var(--dur-mid) ease; overflow-y: auto; z-index: 950;
-  }
-  .nav-links.open { transform: translateX(0); }
-  .nav-links > li > a { padding: 14px 12px; border-radius: 8px; }
-  .subnav { position: static; opacity: 1; visibility: visible; transform: none; box-shadow: none; border: none; padding: 0 0 6px 12px; min-width: 0; }
-  .nav-backdrop { position: fixed; inset: 0; background: rgba(14,31,51,.5); opacity: 0; visibility: hidden; transition: .2s; z-index: 940; }
-  .nav-backdrop.open { opacity: 1; visibility: visible; }
-  .nav-cta .btn--book-desktop { display: none; }
-}
-@media (max-width: 640px) { .brand img { height: 36px; } }
+/* HEADER — rebuilt in step 3; now lives in rk-blocks.css. */
 
 /* ============================================================
    FOOTER                                    [rebuilt in step 7]

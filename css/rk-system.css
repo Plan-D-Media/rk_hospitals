@@ -2,6 +2,24 @@
    rk-system.css — Ramakrishna Multispeciality Hospital
    The design system. Loaded FIRST on every page.
 
+   ------------------------------------------------------------
+   ACTION HIERARCHY — the one rule that must not be broken
+   ------------------------------------------------------------
+   --emergency is an ALIAS of --brand-500. They are the same hue by
+   design. Urgency is therefore signalled by TREATMENT, never colour:
+
+       primary action    crimson SOLID fill        .btn--primary
+       emergency action  ink OUTLINE + the number
+                         in IBM Plex Mono          .btn--emergency
+
+   NEVER render two crimson fills in one viewport. Two solid crimson
+   buttons side by side rank equally, so neither reads as primary —
+   which is the exact failure this redesign exists to fix.
+
+   A crimson FIELD (the emergency band) is a different case: there the
+   band carries the urgency and its button is .btn--white.
+   ------------------------------------------------------------
+
    Contents
      1.  Tokens
      2.  Legacy aliases  (transitional — see note, delete after migration)
@@ -59,8 +77,11 @@
   --muted-soft: #6B7F94;
 
   /* --- Semantic --- */
-  --emergency: #BD2754;
-  --open: #17786F;
+  /* Intentional ALIAS, not a duplicate literal: emergency and primary share a
+     hue. Urgency is carried by TREATMENT, not colour — see the rule at the top
+     of this file. Do not fork this into a second red. */
+  --emergency: var(--brand-500);
+  --open: var(--care-600);
   --warn: #B45309;
 
   /* --- Type families --- */
@@ -246,6 +267,18 @@ h5, h6 { font-size: var(--fs-base); }
 .eyebrow--brand { color: var(--brand-600); }
 .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
 
+/* Phone numbers are set in mono and must NEVER break across lines — a number
+   split mid-digit is unreadable, and on this site it is the most important
+   string on the page. Apply .tel to every rendered number sitewide. */
+.tel {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  letter-spacing: .02em;
+  white-space: nowrap;
+}
+a[href^="tel:"] { white-space: nowrap; }
+
 .prose-measure, .section-head p { max-width: var(--measure); }
 
 /* ------------------------------------------------------------
@@ -365,8 +398,12 @@ p, li, h1, h2, h3, h4, dd, dt, td, th, figcaption { overflow-wrap: break-word; }
 .btn--primary { --btn-bg: var(--brand-500); --btn-fg: var(--paper); }
 .btn--primary:hover { --btn-bg: var(--brand-600); color: var(--paper); }
 
-.btn--emergency { --btn-bg: var(--emergency); --btn-fg: var(--paper); }
-.btn--emergency:hover { --btn-bg: var(--brand-700); color: var(--paper); }
+/* Emergency is an OUTLINE, never a second crimson fill — see the action
+   hierarchy rule at the top of this file. */
+.btn--emergency { --btn-bg: transparent; --btn-fg: var(--ink-800); --btn-bd: var(--line-strong); }
+.btn--emergency:hover { --btn-bd: var(--brand-600); --btn-fg: var(--ink-900); background: transparent; }
+.btn--emergency .tel { color: var(--brand-600); }
+.btn--emergency:hover .tel { color: var(--brand-700); }
 
 .btn--outline { --btn-bg: transparent; --btn-fg: var(--ink-800); --btn-bd: var(--line-strong); }
 .btn--outline:hover { --btn-bd: var(--ink-800); --btn-fg: var(--ink-900); background: transparent; }

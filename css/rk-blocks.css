@@ -1,0 +1,270 @@
+/* ============================================================
+   rk-blocks.css — shared components
+   Loaded after rk-system.css on every page.
+
+   Contents
+     1. Utility bar
+     2. Header + sticky behaviour
+     3. Mega-panel
+     4. Mobile drawer
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. UTILITY BAR
+   ------------------------------------------------------------
+   One 40px line, one action. Hidden below 900px — on a phone this
+   is pure overhead above the content people came for. */
+.util-bar {
+  background: var(--ink-900);
+  color: rgba(255,255,255,.72);
+  font-size: var(--fs-sm);
+}
+.util-bar .container {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; min-height: 40px;
+}
+.util-loc { display: inline-flex; align-items: center; gap: 8px; }
+.util-loc .ico { color: var(--brand-300); }
+.util-cb {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: rgba(255,255,255,.86); font-weight: 500;
+}
+.util-cb:hover { color: #fff; }
+.util-cb .ico { color: var(--care-400); }
+@media (max-width: 900px) { .util-bar { display: none; } }
+
+/* ------------------------------------------------------------
+   2. HEADER
+   ------------------------------------------------------------ */
+.rk-header {
+  position: sticky; top: 0; z-index: 900;
+  background: var(--paper);
+  transition: box-shadow var(--dur-mid) ease, background var(--dur-mid) ease;
+}
+.rk-header .nav-bar { border-bottom: 1px solid var(--line); }
+.rk-header .nav-bar .container {
+  display: flex; align-items: center; gap: clamp(12px, 2vw, 28px);
+  min-height: var(--header-h);
+  transition: min-height var(--dur-mid) ease;
+}
+
+/* Stuck: solidify, shrink 88 -> 68, drop the shadow in. */
+.rk-header.is-stuck { box-shadow: var(--sh-1); }
+.rk-header.is-stuck .nav-bar .container { min-height: var(--header-h-stuck); }
+.rk-header.is-stuck .brand img { height: 38px; }
+
+/* Over-hero mode: only where a page opts in (index). The header floats
+   transparent on the hero photo until the first 80px of scroll. */
+.rk-header.is-over-hero:not(.is-stuck) {
+  background: transparent;
+  position: absolute; left: 0; right: 0;
+}
+.rk-header.is-over-hero:not(.is-stuck) .nav-bar { border-bottom-color: transparent; }
+.rk-header.is-over-hero:not(.is-stuck) .util-bar { background: transparent; }
+.rk-header.is-over-hero:not(.is-stuck) .nav-list > li > a,
+.rk-header.is-over-hero:not(.is-stuck) .nav-panel-toggle,
+.rk-header.is-over-hero:not(.is-stuck) .nav-burger { color: #fff; }
+.rk-header.is-over-hero:not(.is-stuck) .nav-emg { color: #fff; border-color: rgba(255,255,255,.4); }
+.rk-header.is-over-hero:not(.is-stuck) .nav-emg .tel { color: #fff; }
+.rk-header.is-over-hero:not(.is-stuck) .brand img { filter: brightness(0) invert(1); }
+
+.brand { display: inline-flex; align-items: center; flex: 0 0 auto; }
+/* width:auto + max-width:none are load-bearing: width="300" is a
+   presentational hint, and .brand is a flex child — without these the nav
+   squeezes the wordmark and it distorts. */
+.brand img {
+  height: 44px; width: auto; max-width: none; flex: none;
+  transition: height var(--dur-mid) ease;
+}
+
+.nav-primary { flex: 1 1 auto; display: flex; justify-content: center; }
+.nav-list { display: flex; align-items: center; gap: 2px; list-style: none; }
+.nav-list > li { position: relative; }
+.nav-list > li > a,
+.nav-panel-toggle {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: none; border: 0; cursor: pointer;
+  font-family: var(--font-body); font-size: var(--fs-sm); font-weight: 500;
+  color: var(--ink-800);
+  border-radius: var(--r-sm);
+  white-space: nowrap;
+  transition: color var(--dur-fast) ease, background var(--dur-fast) ease;
+}
+.nav-list > li > a:hover,
+.nav-panel-toggle:hover,
+.nav-list > li > a[aria-current="page"] { color: var(--brand-600); background: var(--brand-050); }
+.nav-list > li > a[aria-current="page"] { font-weight: 600; }
+.nav-caret { width: .7em; height: .7em; transition: transform var(--dur-fast) ease; }
+.nav-panel-toggle[aria-expanded="true"] { color: var(--brand-600); background: var(--brand-050); }
+.nav-panel-toggle[aria-expanded="true"] .nav-caret { transform: rotate(180deg); }
+
+.nav-actions { display: flex; align-items: center; gap: 12px; flex: 0 0 auto; }
+
+/* Emergency affordance: outline + mono number, never a crimson fill. */
+.nav-emg {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 14px; min-height: 44px;
+  border: 1.5px solid var(--line-strong); border-radius: var(--r-pill);
+  color: var(--ink-800); font-size: var(--fs-sm); font-weight: 500;
+  transition: border-color var(--dur-fast) ease;
+}
+.nav-emg:hover { border-color: var(--brand-600); color: var(--ink-900); }
+.nav-emg .ico { color: var(--brand-600); }
+.nav-emg .tel { color: var(--brand-600); font-size: var(--fs-sm); }
+.nav-emg__l { display: none; }
+.nav-book { min-height: 44px; padding: 11px 20px; font-size: var(--fs-sm); }
+.nav-burger { display: none; background: none; border: 0; cursor: pointer; padding: 10px; color: var(--ink-800); font-size: 1.4rem; min-width: 44px; min-height: 44px; }
+
+/* The nav row cannot hold 6 items + logo + 2 actions below ~1180px. */
+@media (max-width: 1180px) {
+  .nav-primary { display: none; }
+  .nav-burger { display: inline-flex; align-items: center; justify-content: center; }
+  .nav-actions { margin-left: auto; }
+}
+@media (max-width: 720px) {
+  .nav-book { display: none; }          /* the sticky bottom bar carries Book */
+  .nav-emg .tel { display: none; }
+  .nav-emg__l { display: inline; }
+}
+@media (max-width: 420px) {
+  .nav-emg__l { display: none; }
+  .nav-emg { padding: 8px 12px; }
+}
+
+/* ------------------------------------------------------------
+   3. MEGA-PANEL
+   ------------------------------------------------------------ */
+.mega {
+  position: absolute; top: calc(100% + 10px); left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  width: min(920px, calc(100vw - 2 * var(--gutter)));
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-3);
+  padding: 28px;
+  z-index: 40;
+  opacity: 0; visibility: hidden;
+  transition: opacity var(--dur-fast) ease, transform var(--dur-fast) var(--ease-card), visibility var(--dur-fast);
+}
+.mega--narrow { width: min(340px, calc(100vw - 2 * var(--gutter))); left: auto; right: 0; transform: translateY(-6px); }
+.nav-has-panel.is-open .mega { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+.nav-has-panel.is-open .mega--narrow { transform: translateY(0); }
+/* [hidden] is removed by JS on open; keep the attribute honest for no-JS. */
+.mega[hidden] { display: none; }
+
+.mega-inner { display: grid; grid-template-columns: repeat(3, 1fr) 220px; gap: 26px; }
+.mega--narrow .mega-inner { grid-template-columns: 1fr; gap: 0; }
+
+/* Flex + min-height keeps the rules level when one heading wraps to two
+   lines ("Emergency & Critical Care"), so all three columns start together. */
+.mega-head {
+  display: flex; align-items: flex-end;
+  min-height: 3.1em;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs); line-height: 1.35;
+  letter-spacing: var(--tr-mono); text-transform: uppercase;
+  color: var(--care-700);
+  margin: 0 0 12px; padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+.mega-col ul { list-style: none; display: grid; gap: 2px; }
+.mega-col a {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 10px; min-height: 44px;
+  border-radius: var(--r-sm);
+  color: var(--body); font-size: var(--fs-sm); font-weight: 500;
+  transition: background var(--dur-fast) ease, color var(--dur-fast) ease;
+}
+.mega-col a .ico { width: 20px; height: 20px; color: var(--care-600); transition: color var(--dur-fast) ease; }
+.mega-col a:hover { background: var(--surface); color: var(--ink-900); }
+.mega-col a:hover .ico { color: var(--brand-600); }
+
+/* Terminal action: inverted so it reads as the end of the list. */
+.mega-all {
+  display: flex; flex-direction: column; justify-content: center; gap: 6px;
+  padding: 22px; border-radius: var(--r-md);
+  background: var(--ink-800); color: rgba(255,255,255,.72);
+}
+.mega-all:hover { background: var(--ink-900); color: rgba(255,255,255,.86); }
+.mega-all .ico--lg { color: var(--care-400); }
+.mega-all__t { font-weight: 600; color: #fff; font-size: var(--fs-lg); }
+.mega-all__s { font-size: var(--fs-sm); }
+.mega-all__go { display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: var(--tr-mono); text-transform: uppercase; color: var(--care-400); }
+.mega-all:hover .mega-all__go .ico { transform: translateX(3px); }
+.mega-all__go .ico { transition: transform var(--dur-fast) var(--ease-card); }
+
+@media (max-width: 1180px) { .mega { display: none !important; } }
+
+/* ------------------------------------------------------------
+   4. MOBILE DRAWER
+   ------------------------------------------------------------ */
+.drawer { position: fixed; inset: 0; z-index: 1000; }
+.drawer[hidden] { display: none; }
+.drawer__scrim {
+  position: absolute; inset: 0;
+  background: rgba(14,31,51,.55);
+  opacity: 0; transition: opacity var(--dur-mid) ease;
+}
+.drawer.is-open .drawer__scrim { opacity: 1; }
+.drawer__panel {
+  position: absolute; inset: 0 0 0 auto;
+  width: min(400px, 88vw);
+  background: var(--paper);
+  display: flex; flex-direction: column;
+  transform: translateX(100%);
+  transition: transform var(--dur-mid) var(--ease-card);
+  overflow-y: auto; overscroll-behavior: contain;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.drawer.is-open .drawer__panel { transform: translateX(0); }
+
+.drawer__top {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; padding: 16px var(--gutter);
+  border-bottom: 1px solid var(--line);
+  position: sticky; top: 0; background: var(--paper); z-index: 2;
+}
+.drawer__top .brand img { height: 34px; }
+.drawer__close {
+  background: none; border: 0; cursor: pointer;
+  width: 44px; height: 44px; display: grid; place-items: center;
+  border-radius: var(--r-sm); color: var(--ink-800); font-size: 1.3rem;
+}
+.drawer__close:hover { background: var(--surface); }
+
+.drawer__nav { padding: 8px var(--gutter) 0; flex: 1 1 auto; }
+.drawer__nav ul { list-style: none; }
+.drawer__nav > ul > li > a,
+.drawer__acc > button {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  width: 100%;
+  min-height: 52px; padding: 12px 4px;
+  background: none; border: 0; cursor: pointer;
+  font-family: var(--font-body); font-size: var(--fs-base); font-weight: 500;
+  color: var(--ink-800); text-align: left;
+  border-bottom: 1px solid var(--line);
+}
+.drawer__nav > ul > li > a[aria-current="page"] { color: var(--brand-600); font-weight: 600; }
+.drawer__acc > button .ico { transition: transform var(--dur-fast) ease; color: var(--muted); }
+.drawer__acc > button[aria-expanded="true"] { color: var(--brand-600); }
+.drawer__acc > button[aria-expanded="true"] .ico { transform: rotate(180deg); }
+.drawer__acc > ul { padding: 4px 0 12px 12px; display: grid; gap: 2px; }
+.drawer__acc > ul[hidden] { display: none; }
+.drawer__acc > ul a {
+  display: flex; align-items: center; min-height: 48px; padding: 8px 10px;
+  border-radius: var(--r-sm);
+  color: var(--body); font-size: var(--fs-sm);
+}
+.drawer__acc > ul a:hover { background: var(--surface); color: var(--ink-900); }
+
+.drawer__foot {
+  padding: 18px var(--gutter) 24px;
+  display: grid; gap: 10px;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+}
+
+@media (min-width: 1181px) { .drawer { display: none; } }

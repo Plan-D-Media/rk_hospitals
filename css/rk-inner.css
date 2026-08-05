@@ -20,7 +20,17 @@
 .prose h3 { margin-top: 1.4em; font-size: 1.2rem; }
 .prose ul:not([class]) { padding-left: 0; list-style: none; display: grid; gap: 10px; margin: 1rem 0 1.4rem; }
 .prose ul:not([class]) li { display: flex; gap: 11px; align-items: flex-start; }
-.prose ul:not([class]) li::before { content: "\f058"; font-family: "Font Awesome 5 Free"; font-weight: 900; color: var(--magenta); margin-top: 2px; }
+/* Tick bullet. Was a Font Awesome glyph (\f058) in a pseudo-element; a
+   pseudo-element cannot host an <svg><use>, so it is an inline data URI.
+   Colour is baked into the URI (stroke %23A32148 = --brand-600) because a
+   background image cannot read currentColor. */
+.prose ul:not([class]) li::before {
+  content: "";
+  flex: none;
+  width: 1.15em; height: 1.15em;
+  margin-top: .26em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A32148' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='m9 12 2 2 4-4'/%3E%3C/svg%3E") center / contain no-repeat;
+}
 .prose img { border-radius: var(--r); margin: 1.2rem 0; }
 .lead-figure { border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 28px; }
 
@@ -57,8 +67,21 @@
 .faq { background: #fff; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
 .faq summary { cursor: pointer; padding: 18px 22px; font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; color: var(--ink); list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
 .faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { content: "\f067"; font-family: "Font Awesome 5 Free"; font-weight: 900; color: var(--magenta); font-size: .85rem; flex: none; }
-.faq[open] summary::after { content: "\f068"; }
+/* Expand/collapse toggle. Was Font Awesome \f067 / \f068; now two CSS bars —
+   the vertical one is dropped when open, turning + into −. No font needed. */
+.faq summary::after {
+  content: "";
+  flex: none;
+  width: 14px; height: 14px;
+  background:
+    linear-gradient(var(--brand-600), var(--brand-600)) center / 14px 2px no-repeat,
+    linear-gradient(var(--brand-600), var(--brand-600)) center / 2px 14px no-repeat;
+  transition: transform var(--dur-fast) var(--ease-card);
+}
+.faq[open] summary::after {
+  background: linear-gradient(var(--brand-600), var(--brand-600)) center / 14px 2px no-repeat;
+  transform: rotate(180deg);
+}
 .faq .faq-body { padding: 0 22px 20px; color: var(--ink-soft); }
 .faq .faq-body p { margin: 0; }
 

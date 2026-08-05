@@ -26,39 +26,9 @@
     window.dataLayer.push(payload);
   }
 
-  // ---- MOBILE NAV ------------------------------------------------------
-  var toggle = document.querySelector(".nav-toggle");
-  var links = document.querySelector(".nav-links");
-  var backdrop = document.querySelector(".nav-backdrop");
-  function closeNav() {
-    if (!links) return;
-    links.classList.remove("open");
-    if (backdrop) backdrop.classList.remove("open");
-    if (toggle) toggle.setAttribute("aria-expanded", "false");
-    document.body.style.overflow = "";
-  }
-  function openNav() {
-    links.classList.add("open");
-    if (backdrop) backdrop.classList.add("open");
-    toggle.setAttribute("aria-expanded", "true");
-    document.body.style.overflow = "hidden";
-  }
-  if (toggle && links) {
-    toggle.addEventListener("click", function () {
-      links.classList.contains("open") ? closeNav() : openNav();
-    });
-  }
-  if (backdrop) backdrop.addEventListener("click", closeNav);
-  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeNav(); });
-  // On mobile, tapping a parent with a submenu should expand it, not navigate "#"
-  document.querySelectorAll(".nav-links .has-sub > a").forEach(function (a) {
-    a.addEventListener("click", function (e) {
-      if (window.innerWidth <= 1040 && a.getAttribute("href") === "#") {
-        e.preventDefault();
-        a.parentElement.classList.toggle("sub-open");
-      }
-    });
-  });
+  // ---- MOBILE NAV ----------------------------------------------------
+  // Moved to rk-ui.js in step 3, together with the mega-panel, the focus
+  // trap and the scroll lock. Nothing nav-related belongs in this file.
 
   // ---- TRACKING HOOKS: calls, whatsapp ---------------------------------
   document.querySelectorAll('a[href^="tel:"]').forEach(function (a) {
