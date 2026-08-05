@@ -404,13 +404,21 @@
 
 /* Two large soft radials at FULL strength. These are near-white tints —
    at the 0.5 opacity originally specified they rendered as nothing. */
+/* The lower-left tint must reach transparent BEFORE the hero's bottom edge.
+   Radii are percentages, not vw: a vw radius does not scale with the band's
+   height, so the falloff ran past the bottom and overflow:hidden cut it into
+   a hard horizontal line where the next section begins. At centre 45% with a
+   55% vertical radius, transparent is reached by ~86% of the height.
+
+   The top-right tint is anchored off-canvas on purpose — clipping at the
+   viewport's own top/right corner reads as a glow from outside the frame,
+   which is different from a gradient severed on an internal boundary. */
 .hero__canvas {
   position: absolute; inset: 0; pointer-events: none; z-index: 0;
   background:
-    radial-gradient(60vw 60vw at 0% 100%, var(--brand-050), transparent 70%),
-    radial-gradient(50vw 50vw at 100% 0%, var(--care-100), transparent 70%);
+    radial-gradient(72% 55% at -6% 45%, var(--brand-050), transparent 74%),
+    radial-gradient(60% 62% at 104% -4%, var(--care-100), transparent 76%);
 }
-
 
 .hero__grid {
   position: relative; z-index: 1;

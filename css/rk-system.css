@@ -177,6 +177,10 @@
   --sp-24: 96px; --sp-32: 128px;
 
   --section-y: clamp(64px, 9vw, 128px);
+  /* Widens at large viewports so the dead zone left of the copy column stops
+     growing. Applied to the shared token, not to the hero alone: the hero
+     copy is aligned to the header logo at every width and must stay that way,
+     so both have to move together. */
   --container: 1200px;
   --container-wide: 1360px;
   --gutter: clamp(20px, 4vw, 40px);
@@ -198,6 +202,10 @@
 
   --header-h: 88px;
   --header-h-stuck: 68px;
+}
+
+@media (min-width: 1560px) {
+  :root { --container: 1360px; }
 }
 
 /* ------------------------------------------------------------
