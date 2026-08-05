@@ -40,15 +40,9 @@
     a.addEventListener("click", function () { track("whatsapp_click"); });
   });
 
-  // ---- EMPANELMENT "SHOW MORE" ----------------------------------------
-  var moreBtn = document.getElementById("empanel-toggle");
-  if (moreBtn) {
-    moreBtn.addEventListener("click", function () {
-      var extra = document.getElementById("empanel-extra");
-      var open = extra.classList.toggle("show");
-      moreBtn.textContent = open ? "Show fewer" : moreBtn.getAttribute("data-more-label");
-    });
-  }
+  // ---- EMPANELMENT SHOW-MORE -------------------------------------
+  // Removed in step 5: the logo wall is now a pill marquee with a
+  // focus-trapped searchable modal (rk-ui.js), not a show/hide toggle.
 
   // ---- VALIDATION HELPERS ----------------------------------------------
   // Indian mobile: 10 digits starting 6-9, optionally prefixed with +91 / 91.

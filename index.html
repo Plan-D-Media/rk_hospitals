@@ -742,54 +742,110 @@
   </section>
 
   <!-- ============================================================
-       9 · CASHLESS / TPA / EMPANELMENT — logo wall
+       9 · CASHLESS / TPA / EMPANELMENT
+       The grey 21-card grid is gone. A tidy field of name pills reads as
+       deliberate where a grid of grey boxes read as broken images.
        ============================================================ -->
-  <section class="section reveal" id="cashless">
+  <section class="section section--surface reveal" id="cashless">
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Cashless &amp; empanelment</span>
         <h2>Cashless treatment for schemes, PSUs &amp; corporates</h2>
         <p>Bring your scheme, PSU or insurance details and the cashless desk will verify your eligibility before admission.</p>
       </div>
+    </div>
 
-      <div class="logo-wall-head">
-        <span class="lw-num">60+</span>
-        <span class="lw-lbl">government health schemes, public-sector undertakings and TPAs we are empanelled with, so eligible patients can be treated cashless.<!-- TODO: confirm exact count --></span>
+    <!-- Decorative. The authoritative list is the visually-hidden <ul> below
+         and the "Show all" modal — a screen reader and a keyboard user get
+         every name without this animation existing. -->
+    <div class="ep-vel" data-ep-velocity>
+        <div class="ep-vel__row" data-base="80" aria-hidden="true">
+          <div class="ep-vel__track" data-track>
+            <span class="ep-vel__copy" data-copy><span class="ep-pill">West Bengal Health Scheme</span><span class="ep-pill">Ayushman Bharat</span><span class="ep-pill">SAIL</span><span class="ep-pill">Coal India</span><span class="ep-pill">Eastern Railway</span><span class="ep-pill">Indian Oil (IOCL)</span><span class="ep-pill">HPCL</span><span class="ep-pill">BPCL</span><span class="ep-pill">ONGC</span><span class="ep-pill">SBI</span><span class="ep-pill">TCS</span></span>
+          </div>
+        </div>
+        <div class="ep-vel__row" data-base="-80" aria-hidden="true">
+          <div class="ep-vel__track" data-track>
+            <span class="ep-vel__copy" data-copy><span class="ep-pill">Tata Steel</span><span class="ep-pill">BSNL</span><span class="ep-pill">BSF</span><span class="ep-pill">CISF</span><span class="ep-pill">Ordnance Factory</span><span class="ep-pill">Gun &amp; Shell Factory</span><span class="ep-pill">Rifle Factory Ishapore</span><span class="ep-pill">Kolkata Port Trust</span><span class="ep-pill">IIT Kharagpur</span><span class="ep-pill">Jadavpur University</span></span>
+          </div>
+        </div>
+    </div>
+
+    <ul class="visually-hidden">
+      <li>Empanelments include:</li>
+      <li>West Bengal Health Scheme</li>
+      <li>Ayushman Bharat</li>
+      <li>SAIL</li>
+      <li>Coal India</li>
+      <li>Eastern Railway</li>
+      <li>Indian Oil (IOCL)</li>
+      <li>HPCL</li>
+      <li>BPCL</li>
+      <li>ONGC</li>
+      <li>SBI</li>
+      <li>TCS</li>
+      <li>Tata Steel</li>
+      <li>BSNL</li>
+      <li>BSF</li>
+      <li>CISF</li>
+      <li>Ordnance Factory</li>
+      <li>Gun &amp; Shell Factory</li>
+      <li>Rifle Factory Ishapore</li>
+      <li>Kolkata Port Trust</li>
+      <li>IIT Kharagpur</li>
+      <li>Jadavpur University</li>
+    </ul>
+
+    <div class="container">
+      <div class="ep-foot">
+        <button type="button" class="btn btn--outline" data-modal-open="ep-modal" aria-expanded="false">
+          <svg class="ico" aria-hidden="true"><use href="#i-grid"/></svg>
+          Show all 60+ empanelments
+        </button>
+        <p class="ep-note">Carry your scheme, PSU or insurance card so the desk can verify eligibility.</p>
       </div>
+    </div>
 
-      <!-- Each tile: a logo placeholder + the scheme name. The name below the
-           logo is the accessible label, so the img itself is decorative (alt=""). -->
-      <div class="logo-wall">
-        <div class="lw-item"><!-- TODO: real logo: West Bengal Health Scheme, 160x80 --><img src="images/placeholders/ph-160x80.svg" width="160" height="80" alt="" loading="lazy"><span class="lw-name">West Bengal Health Scheme</span></div>
-        <div class="lw-item"><!-- TODO: real logo: Ayushman Bharat, 160x80 --><img src="images/placeholders/ph-160x80.svg" width="160" height="80" alt="" loading="lazy"><span class="lw-name">Ayushman Bharat</span></div>
-        <div class="lw-item"><!-- TODO: real logo: SAIL, 160x80 --><img src="images/placeholders/ph-160x80.svg" width="160" height="80" alt="" loading="lazy"><span class="lw-name">SAIL</span></div>
-        <div class="lw-item"><!-- TODO: real logo: Coal India, 160x80 --><img src="images/placeholders/ph-160x80.svg" width="160" height="80" alt="" loading="lazy"><span class="lw-name">Coal India</span></div>
-        <div class="lw-item"><!-- TODO: real logo: Eastern Railway, 160x80 --><img src="images/placeholders/ph-160x80.svg" width="160" height="80" alt="" loading="lazy"><span class="lw-name">Eastern Railway</span></div>
-        <div class="lw-item"><!-- TODO: real logo: Indian Oil (IOCL), 160x80 --><img src="images/placeholders/ph-160x80.svg" width="160" height="80" alt="" loading="lazy"><span class="lw-name">Indian Oil (IOCL)</span></div>
-        <div class="lw-item"><!-- TODO: real logo: HPCL, 160x80 --><img src="images/placeholders/ph-160x80.svg" width="160" height="80" alt="" loading="lazy"><span class="lw-name">HPCL</span></div>
-        <div class="lw-item"><!-- TODO: real logo: BPCL, 160x80 --><img src="images/placeholders/ph-160x80.svg" width="160" height="80" alt="" loading="lazy"><span class="lw-name">BPCL</span></div>
-        <div class="lw-item"><!-- TODO: real logo: ONGC, 160x80 --><img src="images/placeholders/ph-160x80.svg" width="160" height="80" alt="" loading="lazy"><span class="lw-name">ONGC</span></div>
-        <div class="lw-item"><!-- TODO: real logo: SBI, 160x80 --><img src="images/placeholders/ph-160x80.svg" width="160" height="80" alt="" loading="lazy"><span class="lw-name">SBI</span></div>
-        <div class="lw-item"><!-- TODO: real logo: TCS, 160x80 --><img src="images/placeholders/ph-160x80.svg" width="160" height="80" alt="" loading="lazy"><span class="lw-name">TCS</span></div>
-        <div class="lw-item"><!-- TODO: real logo: Tata Steel, 160x80 --><img src="images/placeholders/ph-160x80.svg" width="160" height="80" alt="" loading="lazy"><span class="lw-name">Tata Steel</span></div>
-
-        <span id="empanel-extra">
-          <div class="lw-item"><!-- TODO: real logo: BSNL, 160x80 --><img src="images/placeholders/ph-160x80.svg" width="160" height="80" alt="" loading="lazy"><span class="lw-name">BSNL</span></div>
-          <div class="lw-item"><!-- TODO: real logo: BSF, 160x80 --><img src="images/placeholders/ph-160x80.svg" width="160" height="80" alt="" loading="lazy"><span class="lw-name">BSF</span></div>
-          <div class="lw-item"><!-- TODO: real logo: CISF, 160x80 --><img src="images/placeholders/ph-160x80.svg" width="160" height="80" alt="" loading="lazy"><span class="lw-name">CISF</span></div>
-          <div class="lw-item"><!-- TODO: real logo: Ordnance Factory, 160x80 --><img src="images/placeholders/ph-160x80.svg" width="160" height="80" alt="" loading="lazy"><span class="lw-name">Ordnance Factory</span></div>
-          <div class="lw-item"><!-- TODO: real logo: Gun &amp; Shell Factory, 160x80 --><img src="images/placeholders/ph-160x80.svg" width="160" height="80" alt="" loading="lazy"><span class="lw-name">Gun &amp; Shell Factory</span></div>
-          <div class="lw-item"><!-- TODO: real logo: Rifle Factory Ishapore, 160x80 --><img src="images/placeholders/ph-160x80.svg" width="160" height="80" alt="" loading="lazy"><span class="lw-name">Rifle Factory Ishapore</span></div>
-          <div class="lw-item"><!-- TODO: real logo: Kolkata Port Trust, 160x80 --><img src="images/placeholders/ph-160x80.svg" width="160" height="80" alt="" loading="lazy"><span class="lw-name">Kolkata Port Trust</span></div>
-          <div class="lw-item"><!-- TODO: real logo: IIT Kharagpur, 160x80 --><img src="images/placeholders/ph-160x80.svg" width="160" height="80" alt="" loading="lazy"><span class="lw-name">IIT Kharagpur</span></div>
-          <div class="lw-item"><!-- TODO: real logo: Jadavpur University, 160x80 --><img src="images/placeholders/ph-160x80.svg" width="160" height="80" alt="" loading="lazy"><span class="lw-name">Jadavpur University</span></div>
-        </span>
-      </div>
-
-      <div class="logo-wall-more">
-        <button class="btn btn--ghost" id="empanel-toggle" data-more-label="Show all empanelments (60+)">Show all empanelments (60+)</button>
-        <p class="logo-wall-note">Carry your scheme, PSU or insurance card so the desk can verify eligibility.</p>
-        <!-- TODO: pull the full empanelment list from rkhospitals.in, confirm the exact total, and supply each partner logo -->
+    <div class="modal" id="ep-modal" hidden>
+      <div class="modal__scrim" data-modal-close></div>
+      <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="ep-modal-t">
+        <div class="modal__head">
+          <h3 id="ep-modal-t">Cashless empanelments</h3>
+          <button type="button" class="modal__close" aria-label="Close" data-modal-close>
+            <svg class="ico" aria-hidden="true"><use href="#i-x"/></svg>
+          </button>
+        </div>
+        <div class="modal__search">
+          <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>
+          <input type="search" data-modal-search placeholder="Search for your scheme or employer" aria-label="Search empanelments">
+        </div>
+        <p class="modal__count" data-filter-count aria-live="polite">21 empanelments</p>
+        <div class="modal__body">
+          <ul class="ep-list">
+            <li data-filter-item>West Bengal Health Scheme</li>
+            <li data-filter-item>Ayushman Bharat</li>
+            <li data-filter-item>SAIL</li>
+            <li data-filter-item>Coal India</li>
+            <li data-filter-item>Eastern Railway</li>
+            <li data-filter-item>Indian Oil (IOCL)</li>
+            <li data-filter-item>HPCL</li>
+            <li data-filter-item>BPCL</li>
+            <li data-filter-item>ONGC</li>
+            <li data-filter-item>SBI</li>
+            <li data-filter-item>TCS</li>
+            <li data-filter-item>Tata Steel</li>
+            <li data-filter-item>BSNL</li>
+            <li data-filter-item>BSF</li>
+            <li data-filter-item>CISF</li>
+            <li data-filter-item>Ordnance Factory</li>
+            <li data-filter-item>Gun &amp; Shell Factory</li>
+            <li data-filter-item>Rifle Factory Ishapore</li>
+            <li data-filter-item>Kolkata Port Trust</li>
+            <li data-filter-item>IIT Kharagpur</li>
+            <li data-filter-item>Jadavpur University</li>
+          </ul>
+          <!-- TODO: the full 60+ list from the client; these are the confirmed names -->
+        </div>
       </div>
     </div>
   </section>
@@ -1080,6 +1136,7 @@
 </div>
 
 <script src="js/rk-open-now.js" defer></script>
+<script src="js/rk-scroll-velocity.js" defer></script>
 <script src="js/rk-ui.js" defer></script>
 <script src="js/rk-main.js" defer></script>
 </body>

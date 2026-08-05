@@ -195,3 +195,72 @@
     });
   });
 })();
+
+/* ============================================================
+   MODAL — focus-trapped, Esc closes, focus returns, scroll locked.
+   Generic: any [data-modal-open="id"] opens #id.
+   Optional [data-modal-search] filters [data-filter-item] live.
+   ============================================================ */
+(function () {
+  "use strict";
+  var openers = document.querySelectorAll("[data-modal-open]");
+  if (!openers.length) return;
+
+  openers.forEach(function (btn) {
+    var modal = document.getElementById(btn.getAttribute("data-modal-open"));
+    if (!modal) return;
+    var release = null, lastFocus = null;
+
+    function close() {
+      if (modal.hidden) return;
+      modal.classList.remove("is-open");
+      btn.setAttribute("aria-expanded", "false");
+      window.rkUnlockScroll();
+      if (release) { release(); release = null; }
+      window.setTimeout(function () {
+        if (!modal.classList.contains("is-open")) modal.hidden = true;
+      }, 200);
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    function open() {
+      lastFocus = document.activeElement;
+      modal.hidden = false;
+      void modal.offsetWidth;
+      modal.classList.add("is-open");
+      btn.setAttribute("aria-expanded", "true");
+      window.rkLockScroll();
+      release = window.rkTrapFocus(modal);
+      var search = modal.querySelector("[data-modal-search]");
+      (search || modal.querySelector("[data-modal-close]") || modal).focus();
+    }
+
+    btn.addEventListener("click", open);
+    modal.querySelectorAll("[data-modal-close]").forEach(function (c) {
+      c.addEventListener("click", close);
+    });
+    modal.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") { e.stopPropagation(); close(); }
+    });
+
+    var search = modal.querySelector("[data-modal-search]");
+    if (search) {
+      var items = Array.prototype.slice.call(modal.querySelectorAll("[data-filter-item]"));
+      var count = modal.querySelector("[data-filter-count]");
+      search.addEventListener("input", function () {
+        var q = search.value.trim().toLowerCase();
+        var shown = 0;
+        items.forEach(function (it) {
+          var hit = !q || it.textContent.toLowerCase().indexOf(q) !== -1;
+          it.hidden = !hit;
+          if (hit) shown++;
+        });
+        if (count) {
+          count.textContent = q
+            ? shown + (shown === 1 ? " match" : " matches")
+            : items.length + " empanelments";
+        }
+      });
+    }
+  });
+})();
