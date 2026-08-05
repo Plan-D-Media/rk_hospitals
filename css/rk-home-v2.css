@@ -34,7 +34,6 @@
 .home .btn .ico { width: 1.05em; height: 1.05em; }
 .home .chip .ico,
 .home .util-left .loc .ico { color: var(--magenta); }
-.home .diag-list .d .ico { color: var(--magenta); margin-top: 2px; font-size: 1.18rem; }
 .home .pkg-card ul .ico { color: var(--magenta); margin-top: 5px; }
 .home .footer-nap .ico { color: var(--magenta); margin-top: 4px; }
 .home .footer-social .ico { width: 17px; height: 17px; }
@@ -55,48 +54,7 @@
    The carousel and the typewriter are gone (their JS is deleted); the
    quick-action row is rebuilt in rk-blocks.css. */
 
-/* ---------- 6. SPECIALTY TILES + WHY CARDS ---------- */
-/* Rounded geometry echoes the logo's soft mark; the hairline top rule
-   lights up magenta on hover so the whole grid reads as one system. */
-.home .coe-tile {
-  border-radius: var(--r-lg);
-  padding: 30px 26px 26px;
-  position: relative;
-  overflow: hidden;
-}
-.home .coe-tile::before {
-  content: ""; position: absolute; inset: 0 auto auto 0;
-  height: 3px; width: 100%;
-  background: var(--magenta);
-  transform: scaleX(0); transform-origin: left;
-  transition: transform .32s cubic-bezier(.22,.8,.3,1);
-}
-.home .coe-tile:hover::before { transform: scaleX(1); }
-.home .coe-tile .ci {
-  width: 58px; height: 58px; border-radius: 18px;
-  font-size: 1.5rem;
-  transition: background .18s ease, color .18s ease;
-}
-.home .coe-tile:hover .ci { background: var(--magenta); color: #fff; }
-.home .coe-tile h3 { font-size: 1.14rem; letter-spacing: -.015em; }
-.home .coe-tile p { min-height: 2.9em; }
-.home .coe-tile .more .ico { transition: transform .18s ease; }
-.home .coe-tile:hover .more .ico { transform: translateX(3px); }
-
-.home .why-card { border-radius: var(--r-lg); padding: 32px 28px; }
-.home .why-card .wi { width: 54px; height: 54px; border-radius: 17px; font-size: 1.4rem; }
-
-/* ---------- 7. DIAGNOSTICS LIST ---------- */
-.home .diag-list .d {
-  border-radius: var(--r);
-  padding: 16px 18px;
-  transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
-}
-.home .diag-list .d:hover {
-  border-color: #efd7e0;
-  box-shadow: var(--shadow-sm);
-  transform: translateY(-2px);
-}
+/* 6-7. SPECIALTY TILES, WHY CARDS, DIAGNOSTICS LIST — removed in step 5. */
 
 /* ---------- 8. DOCTORS PREVIEW ---------- */
 .home .doc-card { border-radius: var(--r-lg); }
