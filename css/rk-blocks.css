@@ -76,6 +76,22 @@
 .rk-header.is-over-hero:not(.is-stuck) .util-cb:hover { color: var(--ink-900); }
 .rk-header.is-over-hero:not(.is-stuck) .util-loc .ico { color: var(--brand-500); }
 
+/* Only ONE crimson fill may be visible at a time (see the action-hierarchy
+   rule in rk-system.css). Over the hero, the hero's own CTA is the primary
+   fill, so the header's is an ink outline; it solidifies to crimson once the
+   header sticks — gaining weight exactly as the hero's CTA scrolls away.
+   .btn already carries a 1.5px border (transparent when filled), so this is a
+   colour change only and cannot reflow. */
+.rk-header.is-over-hero:not(.is-stuck) .nav-book {
+  --btn-bg: transparent;
+  --btn-fg: var(--ink-800);
+  --btn-bd: var(--line-strong);
+}
+.rk-header.is-over-hero:not(.is-stuck) .nav-book:hover {
+  --btn-bd: var(--brand-600);
+  --btn-fg: var(--ink-900);
+}
+
 .brand { display: inline-flex; align-items: center; flex: 0 0 auto; }
 /* width:auto + max-width:none are load-bearing: width="300" is a
    presentational hint, and .brand is a flex child — without these the nav
@@ -376,80 +392,123 @@
 }
 
 /* ------------------------------------------------------------
-   6. HERO — asymmetric split
+   6. HERO — asymmetric split, tinted canvas, right-bleeding photo
    ------------------------------------------------------------ */
-.hero { position: relative; overflow: hidden; background: var(--paper); }
+.hero {
+  position: relative;
+  overflow: hidden;
+  /* --surface, not --paper: on paper the hero and the header dissolved
+     into one another and the composition had no ground. */
+  background: var(--surface);
+}
 
-/* Very low-contrast radial mesh. Should be felt, not seen. */
-.hero__mesh {
+/* Two large soft radials at FULL strength. These are near-white tints —
+   at the 0.5 opacity originally specified they rendered as nothing. */
+.hero__canvas {
   position: absolute; inset: 0; pointer-events: none; z-index: 0;
   background:
-    radial-gradient(58% 48% at 88% 12%, var(--brand-050) 0%, transparent 70%),
-    radial-gradient(46% 42% at 4% 88%, var(--care-100) 0%, transparent 72%);
-  opacity: .5;
+    radial-gradient(60vw 60vw at 0% 100%, var(--brand-050), transparent 70%),
+    radial-gradient(50vw 50vw at 100% 0%, var(--care-100), transparent 70%);
 }
+
 
 .hero__grid {
   position: relative; z-index: 1;
   display: grid;
   grid-template-columns: 58fr 42fr;
-  gap: clamp(32px, 5vw, 72px);
+  gap: clamp(28px, 4vw, 56px);
   align-items: center;
-  /* clears the transparent header sitting over it */
-  padding-top: clamp(140px, 15vh, 210px);
-  padding-bottom: clamp(96px, 12vh, 150px);
+  /* Tuned so the quick-action row's overlap is inside a 1440x900 viewport:
+     the overlap is what grounds the hero, and it is worth nothing below
+     the fold. Height is driven by the copy column, not the photo. */
+  padding-top: clamp(112px, 13vh, 150px);
+  padding-bottom: clamp(64px, 8vh, 96px);
 }
 .hero__grid > * { min-width: 0; }
 
 .hero__copy .eyebrow { color: var(--brand-600); }
-.hero h1 { margin: 0 0 18px; max-width: 16ch; }
+.hero h1 { margin: 0 0 16px; max-width: 15ch; }
 .hero h1 .accent { color: var(--brand-500); }
 .hero__sub {
   font-size: var(--fs-lg); line-height: 1.55;
-  color: var(--muted); max-width: 46ch; margin: 0 0 30px;
+  color: var(--muted); max-width: 44ch; margin: 0 0 26px;
 }
-.hero__cta { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 34px; }
+.hero__cta { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 26px; }
 
-.hero__trust { list-style: none; display: grid; gap: 12px; }
-.hero__trust li {
-  display: flex; align-items: center; gap: 11px;
-  font-size: var(--fs-sm); color: var(--ink-700);
+/* J1d — proof points as pills, not small print. */
+.hero__trust { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; }
+.trust-pill {
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 10px 18px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  font-size: var(--fs-sm);
+  color: var(--ink-700);
+  box-shadow: var(--sh-1);
 }
-.hero__trust .ico { width: 18px; height: 18px; color: var(--care-600); }
+.trust-pill .ico { width: 16px; height: 16px; color: var(--care-600); flex: none; }
 
-.hero__media { position: relative; }
+/* J1b — the photo escapes the container to the right.
+
+   The bleed is measured from the CONTAINER's right edge to the viewport's,
+   not from this element's own box: a `50%` here resolves against the grid
+   column, which pushed the frame 337px past the viewport and scrolled the
+   page sideways.
+
+   The effective viewport is capped at 1600px. The crop is 752x940 native, so
+   beyond that the bleed would upscale it and go visibly soft on a DPR-1
+   desktop. Above 1600px the canvas simply shows to the right of the photo.  */
+.hero__media {
+  position: relative;
+  align-self: stretch;
+  min-height: 460px;
+  margin-right: calc(-1 * (max(0px, (min(100vw, 1600px) - var(--container)) / 2) + var(--gutter)));
+}
+/* Absolutely positioned so the photo FILLS the row rather than defining it.
+   With height:100% the frame's height and the row's height each depended on
+   the other and the hero grew to 1179px. */
 .hero__frame {
-  position: relative; margin: 0;
-  border-radius: var(--r-xl); overflow: hidden;
-  aspect-ratio: 4 / 5;
+  position: absolute; inset: 0; margin: 0;
+  overflow: hidden;
+  /* Left corners only. This is the change that stops it reading as a box. */
+  border-radius: var(--r-xl) 0 0 var(--r-xl);
   box-shadow: var(--sh-3);
   background: var(--surface-2);
 }
-.hero__frame img { width: 100%; height: 100%; object-fit: cover; }
+.hero__frame img { width: 100%; height: 100%; object-fit: cover; object-position: 62% center; }
 .hero__scrim {
-  position: absolute; inset: auto 0 0 0; height: 42%;
-  background: linear-gradient(transparent, rgba(14,31,51,.42));
+  position: absolute; inset: auto 0 0 0; height: 38%;
+  background: linear-gradient(transparent, rgba(14,31,51,.38));
   pointer-events: none;
 }
 
-/* Offset outside the frame by 24px at the lower-left. */
+/* J1c — the card straddles the photo's left edge: ~40% on the canvas,
+   ~60% on the image. One element crossing one boundary is what creates
+   the depth; a gradient cannot do it. */
 .hero .open-now {
-  position: absolute; left: -24px; bottom: 28px;
-  width: min(340px, 92%);
+  position: absolute; left: 0; bottom: 34px;
+  transform: translateX(-40%);
+  width: min(340px, 78%);
   z-index: 2;
+  box-shadow: var(--sh-3);
 }
 
 @media (max-width: 860px) {
   .hero__grid {
     grid-template-columns: 1fr;
-    padding-top: clamp(104px, 13vh, 150px);
-    padding-bottom: 84px;
+    padding-top: clamp(96px, 12vh, 132px);
+    padding-bottom: 72px;
+    gap: 34px;
   }
-  .hero__media { order: -1; }
-  .hero__frame { aspect-ratio: 16 / 10; }
+  .hero__media { order: -1; margin-right: calc(-1 * var(--gutter)); align-self: auto; min-height: 0; }
+  .hero__frame { position: relative; inset: auto; aspect-ratio: 16 / 10; border-radius: var(--r-lg) 0 0 var(--r-lg); }
   .hero h1 { max-width: none; }
-  .hero .open-now { left: 0; right: 0; bottom: -18px; width: auto; }
-  .hero__copy { padding-top: 26px; }
+  /* Card overlaps the photo's bottom edge by ~32px. */
+  .hero .open-now {
+    position: relative; left: auto; bottom: auto; transform: none;
+    width: auto; margin: -32px var(--gutter) 0 0;
+  }
 }
 @media (max-width: 560px) {
   .hero__cta .btn { flex: 1 1 100%; }
