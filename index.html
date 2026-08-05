@@ -504,42 +504,56 @@
   </div>
 
   <!-- ============================================================
-       3 · TRUST BAR (verified — no fabricated numbers)
+       3 · STATS BAND — full-bleed ink. Verified figures only.
        ============================================================ -->
-  <section class="section reveal" style="padding-top:clamp(40px,5vw,64px);padding-bottom:clamp(40px,5vw,64px)">
+  <section class="section section--ink stats reveal">
     <div class="container">
-      <div class="trust-bar">
-        <div class="ti"><span class="num">16+</span><span class="lbl">Specialities under one roof</span></div>
-        <div class="ti"><span class="num">24×7</span><span class="lbl">Emergency with triage</span></div>
-        <div class="ti"><span class="num">CT</span><span class="lbl">In-house diagnostics up to CT scan</span></div>
-        <div class="ti"><span class="num">60+</span><span class="lbl">Cashless schemes &amp; PSUs<!-- TODO: confirm exact count --></span></div>
+      <div class="stats-grid">
+        <div class="stat"><span class="stat__n" data-count-to="16" data-suffix="+">16+</span><span class="stat__l">Specialities under one roof</span></div>
+        <div class="stat"><span class="stat__n">24&times;7</span><span class="stat__l">Emergency with triage</span></div>
+        <div class="stat"><span class="stat__n">CT</span><span class="stat__l">In-house diagnostics up to CT</span></div>
+        <div class="stat"><span class="stat__n" data-count-to="60" data-suffix="+">60+</span><span class="stat__l">Cashless schemes &amp; PSUs</span></div>
       </div>
     </div>
   </section>
 
   <!-- ============================================================
-       4 · ABOUT SNIPPET
+       4 · ABOUT — layered composition, image left
        ============================================================ -->
-  <section class="section section--neutral reveal">
+  <section class="section reveal">
     <div class="container">
-      <div class="about-split">
-        <div class="about-media">
-          <!-- TODO: real photo: hospital building / founder, 1200x1200 -->
-          <img src="images/placeholders/ph-building-1x1.svg" width="1200" height="1200" alt="Ramakrishna Multispeciality Hospital building in Barrackpore" loading="lazy">
+      <div class="about">
+        <div class="about__media">
+          <figure class="about__big frame frame--4x3">
+            <!-- TODO: real photo: hospital exterior on Ghoshpara Road, 1200x1200 -->
+            <img src="images/placeholders/ph-building-1x1.svg" width="1200" height="1200" alt="Ramakrishna Multispeciality Hospital building in Barrackpore" loading="lazy" decoding="async">
+          </figure>
+          <figure class="about__inset frame frame--1x1">
+            <!-- TODO: real photo: care team with a patient, 1200x900 -->
+            <img src="images/placeholders/ph-facility-4x3.svg" width="1200" height="900" alt="Care team attending to a patient at Ramakrishna Multispeciality Hospital" loading="lazy" decoding="async">
+          </figure>
+          <span class="about__rule" aria-hidden="true"></span>
         </div>
-        <div class="about-copy">
-          <span class="eyebrow">About the hospital</span>
+
+        <div class="about__copy">
+          <span class="eyebrow eyebrow--brand">About the hospital</span>
           <h2>Quality specialist care, kept close to Barrackpore</h2>
           <p class="lede">Ramakrishna Multispeciality Hospital is a unit of Sarbani Hospitality and HealthCare Services Pvt Ltd. It was founded by Sarbani Das, who brings 18 years in hospitality to the way patients and families are looked after here.</p>
           <p>The hospital was started with one aim: make quality, specialist healthcare accessible to families in Barrackpore — the kind of care that usually meant a trip into central Kolkata. From emergencies to planned surgery and everyday check-ups, more of it now happens close to home.</p>
-          <ul class="about-list">
+
+          <ul class="ticklist">
             <li><svg class="ico" aria-hidden="true"><use href="#i-check-circle"/></svg> Specialist-led departments across 16+ specialities</li>
             <li><svg class="ico" aria-hidden="true"><use href="#i-check-circle"/></svg> Round-the-clock emergency, critical care and diagnostics</li>
             <li><svg class="ico" aria-hidden="true"><use href="#i-check-circle"/></svg> Cashless treatment for government schemes, PSUs and TPAs</li>
           </ul>
-          <div class="about-split-cta" style="margin-top:26px">
-            <a class="btn btn--ghost" href="/about-us">Read our full story <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
-          </div>
+
+          <!-- Pull-quote drawn from existing copy — no new claim. -->
+          <blockquote class="pullquote">
+            <p>Make quality, specialist healthcare accessible to families in Barrackpore.</p>
+            <cite>Sarbani Das, founder</cite>
+          </blockquote>
+
+          <a class="link-arrow" href="/about-us">Read our full story <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
         </div>
       </div>
     </div>

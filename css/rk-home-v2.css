@@ -34,7 +34,6 @@
 .home .btn .ico { width: 1.05em; height: 1.05em; }
 .home .chip .ico,
 .home .util-left .loc .ico { color: var(--magenta); }
-.home .about-list .ico { color: var(--magenta); margin-top: 4px; }
 .home .diag-list .d .ico { color: var(--magenta); margin-top: 2px; font-size: 1.18rem; }
 .home .pkg-card ul .ico { color: var(--magenta); margin-top: 5px; }
 .home .footer-nap .ico { color: var(--magenta); margin-top: 4px; }
