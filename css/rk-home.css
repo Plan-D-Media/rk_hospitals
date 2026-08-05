@@ -15,11 +15,7 @@
 /* SPECIALITIES, WHY US and DIAGNOSTICS — superseded in step 5 by
    rk-blocks.css sections 12-14. */
 
-/* ---------- DOCTORS ---------- */
-.docs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-/* .doc-card lives in rk-theme.css — shared by home, landing and department pages. */
-@media (max-width: 940px) { .docs-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 460px) { .docs-grid { grid-template-columns: 1fr; } }
+/* DOCTORS — rebuilt in step 5. */
 
 /* ---------- CASHLESS / EMPANELMENT ---------- */
 .empanel-wrap { background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg); padding: clamp(26px,4vw,42px); box-shadow: var(--shadow-sm); }

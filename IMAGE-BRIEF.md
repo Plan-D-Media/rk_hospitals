@@ -12,6 +12,11 @@ Nothing here is decorative. Every slot is a real thing at 203/1 Ghoshpara Road.
 
 ## Interim — AI-generated, not this hospital, must be replaced before client sign-off
 
+**Scope note:** this section now covers the **hero only**. Client-supplied doctor
+photography arrived and lives in `images/doctors/`; social post graphics live in
+`images/social/`. `images/interim/` contains nothing but the hero derivatives, so
+`ls images/interim/` returning empty remains the go-live gate.
+
 One image currently on the site is **AI-generated. It depicts a hospital that does not exist.**
 It is not a photograph of Ramakrishna Multispeciality Hospital, of its reception, or of any
 member of its staff. It is in place only so the homepage hero is not a grey box during build.
@@ -44,7 +49,7 @@ Shoot these first; everything else can follow.
 |---|---|---|---|
 | 1 | **Reception / front desk, staffed.** A real staff member at the desk, mid-task, not posed to camera. Natural light. Depth behind them — the waiting area or corridor visible and in soft focus. Keep the lower-left third free of faces: a status card overlays it. | 1600×2000 (4:5) | the interim hero |
 | 2 | **Hospital exterior on Ghoshpara Road.** The building, its signage, and enough street context to be recognisable to someone arriving by auto. Daylight. | 1200×1200 (1:1) | `ph-building-1x1` |
-| 3–6 | **Doctor portraits ×4** — Dr. Gourab Chatterjee, Dr. Shyan Kumar Biswas, Dr. Debosmita Roy, Dr. Aniket Sarkar. See *Portrait set* below — these four must be shot as one set. | 1600×2000 (4:5) each | `ph-portrait-4x5`, `ph-portrait-3x4` |
+| ~~3–6~~ | ~~**Doctor portraits ×4** — Dr. Gourab Chatterjee, Dr. Shyan Kumar Biswas, Dr. Debosmita Roy, Dr. Aniket Sarkar. See *Portrait set* below — these four must be shot as one set. | — | **SUPPLIED — see "Supplied by client" below** |
 
 **The hero is one shot, two crops.** Deliver 1600×2000 (4:5). The mobile 16:10 frame is a
 1600×1000 centre crop of the same file — do not shoot it separately, or the two break composition
@@ -73,6 +78,21 @@ So:
 Delivered at 1600×2000, the same master serves both the 4:5 card and the 3:4 profile-page crop.
 
 ---
+
+## Supplied by client
+
+Client-supplied photography arrived and is stored in `images/doctors/`. Original
+filenames are preserved verbatim; do not rename them, they are the only record of
+what the client said each file is.
+
+| Doctor | Status |
+|---|---|
+| Dr. Gourab Chatterjee (`doctor-1`) | **Processed and live** — `gourab-chatterjee.webp/.jpg`, 1000×1250 |
+| All others | **Blocked** — identity, spelling or roster unresolved. See `DEFERRED.md`. |
+
+Social post graphics are in `images/social/`. They are branded clinician cards
+carrying OPD times, registration numbers and an appointments phone number that
+disagrees with the site's. Nothing in them has been published.
 
 ## P0 — ship-blocking
 

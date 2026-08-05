@@ -694,9 +694,14 @@
   </section>
 
   <!-- ============================================================
-       8 · DOCTORS PREVIEW (4 verified)
+       8 · DOCTORS
+       data-doctor carries the route slug (doctor-N), the only stable
+       identifier here: it is frozen by the URL contract, it is the same
+       string as the card's own href so the two cannot drift, and it is
+       independent of name spelling — which matters, since several
+       supplied names are still disputed. See DEFERRED.md.
        ============================================================ -->
-  <section class="section section--neutral reveal">
+  <section class="section section--surface reveal">
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Meet the specialists</span>
@@ -704,47 +709,90 @@
         <p>A specialist-led team across our core departments. More profiles are being added.</p>
       </div>
       <div class="docs-grid">
-        <article class="card doc-card">
-          <div class="doc-photo"><!-- TODO: real photo: Dr. Gourab Chatterjee headshot, 800x1000 --><img src="images/placeholders/ph-portrait-4x5.svg" width="800" height="1000" alt="Dr. Gourab Chatterjee, Orthopaedics" loading="lazy"></div>
-          <div class="doc-body">
-            <span class="dept">Orthopaedics</span>
-            <h3>Dr. Gourab Chatterjee</h3>
-            <p class="qual">MBBS, DNB (Ortho), MNAMS</p>
-            <a class="btn btn--ghost" href="/doctor-1">View profile</a>
-          </div>
+        <article class="doc-card" data-doctor="doctor-1">
+          <a class="doc-card__link" href="/doctor-1">
+            <span class="doc-card__media">
+            <picture>
+              <source srcset="images/doctors/gourab-chatterjee.webp" type="image/webp">
+              <img src="images/doctors/gourab-chatterjee.jpg" width="1000" height="1250"
+                   alt="Dr. Gourab Chatterjee, Orthopaedics at Ramakrishna Multispeciality Hospital, Barrackpore"
+                   loading="lazy" decoding="async">
+            </picture>
+              <span class="doc-card__scrim" aria-hidden="true"></span>
+              <span class="doc-card__id">
+                <span class="doc-card__name">Dr. Gourab Chatterjee</span>
+                <span class="doc-card__qual">MBBS, DNB (Ortho), MNAMS</span>
+              </span>
+            </span>
+            <span class="doc-card__foot">
+              <span class="chip chip--brand">Orthopaedics</span>
+              <span class="link-arrow">View profile <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+            </span>
+          </a>
         </article>
-        <article class="card doc-card">
-          <div class="doc-photo"><!-- TODO: real photo: Dr. Shyan Kumar Biswas headshot, 800x1000 --><img src="images/placeholders/ph-portrait-4x5.svg" width="800" height="1000" alt="Dr. Shyan Kumar Biswas, General Medicine" loading="lazy"></div>
-          <div class="doc-body">
-            <span class="dept">General Medicine</span>
-            <h3>Dr. Shyan Kumar Biswas</h3>
-            <p class="qual">MBBS, MD (Physician), CCEBDM</p>
-            <a class="btn btn--ghost" href="/doctor-2">View profile</a>
-          </div>
+        <article class="doc-card doc-card--placeholder" data-doctor="doctor-2">
+          <a class="doc-card__link" href="/doctor-2">
+            <span class="doc-card__media">
+            <!-- TODO: real portrait, 1000x1250 minimum. See DEFERRED.md. -->
+            <img src="images/placeholders/ph-portrait-4x5.svg" width="800" height="1000"
+                 alt="Dr. Shyan Kumar Biswas, General Medicine at Ramakrishna Multispeciality Hospital, Barrackpore"
+                 loading="lazy" decoding="async">
+              <span class="doc-card__scrim" aria-hidden="true"></span>
+              <span class="doc-card__id">
+                <span class="doc-card__name">Dr. Shyan Kumar Biswas</span>
+                <span class="doc-card__qual">MBBS, MD (Physician), CCEBDM</span>
+              </span>
+            </span>
+            <span class="doc-card__foot">
+              <span class="chip chip--brand">General Medicine</span>
+              <span class="link-arrow">View profile <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+            </span>
+          </a>
         </article>
-        <article class="card doc-card">
-          <div class="doc-photo"><!-- TODO: real photo: Dr. Debosmita Roy headshot, 800x1000 --><img src="images/placeholders/ph-portrait-4x5.svg" width="800" height="1000" alt="Dr. Debosmita Roy, Gynaecology &amp; Obstetrics" loading="lazy"></div>
-          <div class="doc-body">
-            <span class="dept">Gynaecology &amp; Obstetrics</span>
-            <h3>Dr. Debosmita Roy</h3>
-            <p class="qual">MBBS</p>
-            <a class="btn btn--ghost" href="/doctor-3">View profile</a>
-          </div>
+        <article class="doc-card doc-card--placeholder" data-doctor="doctor-3">
+          <a class="doc-card__link" href="/doctor-3">
+            <span class="doc-card__media">
+            <!-- TODO: real portrait, 1000x1250 minimum. See DEFERRED.md. -->
+            <img src="images/placeholders/ph-portrait-4x5.svg" width="800" height="1000"
+                 alt="Dr. Debosmita Roy, Gynaecology & Obstetrics at Ramakrishna Multispeciality Hospital, Barrackpore"
+                 loading="lazy" decoding="async">
+              <span class="doc-card__scrim" aria-hidden="true"></span>
+              <span class="doc-card__id">
+                <span class="doc-card__name">Dr. Debosmita Roy</span>
+                <span class="doc-card__qual">MBBS</span>
+              </span>
+            </span>
+            <span class="doc-card__foot">
+              <span class="chip chip--brand">Gynaecology &amp; Obstetrics</span>
+              <span class="link-arrow">View profile <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+            </span>
+          </a>
         </article>
-        <article class="card doc-card">
-          <div class="doc-photo"><!-- TODO: real photo: Dr. Aniket Sarkar headshot, 800x1000 --><img src="images/placeholders/ph-portrait-4x5.svg" width="800" height="1000" alt="Dr. Aniket Sarkar, Dental — Oral &amp; Maxillofacial Surgery" loading="lazy"></div>
-          <div class="doc-body">
-            <span class="dept">Dental</span>
-            <h3>Dr. Aniket Sarkar</h3>
-            <p class="qual">BDS, MDS (Oral &amp; Maxillofacial Surgery)</p>
-            <a class="btn btn--ghost" href="/doctor-4">View profile</a>
-          </div>
+        <article class="doc-card doc-card--placeholder" data-doctor="doctor-4">
+          <a class="doc-card__link" href="/doctor-4">
+            <span class="doc-card__media">
+            <!-- TODO: real portrait, 1000x1250 minimum. See DEFERRED.md. -->
+            <img src="images/placeholders/ph-portrait-4x5.svg" width="800" height="1000"
+                 alt="Dr. Aniket Sarkar, Dental at Ramakrishna Multispeciality Hospital, Barrackpore"
+                 loading="lazy" decoding="async">
+              <span class="doc-card__scrim" aria-hidden="true"></span>
+              <span class="doc-card__id">
+                <span class="doc-card__name">Dr. Aniket Sarkar</span>
+                <span class="doc-card__qual">BDS, MDS (Oral &amp; Maxillofacial Surgery)</span>
+              </span>
+            </span>
+            <span class="doc-card__foot">
+              <span class="chip chip--brand">Dental</span>
+              <span class="link-arrow">View profile <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+            </span>
+          </a>
         </article>
       </div>
       <div class="text-center" style="margin-top:40px">
-        <a class="btn btn--primary" href="/all-doctors"><svg class="ico" aria-hidden="true"><use href="#i-stethoscope"/></svg> Find a Doctor</a>
+        <a class="btn btn--outline" href="/all-doctors">
+          <svg class="ico" aria-hidden="true"><use href="#i-user-md"/></svg> See all doctors
+        </a>
       </div>
-      <!-- TODO: full doctor roster + photos + timings + registration numbers from client -->
     </div>
   </section>
 
