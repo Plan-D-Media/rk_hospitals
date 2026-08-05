@@ -53,20 +53,28 @@
 .rk-header.is-stuck .nav-bar .container { min-height: var(--header-h-stuck); }
 .rk-header.is-stuck .brand img { height: 38px; }
 
-/* Over-hero mode: only where a page opts in (index). The header floats
-   transparent on the hero photo until the first 80px of scroll. */
+/* Over-hero mode: only where a page opts in (index). The header floats on the
+   hero until the first 80px of scroll, then solidifies.
+
+   It stays INK on a transparent ground — it does not invert to white. The
+   split hero is a light mesh with the photograph confined to the right 42%,
+   so white header text sits on near-white and disappears. Inverting is only
+   correct over a full-bleed dark image, which this hero deliberately is not.
+   Measured: --ink-800 on --brand-050 = 11.6:1. */
 .rk-header.is-over-hero:not(.is-stuck) {
   background: transparent;
   position: absolute; left: 0; right: 0;
 }
 .rk-header.is-over-hero:not(.is-stuck) .nav-bar { border-bottom-color: transparent; }
-.rk-header.is-over-hero:not(.is-stuck) .util-bar { background: transparent; }
-.rk-header.is-over-hero:not(.is-stuck) .nav-list > li > a,
-.rk-header.is-over-hero:not(.is-stuck) .nav-panel-toggle,
-.rk-header.is-over-hero:not(.is-stuck) .nav-burger { color: #fff; }
-.rk-header.is-over-hero:not(.is-stuck) .nav-emg { color: #fff; border-color: rgba(255,255,255,.4); }
-.rk-header.is-over-hero:not(.is-stuck) .nav-emg .tel { color: #fff; }
-.rk-header.is-over-hero:not(.is-stuck) .brand img { filter: brightness(0) invert(1); }
+.rk-header.is-over-hero:not(.is-stuck) .util-bar {
+  background: transparent;
+  color: var(--body);
+  border-bottom: 1px solid rgba(14,31,51,.08);
+}
+.rk-header.is-over-hero:not(.is-stuck) .util-bar a,
+.rk-header.is-over-hero:not(.is-stuck) .util-cb { color: var(--body); }
+.rk-header.is-over-hero:not(.is-stuck) .util-cb:hover { color: var(--ink-900); }
+.rk-header.is-over-hero:not(.is-stuck) .util-loc .ico { color: var(--brand-500); }
 
 .brand { display: inline-flex; align-items: center; flex: 0 0 auto; }
 /* width:auto + max-width:none are load-bearing: width="300" is a
@@ -268,3 +276,219 @@
 }
 
 @media (min-width: 1181px) { .drawer { display: none; } }
+
+/* ------------------------------------------------------------
+   5. OPEN-NOW DEVICE
+   ------------------------------------------------------------
+   The signature element. States, in plain language, whether the
+   hospital is open right now — the single most useful thing to show
+   someone deciding at 2am whether to get in an auto.
+
+   The clock is always Barrackpore time (IST), never the device's,
+   so an NRI checking on a parent from Dubai reads the right hours.
+   ------------------------------------------------------------ */
+.open-now {
+  display: grid;
+  gap: 10px;
+  padding: 18px 22px;
+  border-radius: var(--r-lg);
+  background: rgba(255,255,255,.86);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--sh-3);
+  border: 1px solid rgba(255,255,255,.6);
+}
+.open-now__top {
+  display: flex; align-items: center; gap: 10px;
+  flex-wrap: wrap;
+}
+.open-now__status {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs); font-weight: 500;
+  letter-spacing: var(--tr-mono); text-transform: uppercase;
+  color: var(--care-700);
+}
+.open-now__dot {
+  position: relative;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--open);
+  flex: none;
+}
+.open-now__dot::after {
+  content: "";
+  position: absolute; inset: -5px;
+  border-radius: 50%;
+  border: 1.5px solid var(--open);
+  opacity: 0;
+  animation: rk-pulse 2s ease-in-out infinite;
+}
+@keyframes rk-pulse {
+  0%   { transform: scale(.7); opacity: .7; }
+  70%  { transform: scale(1.25); opacity: 0; }
+  100% { transform: scale(1.25); opacity: 0; }
+}
+.open-now__clock {
+  margin-left: auto;
+  display: inline-flex; align-items: baseline; gap: 6px;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-base); font-weight: 500;
+  color: var(--ink-900);
+  white-space: nowrap;
+}
+.open-now__tz {
+  font-size: var(--fs-xs); letter-spacing: var(--tr-mono);
+  color: var(--muted);
+}
+.open-now__line { font-size: var(--fs-sm); color: var(--ink-700); margin: 0; }
+/* The OPD line is absent from the DOM until hours are configured — it
+   reserves no space, so adding hours later cannot shift anything. */
+.open-now__opd { font-size: var(--fs-sm); color: var(--muted); margin: 0; }
+
+/* Motion off, information on: the pulse becomes a static ring and the
+   clock keeps updating. */
+@media (prefers-reduced-motion: reduce) {
+  .open-now__dot::after { animation: none; opacity: .55; transform: none; }
+}
+
+/* Slim variant above the footer. */
+.open-strip {
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.open-strip .container {
+  display: flex; align-items: center; gap: 16px 24px;
+  flex-wrap: wrap;
+  min-height: 60px; padding-block: 12px;
+}
+.open-strip .open-now {
+  background: none; box-shadow: none; border: 0; padding: 0;
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+  grid-auto-flow: column; align-items: center; gap: 18px;
+  width: 100%;
+}
+.open-strip .open-now__clock { margin-left: auto; }
+@media (max-width: 640px) {
+  .open-strip .open-now { grid-auto-flow: row; gap: 8px; }
+  .open-strip .open-now__clock { margin-left: 0; }
+}
+
+/* ------------------------------------------------------------
+   6. HERO — asymmetric split
+   ------------------------------------------------------------ */
+.hero { position: relative; overflow: hidden; background: var(--paper); }
+
+/* Very low-contrast radial mesh. Should be felt, not seen. */
+.hero__mesh {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(58% 48% at 88% 12%, var(--brand-050) 0%, transparent 70%),
+    radial-gradient(46% 42% at 4% 88%, var(--care-100) 0%, transparent 72%);
+  opacity: .5;
+}
+
+.hero__grid {
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: 58fr 42fr;
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+  /* clears the transparent header sitting over it */
+  padding-top: clamp(140px, 15vh, 210px);
+  padding-bottom: clamp(96px, 12vh, 150px);
+}
+.hero__grid > * { min-width: 0; }
+
+.hero__copy .eyebrow { color: var(--brand-600); }
+.hero h1 { margin: 0 0 18px; max-width: 16ch; }
+.hero h1 .accent { color: var(--brand-500); }
+.hero__sub {
+  font-size: var(--fs-lg); line-height: 1.55;
+  color: var(--muted); max-width: 46ch; margin: 0 0 30px;
+}
+.hero__cta { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 34px; }
+
+.hero__trust { list-style: none; display: grid; gap: 12px; }
+.hero__trust li {
+  display: flex; align-items: center; gap: 11px;
+  font-size: var(--fs-sm); color: var(--ink-700);
+}
+.hero__trust .ico { width: 18px; height: 18px; color: var(--care-600); }
+
+.hero__media { position: relative; }
+.hero__frame {
+  position: relative; margin: 0;
+  border-radius: var(--r-xl); overflow: hidden;
+  aspect-ratio: 4 / 5;
+  box-shadow: var(--sh-3);
+  background: var(--surface-2);
+}
+.hero__frame img { width: 100%; height: 100%; object-fit: cover; }
+.hero__scrim {
+  position: absolute; inset: auto 0 0 0; height: 42%;
+  background: linear-gradient(transparent, rgba(14,31,51,.42));
+  pointer-events: none;
+}
+
+/* Offset outside the frame by 24px at the lower-left. */
+.hero .open-now {
+  position: absolute; left: -24px; bottom: 28px;
+  width: min(340px, 92%);
+  z-index: 2;
+}
+
+@media (max-width: 860px) {
+  .hero__grid {
+    grid-template-columns: 1fr;
+    padding-top: clamp(104px, 13vh, 150px);
+    padding-bottom: 84px;
+  }
+  .hero__media { order: -1; }
+  .hero__frame { aspect-ratio: 16 / 10; }
+  .hero h1 { max-width: none; }
+  .hero .open-now { left: 0; right: 0; bottom: -18px; width: auto; }
+  .hero__copy { padding-top: 26px; }
+}
+@media (max-width: 560px) {
+  .hero__cta .btn { flex: 1 1 100%; }
+}
+
+/* ------------------------------------------------------------
+   7. QUICK ACTIONS
+   ------------------------------------------------------------
+   The single overlap on the page. It does more for perceived depth
+   than any other move — but it must never create horizontal scroll,
+   and it is dropped entirely below 768px. */
+.quick { position: relative; z-index: 2; margin-top: -44px; }
+.quick-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.quick-item {
+  display: grid; justify-items: center; gap: 12px;
+  padding: 24px 16px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-1);
+  color: var(--ink-800);
+  text-align: center;
+  min-height: 44px;
+  transition: transform var(--dur-fast) var(--ease-card),
+              box-shadow var(--dur-fast) var(--ease-card),
+              border-color var(--dur-fast) var(--ease-card);
+}
+.quick-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sh-2);
+  border-color: var(--care-400);
+  color: var(--ink-900);
+}
+.quick-item:hover .icon-tile { background: var(--care-600); color: var(--paper); }
+.quick-item.is-emg:hover .icon-tile { background: var(--brand-500); color: var(--paper); }
+.quick-item__l { font-size: var(--fs-sm); font-weight: 600; line-height: 1.3; }
+
+@media (max-width: 860px) {
+  /* No overlap on mobile: the hero card already sits at the seam. */
+  .quick { margin-top: 34px; }
+  .quick-grid { grid-template-columns: repeat(2, 1fr); }
+}

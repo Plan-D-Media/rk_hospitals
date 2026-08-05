@@ -26,13 +26,24 @@
   <link rel="icon" href="images/favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 
-  <!-- LCP: the hero image. -->
-  <link rel="preload" as="image" href="images/interim/hero-reception-16x10.webp" type="image/webp" fetchpriority="high">
+  <!-- LCP. The hero is ART-DIRECTED (a 4:5 portrait crop on desktop, a 16:10
+       landscape crop on mobile), so imagesrcset + imagesizes cannot express it:
+       w-descriptors pick by rendered width, which selected the 4:5 file at
+       360px and the 16:10 file at 1440px — the wrong crop at BOTH breakpoints,
+       and both files then downloaded. Two media-scoped preloads mirror the
+       <picture> breakpoint exactly, so exactly one crop is fetched. -->
+  <link rel="preload" as="image" media="(min-width: 861px)" fetchpriority="high"
+        href="images/interim/hero-reception-4x5.webp" type="image/webp">
+  <link rel="preload" as="image" media="(max-width: 860.98px)" fetchpriority="high"
+        href="images/interim/hero-reception-16x10.webp" type="image/webp">
+  <!-- Self-hosted display font: Fraunces sets the h1 and is ~15% wider than
+       the fallback, so a late swap reflowed it. Preloaded + metric-matched. -->
+  <link rel="preload" as="font" type="font/woff2" href="fonts/fraunces-var-latin.woff2" crossorigin>
 
   <!-- FONTS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,500..600,0,0&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Instrument+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=Instrument+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
 
   <!-- ICONS: none. This page uses the inline <symbol> sprite below,
        so there is no Font Awesome CDN request and no icon webfont. -->
@@ -201,7 +212,7 @@
      home link and is the universal convention; Home lives in the
      mobile drawer only, where a logo is not read as a control.
      ============================================================ -->
-<header class="rk-header" data-header>
+<header class="rk-header is-over-hero" data-header data-over-hero>
 
   <!-- Utility bar: ONE line, one action. Emergency lives in the header
        row below, not here — it was duplicated across both. -->
@@ -404,94 +415,91 @@
 <main id="main">
 
   <!-- ============================================================
-       1 · HERO — background slider with overlaid copy
+       1 · HERO — asymmetric split (58/42). Deliberately NOT a carousel:
+       every extra slide is another LCP candidate and rotation hurts
+       comprehension at the exact moment a visitor is most anxious.
        ============================================================ -->
-  <section class="hero-slider" id="top" data-hero-slider
-           aria-roledescription="carousel"
-           aria-label="Ramakrishna Multispeciality Hospital">
+  <section class="hero" id="top">
+    <div class="hero__mesh" aria-hidden="true"></div>
+    <div class="container hero__grid">
 
-    <div class="hs-track">
-      <!-- ================== HERO SLIDES ==================
-           TO ADD AN OCCASION SLIDE (e.g. Doctors' Day, Durga Puja):
-             1. Export the photo at 1920×1080 (16:9), JPEG ~80%, under 400 KB.
-                Keep the subject in the RIGHT half — the left half sits under
-                the dark scrim that the headline is written on.
-             2. Save it into images/ (e.g. images/hero-doctors-day.jpg).
-             3. Copy any ONE .hs-slide block below, paste it after the last
-                one, and change only the img `src` and `alt`.
-                Keep width="1920" height="1080" and loading="lazy".
-                Do NOT add class="is-active" — the first slide keeps that.
-           The dots and auto-advance count the slides for themselves,
-           so there is nothing else to update.
-           Only the FIRST slide is eager + preloaded (it is the LCP image).
-           If you reorder slides, update <link rel="preload"> in <head>.
-           ================================================= -->
+      <div class="hero__copy">
+        <span class="eyebrow">Barrackpore &middot; Ghoshpara Road</span>
+        <h1>Multispeciality care in <span class="accent">Barrackpore</span> &mdash; without the trip into the city.</h1>
+        <p class="hero__sub">Emergency, critical care and diagnostics on one campus, minutes from home on Ghoshpara Road.</p>
 
-      <!-- SLIDE 1 — eager. This is the LCP image.
-           INTERIM IMAGE — AI-generated, not this hospital. See IMAGE-BRIEF.md
-           ("Interim" section) for the P0 replacement shot. -->
-      <div class="hs-slide is-active" role="group" aria-roledescription="slide">
-        <img src="images/interim/hero-reception-16x10.webp" width="1200" height="750"
-             alt="Reception at Ramakrishna Multispeciality Hospital, Barrackpore"
-             fetchpriority="high" decoding="async">
-      </div>
-      <!-- ============== END HERO SLIDES ================== -->
-    </div>
-
-    <!-- Magenta-tinted scrim. Keeps white text readable over any photo. -->
-    <div class="hs-scrim" aria-hidden="true"></div>
-
-    <div class="container hs-content">
-      <div class="hs-copy">
-        <span class="eyebrow">Barrackpore · Ghoshpara Road</span>
-
-        <h1>The best multispeciality hospital in <span class="accent">Barrackpore</span>, built around your family</h1>
-
-        <!-- Typed rotating sub-line. The .sr-only copy is the real text for
-             screen readers and crawlers; the animated node is aria-hidden,
-             so assistive tech never reads a half-typed word. -->
-        <p class="typed-line">
-          <span class="sr-only">24×7 emergency with triage. Complete critical care — ICU, HDU, NICU and PICU. In-house diagnostics up to CT. Cashless for 60+ schemes and PSUs.</span>
-          <span aria-hidden="true"
-                data-text-type
-                data-strings='["24×7 Emergency with triage","Complete critical care — ICU · HDU · NICU · PICU","In-house diagnostics up to CT","Cashless for 60+ schemes &amp; PSUs"]'
-                data-type-speed="52"
-                data-delete-speed="26"
-                data-pause="1900"
-                data-loop="true"
-                data-cursor="|"></span>
-        </p>
-
-        <div class="hero-cta">
-          <a class="btn btn--primary btn--lg" href="#appointment"><svg class="ico" aria-hidden="true"><use href="#i-calendar-check"/></svg> Book an Appointment</a>
-          <a class="btn btn--emergency btn--lg" href="tel:+918240842519"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg> Call 24×7 Emergency</a>
+        <div class="hero__cta">
+          <a class="btn btn--primary btn--lg" href="/appointment">
+            <svg class="ico" aria-hidden="true"><use href="#i-calendar-check"/></svg> Book an appointment
+          </a>
+          <a class="btn btn--emergency btn--lg" href="tel:+918240842519">
+            <svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>
+            Call 24&times;7 emergency
+          </a>
         </div>
 
-        <div class="hero-chips">
-          <span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-ambulance"/></svg> 24×7 Emergency</span>
-          <span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-shield-check"/></svg> Cashless &amp; TPA</span>
-          <span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-scan"/></svg> In-house diagnostics up to CT</span>
+        <!-- Verified claims only — each already stated elsewhere on the site. -->
+        <ul class="hero__trust">
+          <li><svg class="ico" aria-hidden="true"><use href="#i-activity"/></svg> ICU &middot; HDU &middot; NICU &middot; PICU on site</li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-scan"/></svg> Diagnostics up to CT in-house</li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-shield-check"/></svg> Cashless for 60+ schemes</li>
+        </ul>
+      </div>
+
+      <div class="hero__media">
+        <figure class="hero__frame">
+          <picture>
+            <source media="(min-width: 861px)" srcset="images/interim/hero-reception-4x5.webp" type="image/webp">
+            <source media="(min-width: 861px)" srcset="images/interim/hero-reception-4x5.jpg" type="image/jpeg">
+            <source srcset="images/interim/hero-reception-16x10.webp" type="image/webp">
+            <img src="images/interim/hero-reception-16x10.jpg" width="1200" height="750"
+                 alt="Reception at Ramakrishna Multispeciality Hospital, Barrackpore"
+                 fetchpriority="high" decoding="async">
+          </picture>
+          <span class="hero__scrim" aria-hidden="true"></span>
+        </figure>
+
+        <!-- Signature: live Barrackpore-time status. See js/rk-open-now.js -->
+        <div class="open-now" data-open-now role="status" aria-live="polite">
+          <div class="open-now__top">
+            <span class="open-now__status">
+              <span class="open-now__dot" aria-hidden="true"></span> Open now
+            </span>
+            <span class="open-now__clock">
+              <span data-on-clock>&nbsp;</span><span class="open-now__tz">IST</span>
+            </span>
+          </div>
+          <p class="open-now__line">Emergency department &middot; triage running</p>
         </div>
       </div>
-    </div>
 
-    <div class="hs-dots"></div>
-    <div class="hs-progress" aria-hidden="true"></div>
-    <p class="hs-live sr-only" role="status" aria-live="polite"></p>
+    </div>
   </section>
 
   <!-- ============================================================
-       2 · QUICK ACTIONS
+       2 · QUICK ACTIONS — four, overlapping the hero by 44px.
+       Cut from six: this row is the second decision a visitor makes,
+       and six competing chips is where the old fold lost people.
        ============================================================ -->
   <div class="quick">
     <div class="container">
       <div class="quick-grid">
-        <a class="quick-item" href="#appointment"><span class="qi"><svg class="ico" aria-hidden="true"><use href="#i-calendar-check"/></svg></span><span>Book Appointment</span></a>
-        <a class="quick-item" href="/all-doctors"><span class="qi"><svg class="ico" aria-hidden="true"><use href="#i-stethoscope"/></svg></span><span>Find a Doctor</span></a>
-        <a class="quick-item is-emg" href="tel:+918240842519"><span class="qi"><svg class="ico" aria-hidden="true"><use href="#i-ambulance"/></svg></span><span>24×7 Emergency</span></a>
-        <a class="quick-item" href="/pricing-2"><span class="qi"><svg class="ico" aria-hidden="true"><use href="#i-heart-pulse"/></svg></span><span>Book Health Check</span></a>
-        <a class="quick-item" href="/all-services"><span class="qi"><svg class="ico" aria-hidden="true"><use href="#i-microscope"/></svg></span><span>Diagnostics</span></a>
-        <a class="quick-item" href="/pricing-1"><span class="qi"><svg class="ico" aria-hidden="true"><use href="#i-shield-check"/></svg></span><span>Cashless / TPA</span></a>
+        <a class="quick-item" href="/appointment">
+          <span class="icon-tile"><svg class="ico" aria-hidden="true"><use href="#i-calendar-check"/></svg></span>
+          <span class="quick-item__l">Book appointment</span>
+        </a>
+        <a class="quick-item" href="/all-doctors">
+          <span class="icon-tile"><svg class="ico" aria-hidden="true"><use href="#i-user-md"/></svg></span>
+          <span class="quick-item__l">Find a doctor</span>
+        </a>
+        <a class="quick-item is-emg" href="tel:+918240842519">
+          <span class="icon-tile icon-tile--brand"><svg class="ico" aria-hidden="true"><use href="#i-ambulance"/></svg></span>
+          <span class="quick-item__l">24&times;7 emergency</span>
+        </a>
+        <a class="quick-item" href="/pricing-2">
+          <span class="icon-tile"><svg class="ico" aria-hidden="true"><use href="#i-heart-pulse"/></svg></span>
+          <span class="quick-item__l">Health check-up</span>
+        </a>
       </div>
     </div>
   </div>
@@ -547,18 +555,11 @@
         <span class="eyebrow">Centres of excellence</span>
         <h2>Specialist departments under one roof</h2>
         <p>From an emergency at 2am to a planned procedure, the specialities most families need are all on the same campus.</p>
-
-        <!-- Specialties rotator — same module as the hero sub-line. -->
-        <p class="typed-line coe-rotator">
-          <span class="sr-only">We treat Cardiology, Orthopaedics, Gynaecology &amp; Obstetrics, ENT, Urology, Gastroenterology, Pulmonology, Paediatrics &amp; Neonatology, Endocrinology and Dentistry.</span>
-          <span aria-hidden="true">We treat&nbsp;</span><span aria-hidden="true"
-                data-text-type
-                data-strings='["Cardiology","Orthopaedics","Gynaecology &amp; Obstetrics","ENT","Urology","Gastroenterology","Pulmonology","Paediatrics &amp; Neonatology","Endocrinology","Dentistry"]'
-                data-type-speed="58"
-                data-delete-speed="24"
-                data-pause="1500"
-                data-cursor="|"></span>
-        </p>
+        <!-- The typewriter rotator that used to sit here is deleted (§7).
+             Its screen-reader fallback rendered visibly on top of the animated
+             copy, producing the "…Endocrinology and Dentistry. We treat"
+             repeat on the live homepage. The speciality list below IS the
+             content; it needed no ticker. -->
       </div>
 
       <div class="coe-grid">
@@ -1079,8 +1080,7 @@
   <a class="mc-call" href="tel:+918240842519"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg> Emergency</a>
 </div>
 
-<script src="js/rk-text-type.js" defer></script>
-<script src="js/rk-hero-slider.js" defer></script>
+<script src="js/rk-open-now.js" defer></script>
 <script src="js/rk-ui.js" defer></script>
 <script src="js/rk-main.js" defer></script>
 </body>
