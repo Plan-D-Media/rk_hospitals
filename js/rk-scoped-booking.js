@@ -30,10 +30,22 @@
      changed with a spelling correction would silently break attribution
      in the lead data with no error anywhere. */
   var DOCTORS = {
-    "doctor-1": { name: "Dr. Gourab Chatterjee",   dept: "Orthopaedics" },
-    "doctor-2": { name: "Dr. Shyan Kumar Biswas",  dept: "General Medicine" },
-    "doctor-3": { name: "Dr. Debosmita Roy",       dept: "Gynaecology & Obstetrics" },
-    "doctor-4": { name: "Dr. Aniket Sarkar",       dept: "Dentistry" }
+    "doctor-1":  { name: "Dr. Gourab Chatterjee",     dept: "Orthopaedics" },
+    "doctor-2":  { name: "Dr. Shyan Kumar Biswas",    dept: "General Medicine" },
+    "doctor-3":  { name: "Dr. Debosmita Roy",         dept: "Gynaecology & Obstetrics" },
+    "doctor-4":  { name: "Dr. Aniket Sarkar",         dept: "Dentistry" },
+    // Visiting consultants, added from the client roster ruling.
+    "doctor-5":  { name: "Dr. Rupsha Chowdhury",      dept: "Gynaecology & Obstetrics" },
+    "doctor-6":  { name: "Dr. Vivesh Kumar Singh",    dept: "Orthopaedics" },
+    "doctor-7":  { name: "Dr. Milli Singh",           dept: "Paediatrics & Neonatology" },
+    "doctor-8":  { name: "Dr. Agniv Sarkar",          dept: "Gynaecology & Obstetrics" },
+    "doctor-9":  { name: "Dr. Shubhadip Chakraborty", dept: "Orthopaedics" },
+    "doctor-10": { name: "Dr. Goutam Mondal",         dept: "Urology" },
+    // Tier B: card only, no profile page. Booking still attributes correctly.
+    "doctor-11": { name: "Dr. Atanu Ghosh",           dept: "General Medicine" },
+    "doctor-12": { name: "Dr. Midul Biswas",          dept: "Orthopaedics" },
+    "doctor-13": { name: "Dr. Siddharth Nandi",       dept: "Paediatrics & Neonatology" },
+    "doctor-14": { name: "Dr. Sourav Bhagat",         dept: "General Medicine" }
   };
 
   /* Department slugs are the existing department-*.html routes. The label

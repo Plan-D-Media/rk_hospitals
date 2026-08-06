@@ -359,50 +359,279 @@
     <div class="container">
       <!-- Filter -->
       <div class="filter-bar" role="group" aria-label="Filter doctors by department">
-        <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
-        <button type="button" class="filter-btn" data-filter="Orthopaedics" aria-pressed="false">Orthopaedics</button>
-        <button type="button" class="filter-btn" data-filter="General Medicine" aria-pressed="false">General Medicine</button>
-        <button type="button" class="filter-btn" data-filter="Gynaecology &amp; Obstetrics" aria-pressed="false">Gynaecology &amp; Obstetrics</button>
-        <button type="button" class="filter-btn" data-filter="Dental" aria-pressed="false">Dental</button>
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="Dental">Dental</button>
+        <button class="filter-btn" data-filter="General Medicine">General Medicine</button>
+        <button class="filter-btn" data-filter="Gynaecologic Oncology">Gynaecologic Oncology</button>
+        <button class="filter-btn" data-filter="Gynaecology & Obstetrics">Gynaecology & Obstetrics</button>
+        <button class="filter-btn" data-filter="Orthopaedics">Orthopaedics</button>
+        <button class="filter-btn" data-filter="Paediatrics">Paediatrics</button>
+        <button class="filter-btn" data-filter="Urology">Urology</button>
       </div>
 
       <!-- Doctor directory -->
       <div class="dir-grid" id="doctor-grid" aria-live="polite">
-        <article class="card doc-card" data-specialty="Orthopaedics">
-          <div class="doc-photo"><!-- TODO: real photo of Dr. Gourab Chatterjee --><img src="images/placeholders/ph-portrait-4x5.svg" width="800" height="1000" alt="Dr. Gourab Chatterjee, Orthopaedics"></div>
-          <div class="doc-body">
-            <span class="dept">Orthopaedics</span>
-            <h3>Dr. Gourab Chatterjee</h3>
-            <p class="qual">MBBS, DNB (Ortho), MNAMS</p>
-            <a class="btn btn--ghost" href="/doctor-1">View profile</a>
+        <article class="doc-card" data-doctor="doctor-1" data-specialty="Orthopaedics">
+          <a class="doc-card__link" href="/doctor-1">
+            <span class="doc-card__media">
+              <picture>
+                <source srcset="images/doctors/gourab-chatterjee.webp" type="image/webp">
+                <img src="images/doctors/gourab-chatterjee.jpg" width="1000" height="1250" alt="Dr. Gourab Chatterjee, Orthopaedics at Ramakrishna Multispeciality Hospital, Barrackpore" loading="lazy" decoding="async">
+              </picture>
+              <span class="doc-card__scrim" aria-hidden="true"></span>
+              <span class="doc-card__id">
+                <span class="doc-card__name">Dr. Gourab Chatterjee</span>
+                <span class="doc-card__qual">MBBS, DNB (Ortho), MNAMS</span>
+              </span>
+            </span>
+            <span class="doc-card__foot">
+              <span class="chip chip--brand">Orthopaedics</span>
+              <span class="link-arrow">View profile <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+            </span>
+          </a>
+        </article>
+        <article class="doc-card" data-doctor="doctor-2" data-specialty="General Medicine">
+          <a class="doc-card__link" href="/doctor-2">
+            <span class="doc-card__media">
+              <picture>
+                <source srcset="images/doctors/shyan-kumar-biswas.webp" type="image/webp">
+                <img src="images/doctors/shyan-kumar-biswas.jpg" width="1000" height="1250" alt="Dr. Shyan Kumar Biswas, General Medicine at Ramakrishna Multispeciality Hospital, Barrackpore" loading="lazy" decoding="async">
+              </picture>
+              <span class="doc-card__scrim" aria-hidden="true"></span>
+              <span class="doc-card__id">
+                <span class="doc-card__name">Dr. Shyan Kumar Biswas</span>
+                <span class="doc-card__qual">MBBS, MD (Physician), CCEBDM</span>
+              </span>
+            </span>
+            <span class="doc-card__foot">
+              <span class="chip chip--brand">General Medicine</span>
+              <span class="link-arrow">View profile <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+            </span>
+          </a>
+        </article>
+        <article class="doc-card" data-doctor="doctor-5" data-specialty="Gynaecology & Obstetrics">
+          <a class="doc-card__link" href="/doctor-5">
+            <span class="doc-card__media">
+              <picture>
+                <source srcset="images/doctors/rupsha-chowdhury.webp" type="image/webp">
+                <img src="images/doctors/rupsha-chowdhury.jpg" width="1000" height="1250" alt="Dr. Rupsha Chowdhury, Gynaecology & Obstetrics at Ramakrishna Multispeciality Hospital, Barrackpore" loading="lazy" decoding="async">
+              </picture>
+              <span class="doc-card__scrim" aria-hidden="true"></span>
+              <span class="doc-card__id">
+                <span class="doc-card__name">Dr. Rupsha Chowdhury</span>
+                <span class="doc-card__qual">MBBS, MS, DNB (Obstetrics &amp; Gynaecology)</span>
+              </span>
+            </span>
+            <span class="doc-card__foot">
+              <span class="chip chip--brand">Gynaecology &amp; Obstetrics</span>
+              <span class="link-arrow">View profile <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+            </span>
+          </a>
+        </article>
+        <article class="doc-card" data-doctor="doctor-6" data-specialty="Orthopaedics">
+          <a class="doc-card__link" href="/doctor-6">
+            <span class="doc-card__media">
+              <picture>
+                <source srcset="images/doctors/vivesh-kumar-singh.webp" type="image/webp">
+                <img src="images/doctors/vivesh-kumar-singh.jpg" width="819" height="1024" alt="Dr. Vivesh Kumar Singh, Orthopaedics at Ramakrishna Multispeciality Hospital, Barrackpore" loading="lazy" decoding="async">
+              </picture>
+              <span class="doc-card__scrim" aria-hidden="true"></span>
+              <span class="doc-card__id">
+                <span class="doc-card__name">Dr. Vivesh Kumar Singh</span>
+                <span class="doc-card__qual">MS (Orthopaedics)</span>
+              </span>
+            </span>
+            <span class="doc-card__foot">
+              <span class="chip chip--brand">Orthopaedics</span>
+              <span class="link-arrow">View profile <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+            </span>
+          </a>
+        </article>
+        <article class="doc-card" data-doctor="doctor-7" data-specialty="Paediatrics">
+          <a class="doc-card__link" href="/doctor-7">
+            <span class="doc-card__media">
+              <picture>
+                <source srcset="images/doctors/milli-singh.webp" type="image/webp">
+                <img src="images/doctors/milli-singh.jpg" width="405" height="506" alt="Dr. Milli Singh, Paediatrics at Ramakrishna Multispeciality Hospital, Barrackpore" loading="lazy" decoding="async">
+              </picture>
+              <span class="doc-card__scrim" aria-hidden="true"></span>
+              <span class="doc-card__id">
+                <span class="doc-card__name">Dr. Milli Singh</span>
+                <span class="doc-card__qual">MBBS, MD (Pediatrics)</span>
+              </span>
+            </span>
+            <span class="doc-card__foot">
+              <span class="chip chip--brand">Paediatrics</span>
+              <span class="link-arrow">View profile <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+            </span>
+          </a>
+        </article>
+        <article class="doc-card" data-doctor="doctor-8" data-specialty="Gynaecologic Oncology">
+          <a class="doc-card__link" href="/doctor-8">
+            <span class="doc-card__media">
+              <picture>
+                <source srcset="images/doctors/agniv-sarkar.webp" type="image/webp">
+                <img src="images/doctors/agniv-sarkar.jpg" width="720" height="900" alt="Dr. Agniv Sarkar, Gynaecologic Oncology at Ramakrishna Multispeciality Hospital, Barrackpore" loading="lazy" decoding="async">
+              </picture>
+              <span class="doc-card__scrim" aria-hidden="true"></span>
+              <span class="doc-card__id">
+                <span class="doc-card__name">Dr. Agniv Sarkar</span>
+                <span class="doc-card__qual">MBBS, MS (G&amp;O), DNB (G&amp;O), MCh</span>
+              </span>
+            </span>
+            <span class="doc-card__foot">
+              <span class="chip chip--brand">Gynaecologic Oncology</span>
+              <span class="link-arrow">View profile <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+            </span>
+          </a>
+        </article>
+        <article class="doc-card" data-doctor="doctor-9" data-specialty="Orthopaedics">
+          <a class="doc-card__link" href="/doctor-9">
+            <span class="doc-card__media">
+              <picture>
+                <source srcset="images/doctors/shubhadip-chakraborty.webp" type="image/webp">
+                <img src="images/doctors/shubhadip-chakraborty.jpg" width="442" height="552" alt="Dr. Shubhadip Chakraborty, Orthopaedics at Ramakrishna Multispeciality Hospital, Barrackpore" loading="lazy" decoding="async">
+              </picture>
+              <span class="doc-card__scrim" aria-hidden="true"></span>
+              <span class="doc-card__id">
+                <span class="doc-card__name">Dr. Shubhadip Chakraborty</span>
+                <span class="doc-card__qual">MBBS, DNB (New Delhi)</span>
+              </span>
+            </span>
+            <span class="doc-card__foot">
+              <span class="chip chip--brand">Orthopaedics</span>
+              <span class="link-arrow">View profile <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+            </span>
+          </a>
+        </article>
+        <article class="doc-card" data-doctor="doctor-10" data-specialty="Urology">
+          <a class="doc-card__link" href="/doctor-10">
+            <span class="doc-card__media">
+              <picture>
+                <source srcset="images/doctors/goutam-mondal.webp" type="image/webp">
+                <img src="images/doctors/goutam-mondal.jpg" width="512" height="640" alt="Dr. Goutam Mondal, Urology at Ramakrishna Multispeciality Hospital, Barrackpore" loading="lazy" decoding="async">
+              </picture>
+              <span class="doc-card__scrim" aria-hidden="true"></span>
+              <span class="doc-card__id">
+                <span class="doc-card__name">Dr. Goutam Mondal</span>
+                <span class="doc-card__qual">MBBS (KOL), MS, Urology (DrNB)</span>
+              </span>
+            </span>
+            <span class="doc-card__foot">
+              <span class="chip chip--brand">Urology</span>
+              <span class="link-arrow">View profile <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+            </span>
+          </a>
+        </article>
+        <article class="doc-card" data-doctor="doctor-11" data-specialty="General Medicine">
+          <div class="doc-card__link">
+            <span class="doc-card__media">
+              <picture>
+                <source srcset="images/doctors/atanu-ghosh.webp" type="image/webp">
+                <img src="images/doctors/atanu-ghosh.jpg" width="959" height="1199" alt="Dr. Atanu Ghosh, General Medicine at Ramakrishna Multispeciality Hospital, Barrackpore" loading="lazy" decoding="async">
+              </picture>
+              <span class="doc-card__scrim" aria-hidden="true"></span>
+              <span class="doc-card__id">
+                <span class="doc-card__name">Dr. Atanu Ghosh</span>
+                <span class="doc-card__qual">Speciality confirmed; credentials to follow</span>
+              </span>
+            </span>
+            <span class="doc-card__foot">
+              <span class="chip chip--brand">General Medicine</span>
+              <a class="link-arrow" href="/appointment?doctor=doctor-11">Book <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+            </span>
           </div>
         </article>
-        <article class="card doc-card" data-specialty="General Medicine">
-          <div class="doc-photo"><!-- TODO: real photo of Dr. Shyan Kumar Biswas --><img src="images/placeholders/ph-portrait-4x5.svg" width="800" height="1000" alt="Dr. Shyan Kumar Biswas, General Medicine"></div>
-          <div class="doc-body">
-            <span class="dept">General Medicine</span>
-            <h3>Dr. Shyan Kumar Biswas</h3>
-            <p class="qual">MBBS, MD (Physician), CCEBDM</p>
-            <a class="btn btn--ghost" href="/doctor-2">View profile</a>
+        <article class="doc-card" data-doctor="doctor-12" data-specialty="Orthopaedics">
+          <div class="doc-card__link">
+            <span class="doc-card__media">
+              <picture>
+                <source srcset="images/doctors/midul-biswas.webp" type="image/webp">
+                <img src="images/doctors/midul-biswas.jpg" width="616" height="770" alt="Dr. Midul Biswas, Orthopaedics at Ramakrishna Multispeciality Hospital, Barrackpore" loading="lazy" decoding="async">
+              </picture>
+              <span class="doc-card__scrim" aria-hidden="true"></span>
+              <span class="doc-card__id">
+                <span class="doc-card__name">Dr. Midul Biswas</span>
+                <span class="doc-card__qual">Speciality confirmed; credentials to follow</span>
+              </span>
+            </span>
+            <span class="doc-card__foot">
+              <span class="chip chip--brand">Orthopaedics</span>
+              <a class="link-arrow" href="/appointment?doctor=doctor-12">Book <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+            </span>
           </div>
         </article>
-        <article class="card doc-card" data-specialty="Gynaecology &amp; Obstetrics">
-          <div class="doc-photo"><!-- TODO: real photo of Dr. Debosmita Roy --><img src="images/placeholders/ph-portrait-4x5.svg" width="800" height="1000" alt="Dr. Debosmita Roy, Gynaecology &amp; Obstetrics"></div>
-          <div class="doc-body">
-            <span class="dept">Gynaecology &amp; Obstetrics</span>
-            <h3>Dr. Debosmita Roy</h3>
-            <p class="qual">MBBS</p>
-            <a class="btn btn--ghost" href="/doctor-3">View profile</a>
+        <article class="doc-card" data-doctor="doctor-13" data-specialty="Paediatrics">
+          <div class="doc-card__link">
+            <span class="doc-card__media">
+              <picture>
+                <source srcset="images/doctors/siddharth-nandi.webp" type="image/webp">
+                <img src="images/doctors/siddharth-nandi.jpg" width="430" height="538" alt="Dr. Siddharth Nandi, Paediatrics at Ramakrishna Multispeciality Hospital, Barrackpore" loading="lazy" decoding="async">
+              </picture>
+              <span class="doc-card__scrim" aria-hidden="true"></span>
+              <span class="doc-card__id">
+                <span class="doc-card__name">Dr. Siddharth Nandi</span>
+                <span class="doc-card__qual">Speciality confirmed; credentials to follow</span>
+              </span>
+            </span>
+            <span class="doc-card__foot">
+              <span class="chip chip--brand">Paediatrics</span>
+              <a class="link-arrow" href="/appointment?doctor=doctor-13">Book <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+            </span>
           </div>
         </article>
-        <article class="card doc-card" data-specialty="Dental">
-          <div class="doc-photo"><!-- TODO: real photo of Dr. Aniket Sarkar --><img src="images/placeholders/ph-portrait-4x5.svg" width="800" height="1000" alt="Dr. Aniket Sarkar, Dental — Oral &amp; Maxillofacial Surgery"></div>
-          <div class="doc-body">
-            <span class="dept">Dental</span>
-            <h3>Dr. Aniket Sarkar</h3>
-            <p class="qual">BDS, MDS (Oral &amp; Maxillofacial Surgery)</p>
-            <a class="btn btn--ghost" href="/doctor-4">View profile</a>
+        <article class="doc-card" data-doctor="doctor-14" data-specialty="General Medicine">
+          <div class="doc-card__link">
+            <span class="doc-card__media">
+              <picture>
+                <source srcset="images/doctors/sourav-bhagat.webp" type="image/webp">
+                <img src="images/doctors/sourav-bhagat.jpg" width="1000" height="1250" alt="Dr. Sourav Bhagat, General Medicine at Ramakrishna Multispeciality Hospital, Barrackpore" loading="lazy" decoding="async">
+              </picture>
+              <span class="doc-card__scrim" aria-hidden="true"></span>
+              <span class="doc-card__id">
+                <span class="doc-card__name">Dr. Sourav Bhagat</span>
+                <span class="doc-card__qual">Speciality confirmed; credentials to follow</span>
+              </span>
+            </span>
+            <span class="doc-card__foot">
+              <span class="chip chip--brand">General Medicine</span>
+              <a class="link-arrow" href="/appointment?doctor=doctor-14">Book <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+            </span>
           </div>
+        </article>
+        <article class="doc-card doc-card--placeholder" data-doctor="doctor-3" data-specialty="Gynaecology & Obstetrics">
+          <a class="doc-card__link" href="/doctor-3">
+            <span class="doc-card__media">
+              <!-- TODO: real portrait, 1000x1250 minimum. See DEFERRED.md. -->
+              <img src="images/placeholders/ph-portrait-4x5.svg" width="800" height="1000" alt="Dr. Debosmita Roy, Gynaecology & Obstetrics at Ramakrishna Multispeciality Hospital, Barrackpore" loading="lazy" decoding="async">
+              <span class="doc-card__scrim" aria-hidden="true"></span>
+              <span class="doc-card__id">
+                <span class="doc-card__name">Dr. Debosmita Roy</span>
+                <span class="doc-card__qual">MBBS</span>
+              </span>
+            </span>
+            <span class="doc-card__foot">
+              <span class="chip chip--brand">Gynaecology &amp; Obstetrics</span>
+              <span class="link-arrow">View profile <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+            </span>
+          </a>
+        </article>
+        <article class="doc-card doc-card--placeholder" data-doctor="doctor-4" data-specialty="Dental">
+          <a class="doc-card__link" href="/doctor-4">
+            <span class="doc-card__media">
+              <!-- TODO: real portrait, 1000x1250 minimum. See DEFERRED.md. -->
+              <img src="images/placeholders/ph-portrait-4x5.svg" width="800" height="1000" alt="Dr. Aniket Sarkar, Dental at Ramakrishna Multispeciality Hospital, Barrackpore" loading="lazy" decoding="async">
+              <span class="doc-card__scrim" aria-hidden="true"></span>
+              <span class="doc-card__id">
+                <span class="doc-card__name">Dr. Aniket Sarkar</span>
+                <span class="doc-card__qual">BDS, MDS (Oral &amp; Maxillofacial Surgery)</span>
+              </span>
+            </span>
+            <span class="doc-card__foot">
+              <span class="chip chip--brand">Dental</span>
+              <span class="link-arrow">View profile <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+            </span>
+          </a>
         </article>
       </div>
       <p id="doctor-empty" class="is-hidden" style="margin-top:24px;color:var(--muted)">No doctors listed under this department yet.</p>

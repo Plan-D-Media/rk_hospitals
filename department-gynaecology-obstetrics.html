@@ -198,7 +198,7 @@
         <svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>
         203/1 Ghoshpara Road, Barrackpore, Kolkata 700120
       </span>
-      <a class="util-cb" href="/appointment?dept=department-gynaecology-obstetrics">
+      <a class="util-cb" href="/appointment">
         <svg class="ico" aria-hidden="true"><use href="#i-headset"/></svg>
         Request a call back
       </a>
@@ -304,7 +304,7 @@
           <span class="nav-emg__l">24&times;7 Emergency</span>
           <span class="tel">+91 82408 42519</span>
         </a>
-        <a class="btn btn--primary nav-book" href="/appointment?dept=department-gynaecology-obstetrics">Book Appointment</a>
+        <a class="btn btn--primary nav-book" href="/appointment">Book Appointment</a>
         <button type="button" class="nav-burger" aria-expanded="false" aria-controls="rk-drawer" aria-label="Open menu" data-drawer-open>
           <svg class="ico" aria-hidden="true"><use href="#i-menu"/></svg>
         </button>
@@ -379,7 +379,7 @@
     </nav>
 
     <div class="drawer__foot">
-      <a class="btn btn--primary btn--block" href="/appointment?dept=department-gynaecology-obstetrics">Book Appointment</a>
+      <a class="btn btn--primary btn--block" href="/appointment">Book Appointment</a>
       <a class="btn btn--emergency btn--block" href="tel:+918240842519">
         <svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>
         Call 24&times;7 &mdash; <span class="tel">+91 82408 42519</span>
@@ -456,10 +456,45 @@
             <div class="f"><svg class="ico" aria-hidden="true"><use href="#i-scan"/></svg><span>X-ray and CT scan on site</span></div>
           </div>
 
-          <h2>Doctors in this department</h2>
-          <div class="dept-doc-grid">
-            <article class="card doc-card">
-              <div class="doc-photo"><!-- TODO: real photo of Dr. Debosmita Roy --><img src="images/placeholders/ph-portrait-4x5.svg" width="800" height="1000" alt="Dr. Debosmita Roy, Gynaecology & Obstetrics" loading="lazy"></div>
+                  <h2>Visiting consultants</h2>
+        <div class="dept-doc-grid">
+          <article class="doc-card" data-doctor="doctor-5">
+            <a class="doc-card__link" href="/doctor-5">
+              <span class="doc-card__media">
+                <picture>
+                  <source srcset="images/doctors/rupsha-chowdhury.webp" type="image/webp">
+                  <img src="images/doctors/rupsha-chowdhury.jpg" width="1000" height="1250" alt="Dr. Rupsha Chowdhury at Ramakrishna Multispeciality Hospital, Barrackpore" loading="lazy" decoding="async">
+                </picture>
+                <span class="doc-card__scrim" aria-hidden="true"></span>
+                <span class="doc-card__id">
+                  <span class="doc-card__name">Dr. Rupsha Chowdhury</span>
+                  <span class="doc-card__qual">MBBS, MS, DNB (Obstetrics &amp; Gynaecology)</span>
+                </span>
+              </span>
+              <span class="doc-card__foot">
+                <span class="link-arrow">View profile <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+              </span>
+            </a>
+          </article>
+          <article class="doc-card" data-doctor="doctor-8">
+            <a class="doc-card__link" href="/doctor-8">
+              <span class="doc-card__media">
+                <picture>
+                  <source srcset="images/doctors/agniv-sarkar.webp" type="image/webp">
+                  <img src="images/doctors/agniv-sarkar.jpg" width="720" height="900" alt="Dr. Agniv Sarkar at Ramakrishna Multispeciality Hospital, Barrackpore" loading="lazy" decoding="async">
+                </picture>
+                <span class="doc-card__scrim" aria-hidden="true"></span>
+                <span class="doc-card__id">
+                  <span class="doc-card__name">Dr. Agniv Sarkar</span>
+                  <span class="doc-card__qual">MBBS, MS (G&amp;O), DNB (G&amp;O), MCh</span>
+                </span>
+              </span>
+              <span class="doc-card__foot">
+                <span class="link-arrow">View profile <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+              </span>
+            </a>
+          </article>
+        </div>
               <div class="doc-body">
                 <span class="dept">Gynaecology &amp; Obstetrics</span>
                 <h3>Dr. Debosmita Roy</h3>
