@@ -21,7 +21,6 @@
 
 <link href="css/rk-system.css" rel="stylesheet">
 <link href="css/rk-blocks.css" rel="stylesheet">
-  <link href="css/rk-theme.css" rel="stylesheet">
   <link href="css/rk-inner.css" rel="stylesheet">
   <link href="css/rk-home.css" rel="stylesheet">
 
@@ -367,11 +366,9 @@
         <div class="appt-card">
           <h2>Request an appointment</h2>
           <p class="form-note" style="margin:-6px 0 18px">It only takes a minute. Fields marked <span class="req">*</span> are required.</p>
-          <form id="appointment-form" data-lead-form="appointment" novalidate>
-            <!-- honeypot -->
+          <form id="appointment-form" data-lead-form="appointment" data-dept-required="true" novalidate>
             <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
             <p class="form-lead-in">Send us a request and our desk will call you to confirm a time.</p>
-
             <div class="form-row">
               <div class="field">
                 <label for="af-name">Full name <span class="req">*</span></label>
@@ -379,32 +376,22 @@
               </div>
               <div class="field">
                 <label for="af-phone">Phone <span class="req">*</span></label>
-                <input id="af-phone" name="phone" type="tel" required autocomplete="tel" pattern="[0-9+\-\s]{10,15}" placeholder="10-digit mobile">
+                <input id="af-phone" name="phone" type="tel" required autocomplete="tel" placeholder="10-digit mobile">
               </div>
             </div>
-
             <div class="form-row">
               <div class="field">
                 <label for="af-dept">Department <span class="req">*</span></label>
                 <select id="af-dept" name="department" required>
                   <option value="" selected disabled>Select a department</option>
-                  <option>Emergency &amp; Trauma</option>
-                  <option>Cardiology</option>
-                  <option>Critical Care (ICU/HDU)</option>
-                  <option>Gastroenterology</option>
-                  <option>ENT</option>
-                  <option>General Medicine</option>
-                  <option>General &amp; Laparoscopic Surgery</option>
-                  <option>Orthopaedics</option>
-                  <option>Gynaecology &amp; Obstetrics</option>
-                  <option>Paediatrics &amp; Neonatology</option>
-                  <option>Pulmonology</option>
-                  <option>Urology</option>
-                  <option>Endocrinology</option>
-                  <option>Nephrology / Dialysis</option>
-                  <option>Dentistry</option>
-                  <option>Health Check-up</option>
-                  <option>Other</option>
+                  <option>Emergency &amp; Trauma</option><option>Cardiology</option>
+                  <option>Critical Care (ICU/HDU)</option><option>Gastroenterology</option>
+                  <option>ENT</option><option>General Medicine</option>
+                  <option>General &amp; Laparoscopic Surgery</option><option>Orthopaedics</option>
+                  <option>Gynaecology &amp; Obstetrics</option><option>Paediatrics &amp; Neonatology</option>
+                  <option>Pulmonology</option><option>Urology</option><option>Endocrinology</option>
+                  <option>Nephrology / Dialysis</option><option>Dentistry</option>
+                  <option>Health Check-up</option><option>Other</option>
                 </select>
               </div>
               <div class="field">
@@ -412,19 +399,18 @@
                 <input id="af-date" name="preferred_date" type="date">
               </div>
             </div>
-
             <div class="field">
               <label for="af-msg">Message</label>
               <textarea id="af-msg" name="message" placeholder="Briefly describe your concern (optional)"></textarea>
             </div>
-
-            <button class="btn btn--primary btn--block btn--lg" type="submit"><svg class="ico" aria-hidden="true"><use href="#i-calendar-check"/></svg> Request appointment</button>
-            <p class="form-note" style="margin-top:12px">By submitting, you agree to be contacted about your appointment. We don't share your details.</p>
-
+            <button class="btn btn--primary btn--block btn--lg" type="submit">
+              <svg class="ico" aria-hidden="true"><use href="#i-calendar-check"/></svg> Request appointment
+            </button>
+            <p class="form-note" style="margin-top:12px">By submitting, you agree to be contacted about your appointment. We do not share your details.</p>
             <div class="form-success" role="status">
               <strong>Thank you &mdash; we have your request.</strong> This is an enquiry, not a confirmed appointment. Our desk will call you on the number you gave to agree a time. For anything urgent, call <a class="tel" href="tel:+918240842519">+91 82408 42519</a> &mdash; the emergency department is open 24&times;7.</div>
             <div class="form-error" role="alert">
-              <strong>Sorry — we couldn&rsquo;t send your request.</strong> Please check your connection and try again, or call us on <a data-fallback-phone href="tel:+918240842519">+91 82408 42519</a> and we&rsquo;ll book you in.
+              <strong>Sorry &mdash; we could not send your request.</strong> Please check your connection and try again, or call us on <a data-fallback-phone href="tel:+918240842519">+91 82408 42519</a> and we will book you in.
             </div>
           </form>
         </div>
@@ -491,6 +477,17 @@
 </main>
 
 <!-- ============ FOOTER ============ -->
+<!-- Second instance of the live status device (§3). Same script, slim variant. -->
+<div class="open-strip">
+  <div class="container">
+    <div class="open-now" data-open-now role="status" aria-live="polite">
+      <span class="open-now__status"><span class="open-now__dot" aria-hidden="true"></span> Open now</span>
+      <p class="open-now__line">Emergency department &middot; triage running</p>
+      <span class="open-now__clock"><span data-on-clock>&nbsp;</span><span class="open-now__tz">IST</span></span>
+    </div>
+  </div>
+</div>
+
 <footer class="rk-footer">
   <div class="container">
     <div class="footer-grid">
@@ -546,6 +543,7 @@
   <a class="mobile-bar__a mobile-bar__a--book" href="/appointment"><svg class="ico" aria-hidden="true"><use href="#i-calendar-check"/></svg> Book</a>
 </div>
 
+<script src="js/rk-open-now.js" defer></script>
 <script src="js/rk-ui.js" defer></script>
 <script src="js/rk-scoped-booking.js" defer></script>
 <script src="js/rk-main.js" defer></script>

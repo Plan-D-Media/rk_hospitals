@@ -22,7 +22,6 @@
 
    Contents
      1.  Tokens
-     2.  Legacy aliases  (transitional — see note, delete after migration)
      3.  Reset & base
      4.  Typography
      5.  Layout: container, section, surface rhythm
@@ -209,33 +208,6 @@
 }
 
 /* ------------------------------------------------------------
-   2. LEGACY ALIASES  — TRANSITIONAL, DELETE WHEN MIGRATION ENDS
-   ------------------------------------------------------------
-   rk-theme.css, rk-home.css, rk-home-v2.css and rk-inner.css still
-   reference the old token names. These aliases keep those rules
-   resolving while their components are migrated file by file.
-
-   When no file outside this block references --magenta / --red /
-   --neutral / --ink-soft / --r / --shadow*, delete this block.
-   Check with:  grep -rn "var(--magenta\|var(--red\|var(--neutral" css/
-   ------------------------------------------------------------ */
-:root {
-  --magenta: var(--brand-500);
-  --magenta-dark: var(--brand-600);
-  --magenta-wash: var(--brand-100);
-  --red: var(--emergency);
-  --red-dark: var(--brand-700);
-  --ink: var(--ink-900);
-  --ink-soft: var(--body);
-  --neutral: var(--surface);
-  --wa: #25D366;
-  --r: var(--r-md);
-  --shadow-sm: var(--sh-1);
-  --shadow: var(--sh-2);
-  --shadow-magenta: 0 10px 26px rgba(189,39,84,.22);
-}
-
-/* ------------------------------------------------------------
    3. RESET & BASE
    ------------------------------------------------------------ */
 *, *::before, *::after { box-sizing: border-box; }
@@ -384,6 +356,16 @@ a[href^="tel:"] { white-space: nowrap; }
 
 .stack > * + * { margin-top: var(--sp-4); }
 .text-center { text-align: center; }
+.grid { display: grid; gap: 24px; }
+
+/* Surface modifiers kept for inner-page markup that still uses them. */
+.section--neutral { background: var(--surface); }
+.section--wash { background: var(--brand-050); }
+
+/* Crimson outline button. Distinct from .btn--outline (ink) — used where the
+   action is brand-led rather than secondary. */
+.btn--ghost { --btn-bg: transparent; --btn-fg: var(--brand-600); --btn-bd: var(--brand-600); }
+.btn--ghost:hover { --btn-bg: var(--brand-600); --btn-fg: var(--paper); color: var(--paper); }
 
 /* Grid and flex children default to min-width:auto, so a single wide
    descendant — a nowrap button, a table with min-width, a <select> sized

@@ -1,0 +1,62 @@
+<!-- ============================================================
+     APPOINTMENT FORM — REFERENCE COPY (see partials/README.md)
+
+     One block, used on every surface. Context is expressed by
+     data-dept-required on the <form>:
+
+       "true"  appointment intent (index, appointment, landing) — the
+               department is how the enquiry gets routed, so it is required
+       "false" general enquiry (contacts-1, contacts-2) — the visitor may
+               not know which department they need, and demanding it costs
+               a lead for no benefit
+
+     js/rk-scoped-booking.js reads ?doctor= / ?dept= and adds the scope
+     block plus hidden attribution fields. It never REQUIRES them.
+     ============================================================ -->
+<form id="appointment-form" data-lead-form="appointment" novalidate>
+            <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <p class="form-lead-in">Send us a request and our desk will call you to confirm a time.</p>
+            <div class="form-row">
+              <div class="field">
+                <label for="af-name">Full name <span class="req">*</span></label>
+                <input id="af-name" name="name" type="text" required autocomplete="name" placeholder="Your name">
+              </div>
+              <div class="field">
+                <label for="af-phone">Phone <span class="req">*</span></label>
+                <input id="af-phone" name="phone" type="tel" required autocomplete="tel" placeholder="10-digit mobile">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="af-dept">Department <span class="req">*</span></label>
+                <select id="af-dept" name="department" required>
+                  <option value="" selected disabled>Select a department</option>
+                  <option>Emergency &amp; Trauma</option><option>Cardiology</option>
+                  <option>Critical Care (ICU/HDU)</option><option>Gastroenterology</option>
+                  <option>ENT</option><option>General Medicine</option>
+                  <option>General &amp; Laparoscopic Surgery</option><option>Orthopaedics</option>
+                  <option>Gynaecology &amp; Obstetrics</option><option>Paediatrics &amp; Neonatology</option>
+                  <option>Pulmonology</option><option>Urology</option><option>Endocrinology</option>
+                  <option>Nephrology / Dialysis</option><option>Dentistry</option>
+                  <option>Health Check-up</option><option>Other</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="af-date">Preferred date</label>
+                <input id="af-date" name="preferred_date" type="date">
+              </div>
+            </div>
+            <div class="field">
+              <label for="af-msg">Message</label>
+              <textarea id="af-msg" name="message" placeholder="Briefly describe your concern (optional)"></textarea>
+            </div>
+            <button class="btn btn--primary btn--block btn--lg" type="submit">
+              <svg class="ico" aria-hidden="true"><use href="#i-calendar-check"/></svg> Request appointment
+            </button>
+            <p class="form-note" style="margin-top:12px">By submitting, you agree to be contacted about your appointment. We do not share your details.</p>
+            <div class="form-success" role="status">
+              <strong>Thank you &mdash; we have your request.</strong> This is an enquiry, not a confirmed appointment. Our desk will call you on the number you gave to agree a time. For anything urgent, call <a class="tel" href="tel:+918240842519">+91 82408 42519</a> &mdash; the emergency department is open 24&times;7.</div>
+            <div class="form-error" role="alert">
+              <strong>Sorry &mdash; we could not send your request.</strong> Please check your connection and try again, or call us on <a data-fallback-phone href="tel:+918240842519">+91 82408 42519</a> and we will book you in.
+            </div>
+          </form>

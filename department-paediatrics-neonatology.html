@@ -22,7 +22,6 @@
 
 <link href="css/rk-system.css" rel="stylesheet">
 <link href="css/rk-blocks.css" rel="stylesheet">
-  <link href="css/rk-theme.css" rel="stylesheet">
   <link href="css/rk-inner.css" rel="stylesheet">
 
 
@@ -577,6 +576,17 @@
 </main>
 
 <!-- ============ FOOTER ============ -->
+<!-- Second instance of the live status device (§3). Same script, slim variant. -->
+<div class="open-strip">
+  <div class="container">
+    <div class="open-now" data-open-now role="status" aria-live="polite">
+      <span class="open-now__status"><span class="open-now__dot" aria-hidden="true"></span> Open now</span>
+      <p class="open-now__line">Emergency department &middot; triage running</p>
+      <span class="open-now__clock"><span data-on-clock>&nbsp;</span><span class="open-now__tz">IST</span></span>
+    </div>
+  </div>
+</div>
+
 <footer class="rk-footer">
   <div class="container">
     <div class="footer-grid">
@@ -633,6 +643,7 @@
   <a class="mobile-bar__a mobile-bar__a--book" href="/appointment"><svg class="ico" aria-hidden="true"><use href="#i-calendar-check"/></svg> Book</a>
 </div>
 
+<script src="js/rk-open-now.js" defer></script>
 <script src="js/rk-ui.js" defer></script>
 <script src="js/rk-main.js" defer></script>
 </body>

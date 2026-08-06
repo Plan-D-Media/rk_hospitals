@@ -210,9 +210,11 @@
     if (el.tagName === "A") el.setAttribute("href", "tel:" + FALLBACK_PHONE_TEL);
   });
 
-  // ---- SCROLL REVEAL ---------------------------------------------------
-  // Opt-in per element via class="reveal". No-ops on pages that use none.
-  // Only opacity/transform animate, so this can never shift layout.
+  // ---- SCROLL REVEAL --------------------------------------------------
+  // ONE observer and one utility class for the whole site. Opt in with
+  // class="reveal". Only opacity/transform animate, so this can never shift
+  // layout. Direct children of a revealed group are staggered 70ms apart
+  // (§6) via data-reveal-i, which rk-system.css turns into a delay.
   var revealables = document.querySelectorAll(".reveal");
   if (revealables.length) {
     var noMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -222,10 +224,18 @@
       var revealObserver = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (!entry.isIntersecting) return;
-          entry.target.classList.add("is-in");
-          revealObserver.unobserve(entry.target);
+          var el = entry.target;
+          var group = el.querySelector("[data-reveal-group]");
+          if (group) {
+            Array.prototype.slice.call(group.children, 0, 6).forEach(function (child, i) {
+              child.setAttribute("data-reveal-i", String(i));
+              child.classList.add("reveal", "is-in");
+            });
+          }
+          el.classList.add("is-in");
+          revealObserver.unobserve(el);
         });
-      }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+      }, { rootMargin: "0px 0px -8% 0px", threshold: 0.15 });
       revealables.forEach(function (el) { revealObserver.observe(el); });
     }
   }

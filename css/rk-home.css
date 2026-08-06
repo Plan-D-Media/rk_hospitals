@@ -30,34 +30,34 @@
 .lp-bar .container { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: var(--header-h); }
 .lp-call {
   display: inline-flex; align-items: center; gap: 9px; font-weight: 700;
-  background: var(--red); color: #fff !important; padding: 11px 20px; border-radius: 999px;
+  background: var(--emergency); color: #fff !important; padding: 11px 20px; border-radius: 999px;
 }
-.lp-call:hover { background: var(--red-dark); }
+.lp-call:hover { background: var(--brand-700); }
 @media (max-width: 480px) { .lp-call .lbl { display: none; } .lp-call { padding: 11px 14px; } }
 
-.lp-hero { background: linear-gradient(180deg, var(--magenta-wash) 0%, var(--paper) 78%); padding: clamp(36px, 5vw, 64px) 0 clamp(48px, 6vw, 76px); }
+.lp-hero { background: linear-gradient(180deg, var(--brand-100) 0%, var(--paper) 78%); padding: clamp(36px, 5vw, 64px) 0 clamp(48px, 6vw, 76px); }
 .lp-hero .container { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(32px, 4vw, 56px); align-items: start; }
 .lp-hero h1 { font-size: clamp(1.9rem, 3.4vw, 2.9rem); line-height: 1.16; letter-spacing: -.02em; }
-.lp-hero h1 .accent { color: var(--magenta); }
-.lp-hero .sub { margin-top: 18px; font-size: 1.03rem; line-height: 1.7; color: var(--ink-soft); max-width: 60ch; }
+.lp-hero h1 .accent { color: var(--brand-500); }
+.lp-hero .sub { margin-top: 18px; font-size: 1.03rem; line-height: 1.7; color: var(--body); max-width: 60ch; }
 @media (max-width: 960px) { .lp-hero .container { grid-template-columns: 1fr; } }
 
 .lp-trust { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 30px; }
-.lp-trust .t { display: flex; gap: 13px; align-items: flex-start; background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); padding: 15px 17px; box-shadow: var(--shadow-sm); }
-.lp-trust .t i { color: var(--magenta); font-size: 1.15rem; margin-top: 3px; }
-.lp-trust .t strong { display: block; font-family: var(--font-display); font-size: .95rem; color: var(--ink); }
+.lp-trust .t { display: flex; gap: 13px; align-items: flex-start; background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-md); padding: 15px 17px; box-shadow: var(--sh-1); }
+.lp-trust .t i { color: var(--brand-500); font-size: 1.15rem; margin-top: 3px; }
+.lp-trust .t strong { display: block; font-family: var(--font-display); font-size: .95rem; color: var(--ink-900); }
 .lp-trust .t span { display: block; font-size: .82rem; color: var(--muted); margin-top: 2px; }
 @media (max-width: 560px) { .lp-trust { grid-template-columns: 1fr; } }
 
 /* Reassurance strip of short claims */
-.lp-strip { background: var(--neutral); border-block: 1px solid var(--line); padding: 18px 0; }
+.lp-strip { background: var(--surface); border-block: 1px solid var(--line); padding: 18px 0; }
 .lp-strip .container { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 34px; }
-.lp-strip .s { display: inline-flex; align-items: center; gap: 9px; font-size: .92rem; font-weight: 600; color: var(--ink-soft); }
-.lp-strip .s i { color: var(--magenta); }
+.lp-strip .s { display: inline-flex; align-items: center; gap: 9px; font-size: .92rem; font-weight: 600; color: var(--body); }
+.lp-strip .s i { color: var(--brand-500); }
 
-.lp-footer { background: var(--ink); color: #a49ea3; padding: 34px 0; font-size: .9rem; }
+.lp-footer { background: var(--ink-900); color: #a49ea3; padding: 34px 0; font-size: .9rem; }
 .lp-footer .nap { display: grid; gap: 11px; }
 .lp-footer .nap .row { display: flex; gap: 11px; align-items: flex-start; line-height: 1.6; }
-.lp-footer .nap i { color: var(--magenta); margin-top: 4px; }
+.lp-footer .nap i { color: var(--brand-500); margin-top: 4px; }
 .lp-footer a { color: #c9c3c8; }
 .lp-footer a:hover { color: #fff; }
