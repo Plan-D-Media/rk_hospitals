@@ -182,8 +182,8 @@
 /* [hidden] is removed by JS on open; keep the attribute honest for no-JS. */
 .mega[hidden] { display: none; }
 
-.mega-inner { display: grid; grid-template-columns: repeat(3, 1fr) 220px; gap: 26px; }
-.mega--narrow .mega-inner { grid-template-columns: 1fr; gap: 0; }
+.mega-inner { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) 220px; gap: 26px; }
+.mega--narrow .mega-inner { grid-template-columns: minmax(0, 1fr); gap: 0; }
 
 /* Flex + min-height keeps the rules level when one heading wraps to two
    lines ("Emergency & Critical Care"), so all three columns start together. */
@@ -426,7 +426,7 @@
 .hero__grid {
   position: relative; z-index: 1;
   display: grid;
-  grid-template-columns: 58fr 42fr;
+  grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
   gap: clamp(28px, 4vw, 56px);
   align-items: center;
   /* Tuned so the quick-action row's overlap is inside a 1440x900 viewport:
@@ -526,7 +526,7 @@
 
 @media (max-width: 860px) {
   .hero__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     padding-top: clamp(96px, 12vh, 132px);
     padding-bottom: 72px;
     gap: 34px;
@@ -544,6 +544,33 @@
   .hero__cta .btn { flex: 1 1 100%; }
 }
 
+/* Landscape phone — the viewport is ~360px TALL, not wide.
+   The stacked layout puts the photo first at 16/10, so at 800px wide the
+   photo alone is 500px. With the 89px header above it the h1 landed 325px
+   BELOW the fold: a visitor holding the phone sideways saw a logo, a phone
+   number and a photograph, and had to scroll a full screen to find out what
+   the page was. Measured 685-796 in a 360px viewport.
+   Capping the photo's height was tried first and is the wrong lever: to buy
+   enough room it had to start above y=89, which slid it under the transparent
+   header and put "Book Appointment" in charcoal over a navy suit. The header
+   is only transparent because the hero's padding normally clears it.
+   So reverse the stacking instead — on a 360px-tall screen the sentence that
+   says what this place is outranks the photograph. Copy first, photo after,
+   header clearance intact.
+   Bounded above at 860px because the two-column layout resumes there and was
+   already correct (h1 at 152 in a 414px viewport). */
+@media (max-width: 860px) and (max-height: 480px) and (orientation: landscape) {
+  .hero__grid { padding-top: 104px; padding-bottom: 40px; gap: 24px; }
+  /* margin-bottom must be zeroed: the base rule pulls this column up by the
+     hero's own padding-bottom to make the quick-actions overlap structural,
+     and that overlap does not exist here. Left in place it hung the Open-Now
+     card 24px past the hero's overflow:hidden edge and sliced 5px off
+     "Emergency department · triage running". */
+  .hero__media { order: 1; margin-right: calc(-1 * var(--gutter)); margin-bottom: 0; }
+  .hero__frame { aspect-ratio: 16 / 7; }
+  .hero .open-now { margin: -32px var(--gutter) 32px 0; }
+}
+
 /* ------------------------------------------------------------
    7. QUICK ACTIONS
    ------------------------------------------------------------
@@ -551,7 +578,7 @@
    than any other move — but it must never create horizontal scroll,
    and it is dropped entirely below 768px. */
 .quick { position: relative; z-index: 2; margin-top: -44px; }
-.quick-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.quick-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
 .quick-item {
   display: grid; justify-items: center; gap: 12px;
   padding: 24px 16px;
@@ -579,7 +606,7 @@
 @media (max-width: 860px) {
   /* No overlap on mobile: the hero card already sits at the seam. */
   .quick { margin-top: 34px; }
-  .quick-grid { grid-template-columns: repeat(2, 1fr); }
+  .quick-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 /* ------------------------------------------------------------
@@ -697,8 +724,11 @@
    10. STATS BAND
    ------------------------------------------------------------ */
 .stats { padding-block: clamp(48px, 6vw, 76px); }
-.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
-.stat { display: grid; gap: 8px; padding: 4px clamp(12px, 2vw, 28px); text-align: center; }
+/* minmax(0,1fr), not 1fr — 1fr is minmax(auto,1fr) and `auto` floors at the
+   longest label's min-content, which at 200% text overshot the container. */
+.stats-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.stat { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 4px clamp(12px, 2vw, 28px); text-align: center; min-width: 0; }
+.stat__n, .stat__l { min-width: 0; overflow-wrap: break-word; }
 .stat + .stat { border-left: 1px solid rgba(255,255,255,.14); }
 .stat__n {
   font-family: var(--font-mono); font-weight: 500;
@@ -707,14 +737,14 @@
 }
 .stat__l { font-size: var(--fs-sm); color: rgba(255,255,255,.7); line-height: 1.4; }
 @media (max-width: 720px) {
-  .stats-grid { grid-template-columns: 1fr 1fr; gap: 30px 0; }
+  .stats-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 30px 0; }
   .stat:nth-child(3) { border-left: 0; }
 }
 
 /* ------------------------------------------------------------
    11. ABOUT — layered composition
    ------------------------------------------------------------ */
-.about { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(36px, 5vw, 72px); align-items: center; }
+.about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(36px, 5vw, 72px); align-items: center; }
 .about > * { min-width: 0; }
 .about__media { position: relative; padding: 0 40px 56px 18px; }
 .about__big { box-shadow: var(--sh-2); }
@@ -752,14 +782,14 @@
   color: var(--ink-800);
 }
 @media (max-width: 860px) {
-  .about { grid-template-columns: 1fr; }
+  .about { grid-template-columns: minmax(0, 1fr); }
   .about__media { padding-right: 24px; padding-bottom: 44px; }
 }
 
 /* ------------------------------------------------------------
    12. SPECIALITIES
    ------------------------------------------------------------ */
-.spec-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.spec-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
 .spec-card { display: grid; align-content: start; gap: 12px; padding: 28px; color: var(--ink-800); }
 .spec-card h3 { margin: 0; font-size: var(--fs-lg); }
 .spec-card p { margin: 0; font-size: var(--fs-sm); color: var(--muted); }
@@ -772,26 +802,26 @@
 .spec-card--all .link-arrow { color: var(--care-400); }
 .spec-card--all:hover { background: var(--ink-900); }
 .spec-card--all:hover .link-arrow .ico { transform: translateX(4px); }
-@media (max-width: 1024px) { .spec-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 560px)  { .spec-grid { grid-template-columns: 1fr; } }
+@media (max-width: 1024px) { .spec-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px)  { .spec-grid { grid-template-columns: minmax(0, 1fr); } }
 
 /* ------------------------------------------------------------
    13. WHY FAMILIES CHOOSE US — hairline rows, not cards
    ------------------------------------------------------------ */
-.why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(32px, 5vw, 72px); }
+.why-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 clamp(32px, 5vw, 72px); }
 .why-item { display: flex; gap: 18px; align-items: flex-start; padding: 26px 0; border-bottom: 1px solid var(--line); }
 .why-item h3 { margin: 0 0 6px; font-size: var(--fs-lg); }
 .why-item p { margin: 0; font-size: var(--fs-base); color: var(--muted); }
 @media (min-width: 861px) { .why-grid > .why-item:nth-last-child(-n+2) { border-bottom: 0; } }
 @media (max-width: 860px) {
-  .why-grid { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: minmax(0, 1fr); }
   .why-item:last-child { border-bottom: 0; }
 }
 
 /* ------------------------------------------------------------
    14. DIAGNOSTICS
    ------------------------------------------------------------ */
-.diag { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(32px, 5vw, 64px); align-items: center; }
+.diag { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(32px, 5vw, 64px); align-items: center; }
 .diag > * { min-width: 0; }
 .diag__copy .eyebrow { color: var(--care-700); }
 .diag-chips { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 26px; }
@@ -805,12 +835,12 @@
 .diag-chip strong { display: block; font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: .04em; text-transform: uppercase; color: var(--ink-900); }
 .diag-chip span span { font-size: var(--fs-sm); color: var(--muted); }
 .diag__media { box-shadow: var(--sh-2); }
-@media (max-width: 860px) { .diag { grid-template-columns: 1fr; } .diag__media { order: -1; } }
+@media (max-width: 860px) { .diag { grid-template-columns: minmax(0, 1fr); } .diag__media { order: -1; } }
 
 /* ------------------------------------------------------------
    15. DOCTOR CARDS
    ------------------------------------------------------------ */
-.docs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.docs-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
 .doc-card {
   background: var(--paper); border: 1px solid var(--line);
   border-radius: var(--r-lg); overflow: hidden;
@@ -845,7 +875,7 @@
 /* A card foot link is a real tap target, not inline prose. */
 .doc-card__foot .link-arrow { font-size: var(--fs-sm); min-height: 44px; }
 
-@media (max-width: 1024px) { .docs-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 1024px) { .docs-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) {
   /* Snap-scroll carousel with the next card peeking, per §4.10. */
   .docs-grid {
@@ -861,7 +891,7 @@
 /* ------------------------------------------------------------
    16. PACKAGES
    ------------------------------------------------------------ */
-.pkg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
+.pkg-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: start; }
 .pkg {
   position: relative; display: flex; flex-direction: column;
   padding: 30px 28px;
@@ -887,7 +917,7 @@
 .pkg__list li { display: flex; gap: 10px; align-items: flex-start; font-size: var(--fs-sm); color: var(--body); }
 .pkg__list .ico { color: var(--care-600); margin-top: 4px; flex: none; }
 .pkg .btn { margin-top: auto; }
-@media (max-width: 900px) { .pkg-grid { grid-template-columns: 1fr; } .pkg--featured { transform: none; } }
+@media (max-width: 900px) { .pkg-grid { grid-template-columns: minmax(0, 1fr); } .pkg--featured { transform: none; } }
 
 /* ------------------------------------------------------------
    17. EMERGENCY BAND
@@ -911,7 +941,7 @@
 /* ------------------------------------------------------------
    18. APPOINTMENT + MAP
    ------------------------------------------------------------ */
-.appt { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 4vw, 48px); align-items: start; }
+.appt { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 4vw, 48px); align-items: start; }
 .appt > * { min-width: 0; }
 .appt__card { background: var(--paper); border-radius: var(--r-xl); box-shadow: var(--sh-3); padding: clamp(26px, 3vw, 40px); }
 .appt__map { position: relative; padding-bottom: 92px; }
@@ -926,7 +956,7 @@
 .map-card__row { display: flex; gap: 11px; align-items: flex-start; font-size: var(--fs-sm); color: var(--body); }
 .map-card__row .ico { color: var(--brand-600); margin-top: 3px; flex: none; }
 @media (max-width: 900px) {
-  .appt { grid-template-columns: 1fr; }
+  .appt { grid-template-columns: minmax(0, 1fr); }
   .appt__map { padding-bottom: 0; }
   .map-card { position: static; right: auto; margin-top: 14px; }
 }
@@ -934,7 +964,7 @@
 /* ------------------------------------------------------------
    19. HEALTH TIPS
    ------------------------------------------------------------ */
-.post-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.post-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
 .post { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; transition: transform var(--dur-fast) var(--ease-card), box-shadow var(--dur-fast) var(--ease-card), border-color var(--dur-fast) var(--ease-card); }
 .post:hover { transform: translateY(-4px); box-shadow: var(--sh-2); border-color: var(--care-400); }
 .post__link { display: block; color: inherit; }
@@ -944,7 +974,7 @@
 .post h3 { font-family: var(--font-display); font-variation-settings: "opsz" 144, "SOFT" 0, "WONK" 0; font-weight: 600; font-size: var(--fs-xl); margin: 0 0 8px; letter-spacing: var(--tr-display); }
 .post p { font-size: var(--fs-sm); color: var(--muted); margin: 0 0 12px; }
 .post__more { font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: var(--tr-mono); text-transform: uppercase; min-height: 0; }
-@media (max-width: 900px) { .post-grid { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .post-grid { grid-template-columns: minmax(0, 1fr); } }
 
 /* Scoped-booking note — injected by rk-scoped-booking.js, never in the HTML. */
 .form-lead-in { font-size: var(--fs-sm); color: var(--muted); margin: 0 0 18px; }
@@ -972,7 +1002,7 @@
 .mobile-bar { display: none; }
 @media (max-width: 720px) {
   .mobile-bar {
-    display: grid; grid-template-columns: repeat(3, 1fr);
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 820;
     background: var(--paper);
     border-top: 1px solid var(--line);
@@ -988,6 +1018,20 @@
   .mobile-bar__a .ico { color: var(--care-600); }
   .mobile-bar__a--book { background: var(--brand-500); color: var(--paper); border-left-color: var(--brand-500); }
   .mobile-bar__a--book .ico { color: var(--paper); }
+  /* The action-hierarchy rule is "never two crimson fills in one viewport".
+     On desktop the header's Book CTA already honours it: ink outline while
+     the hero's crimson CTA is on screen, crimson once that scrolls away.
+     This bar is permanently on screen, so on mobile EVERY page with an
+     in-page primary rendered two fills at once — measured 2 on / and
+     /appointment, 3 on /landing. Same mechanism, same reasoning: the bar
+     steps down while a page-level primary is visible.
+     Transition on colour only, so the bar can never reflow under a thumb. */
+  .mobile-bar.is-animated .mobile-bar__a--book {
+    transition: background var(--dur-mid) ease, color var(--dur-mid) ease;
+  }
+  .mobile-bar.is-subdued .mobile-bar__a--book {
+    background: var(--ink-800); color: var(--paper); border-left-color: var(--ink-800);
+  }
   /* The bar must never cover the footer. */
   /* 62px, not 60: the bar is 60px of content plus a 1px border-top,
      so a 60px reservation left it covering the footer by 1px. */
@@ -1001,7 +1045,7 @@
 .rk-footer { background: var(--ink-900); color: rgba(255,255,255,.72); padding: clamp(52px,7vw,80px) 0 0; }
 .rk-footer a { color: rgba(255,255,255,.72); }
 .rk-footer a:hover { color: #fff; }
-.footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.4fr; gap: clamp(28px,4vw,44px); }
+.footer-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.4fr); gap: clamp(28px,4vw,44px); }
 /* width:auto is load-bearing — width="300" is a presentational hint, so
    without it the 300x68 logo renders 300x44 and squashes. */
 .footer-brand img { height: 42px; width: auto; display: block; margin-bottom: 18px; filter: brightness(0) invert(1); }
@@ -1020,8 +1064,8 @@
 }
 .footer-bottom .container { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; align-items: center; }
 .footer-bottom a { color: rgba(255,255,255,.55); }
-@media (max-width: 860px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 520px) { .footer-grid { grid-template-columns: 1fr; } }
+@media (max-width: 860px) { .footer-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+@media (max-width: 520px) { .footer-grid { grid-template-columns: minmax(0, 1fr); } }
 
 /* ------------------------------------------------------------
    22. DOCTOR VISITING TIMES (profile pages)

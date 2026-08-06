@@ -373,11 +373,6 @@ a[href^="tel:"] { word-break: keep-all; }
 .section--neutral { background: var(--surface); }
 .section--wash { background: var(--brand-050); }
 
-/* Crimson outline button. Distinct from .btn--outline (ink) — used where the
-   action is brand-led rather than secondary. */
-.btn--ghost { --btn-bg: transparent; --btn-fg: var(--brand-600); --btn-bd: var(--brand-600); }
-.btn--ghost:hover { --btn-bg: var(--brand-600); --btn-fg: var(--paper); color: var(--paper); }
-
 /* Grid and flex children default to min-width:auto, so a single wide
    descendant — a nowrap button, a table with min-width, a <select> sized
    to its longest option — inflates its track past the viewport and scrolls
@@ -465,6 +460,16 @@ p, li, h1, h2, h3, h4, dd, dt, td, th, figcaption { overflow-wrap: break-word; }
 
 .btn--primary { --btn-bg: var(--brand-500); --btn-fg: var(--paper); }
 .btn--primary:hover { --btn-bg: var(--brand-600); color: var(--paper); }
+
+/* Crimson OUTLINE button. Distinct from .btn--outline (ink) — used where the
+   action is brand-led rather than secondary.
+   This must sit AFTER .btn. It previously lived ~56 lines above the base
+   rule, and since `.btn--ghost` and `.btn` have identical specificity the
+   later `.btn { --btn-bg: var(--brand-500) }` won: every ghost button on the
+   site rendered as a solid crimson primary. Four of them stacked in one
+   viewport on landing.html, against a system rule that permits one. */
+.btn--ghost { --btn-bg: transparent; --btn-fg: var(--brand-600); --btn-bd: var(--brand-600); }
+.btn--ghost:hover { --btn-bg: var(--brand-600); --btn-fg: var(--paper); color: var(--paper); }
 
 /* Emergency is an OUTLINE, never a second crimson fill — see the action
    hierarchy rule at the top of this file. */
@@ -649,9 +654,9 @@ p, li, h1, h2, h3, h4, dd, dt, td, th, figcaption { overflow-wrap: break-word; }
   box-shadow: 0 0 0 3px var(--brand-100);
 }
 
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 18px; }
+.form-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 18px; }
 .form-row > * { min-width: 0; }
-@media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .form-row { grid-template-columns: minmax(0, 1fr); } }
 
 .form-note { font-size: var(--fs-sm); color: var(--muted); }
 

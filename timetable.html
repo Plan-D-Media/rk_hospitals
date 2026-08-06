@@ -37,15 +37,15 @@
 
   <style>
     /* Timetable — local layout only; colours from theme tokens */
-    .tt-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow-sm); background: #fff; }
+    .tt-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r-md); box-shadow: var(--sh-1); background: #fff; }
     .tt-table { width: 100%; border-collapse: collapse; min-width: 640px; font-size: .95rem; }
     .tt-table th, .tt-table td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
-    .tt-table thead th { background: var(--magenta-wash); color: var(--magenta); font-family: var(--font-display); font-weight: 700; font-size: .82rem; letter-spacing: .04em; text-transform: uppercase; }
+    .tt-table thead th { background: var(--brand-050); color: var(--brand-500); font-family: var(--font-display); font-weight: 700; font-size: .82rem; letter-spacing: .04em; text-transform: uppercase; }
     .tt-table tbody tr:last-child td { border-bottom: 0; }
-    .tt-table .dept-cell strong { display: block; font-family: var(--font-display); color: var(--ink); font-size: 1rem; }
+    .tt-table .dept-cell strong { display: block; font-family: var(--font-display); color: var(--ink-900); font-size: 1rem; }
     .tt-table .dept-cell span { color: var(--muted); font-size: .85rem; }
-    .tt-table td.appt { color: var(--ink-soft); font-weight: 600; }
-    .tt-note-emg { display: flex; gap: 16px; align-items: center; background: var(--red); color: #fff; border-radius: var(--r); padding: 20px 24px; margin: 0 0 28px; }
+    .tt-table td.appt { color: var(--body); font-weight: 600; }
+    .tt-note-emg { display: flex; gap: 16px; align-items: center; background: var(--emergency); color: #fff; border-radius: var(--r-md); padding: 20px 24px; margin: 0 0 28px; }
     .tt-note-emg .ic { width: 46px; height: 46px; border-radius: 12px; background: rgba(255,255,255,.16); display: grid; place-items: center; font-size: 1.4rem; flex: none; }
     .tt-note-emg strong { display: block; font-family: var(--font-display); font-size: 1.1rem; }
     .tt-note-emg p { margin: 2px 0 0; opacity: .95; font-size: .95rem; }
@@ -483,7 +483,7 @@
           <div class="side-card is-emg">
             <h3>Medical emergency?</h3>
             <p style="opacity:.95;margin-bottom:16px">No appointment needed — the emergency department is open 24×7.</p>
-            <a class="btn btn--white btn--block" href="tel:+918240842519" style="color:var(--red-dark)"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg> Call +91 82408 42519</a>
+            <a class="btn btn--white btn--block" href="tel:+918240842519" style="color:var(--brand-700)"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg> Call +91 82408 42519</a>
           </div>
 
           <div class="side-card">

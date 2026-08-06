@@ -267,3 +267,76 @@
     }
   });
 })();
+
+/* ------------------------------------------------------------
+   One crimson fill at a time
+   ------------------------------------------------------------
+   Third application of the header's is-over-hero mechanism. Two elements
+   carry a permanent crimson fill and therefore compete with any page-level
+   primary that scrolls into view:
+
+     .mobile-bar__a--book   the sticky bar's Book segment, every page <=720px
+     .lp-call               landing.html's sticky click-to-call pill
+
+   Measured before this existed: 2 crimson fills on / and /appointment,
+   3 on /landing, against a system rule that permits one.
+
+   Rules, in order:
+     - a persistent element steps down while a page primary is on screen
+     - the bar additionally always defers to .lp-call, which is sticky and so
+       never leaves the viewport on the page where it exists
+
+   IntersectionObserver, not scroll: it fires only on a crossing, and every
+   element involved is fixed or sticky, so nothing can reflow. Without
+   observer support the elements stay crimson, which is the prior behaviour. */
+(function () {
+  var bar = document.querySelector(".mobile-bar");
+  var lpCall = document.querySelector(".lp-call");
+  var persistent = [bar, lpCall].filter(Boolean);
+  if (!persistent.length || !("IntersectionObserver" in window)) return;
+
+  /* The bar can never outrank a sticky crimson pill that is always visible. */
+  if (bar && lpCall) bar.classList.add("is-subdued");
+
+  var triggers = Array.prototype.slice.call(
+    document.querySelectorAll(".btn--primary")
+  ).filter(function (el) {
+    return !persistent.some(function (p) { return p.contains(el); });
+  });
+  if (!triggers.length) return;
+
+  /* Track WHICH elements are on screen, not how many transitions have been
+     seen. A counter is wrong here: the first callback delivers every observed
+     element at once, so a page with two off-screen CTAs and one visible one
+     nets -1, and clamping that to zero throws away the visible one. */
+  var onScreen = [];
+  var settled = false;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      var i = onScreen.indexOf(e.target);
+      if (e.isIntersecting && i === -1) onScreen.push(e.target);
+      else if (!e.isIntersecting && i !== -1) onScreen.splice(i, 1);
+    });
+    var on = onScreen.length > 0;
+    persistent.forEach(function (el) {
+      /* the bar's deference to .lp-call outlives any single CTA */
+      if (el === bar && lpCall) return;
+      el.classList.toggle("is-subdued", on);
+    });
+    /* Animate only AFTER the first callback has settled the initial state.
+       Without this the first toggle is itself transitioned, so the bar
+       visibly flashes crimson and fades to ink on every load — which also
+       makes "two crimson fills" briefly true, the exact thing this fixes.
+       Two frames: one for the class to land, one for it to be painted. */
+    if (!settled) {
+      settled = true;
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          persistent.forEach(function (el) { el.classList.add("is-animated"); });
+        });
+      });
+    }
+  }, { rootMargin: "0px 0px -62px 0px" });   /* the bar's own height */
+
+  triggers.forEach(function (el) { io.observe(el); });
+})();

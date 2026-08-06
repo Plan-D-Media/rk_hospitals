@@ -38,33 +38,41 @@
     .lp-bar { position: sticky; top: 0; z-index: 900; background: #fff; border-bottom: 1px solid var(--line); }
     .lp-bar .container { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 66px; }
     .lp-bar .brand img { height: 40px; width: auto; }
-    .lp-call { display: inline-flex; align-items: center; gap: 9px; background: var(--red); color: #fff; font-weight: 700; padding: 11px 20px; border-radius: 999px; box-shadow: 0 8px 20px rgba(226,58,46,.28); }
-    .lp-call:hover { background: var(--red-dark); color: #fff; }
+    .lp-call { display: inline-flex; align-items: center; gap: 9px; background: var(--emergency); color: #fff; font-weight: 700; padding: 11px 20px; border-radius: 999px; box-shadow: 0 8px 20px rgba(189,39,84,.28); }
+    .lp-call:hover { background: var(--brand-700); color: #fff; }
+    /* Steps down while the form's crimson submit is on screen, so only one
+       crimson fill is ever visible (see rk-ui.js). Colour only — a sticky
+       element must not resize under a thumb. */
+    .lp-call.is-animated { transition: background var(--dur-mid) ease, box-shadow var(--dur-mid) ease; }
+    .lp-call.is-subdued { background: var(--ink-800); box-shadow: none; }
     @media (max-width: 420px) { .lp-call .lbl { display: none; } }
 
-    .lp-hero { background: linear-gradient(180deg, #fff 0%, var(--magenta-wash) 100%); }
-    .lp-hero .container { display: grid; grid-template-columns: 1.02fr .98fr; gap: clamp(28px, 5vw, 60px); align-items: start; padding-top: clamp(32px, 4vw, 54px); padding-bottom: clamp(40px, 5vw, 64px); }
+    .lp-hero { background: linear-gradient(180deg, #fff 0%, var(--brand-050) 100%); }
+    /* minmax(0,…) not a bare fr: 1fr is minmax(auto,1fr) and auto floors at
+       the h1's min-content, which at 200% text was 353px inside a 320px
+       container and pushed the page sideways. */
+    .lp-hero .container { display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr); gap: clamp(28px, 5vw, 60px); align-items: start; padding-top: clamp(32px, 4vw, 54px); padding-bottom: clamp(40px, 5vw, 64px); }
     .lp-hero h1 { margin-bottom: 16px; }
-    .lp-hero h1 .accent { color: var(--magenta); }
-    .lp-hero .sub { font-size: 1.12rem; color: var(--ink-soft); max-width: 52ch; margin-bottom: 22px; }
-    .lp-trust { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
-    .lp-trust .t { display: flex; gap: 11px; align-items: flex-start; background: #fff; border: 1px solid var(--line); border-radius: var(--r-sm); padding: 13px 15px; box-shadow: var(--shadow-sm); }
-    .lp-trust .t i { color: var(--magenta); margin-top: 3px; }
-    .lp-trust .t strong { display: block; font-family: var(--font-display); font-size: .96rem; color: var(--ink); }
+    .lp-hero h1 .accent { color: var(--brand-500); }
+    .lp-hero .sub { font-size: 1.12rem; color: var(--body); max-width: 52ch; margin-bottom: 22px; }
+    .lp-trust { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; margin-top: 8px; }
+    .lp-trust .t { display: flex; gap: 11px; align-items: flex-start; background: #fff; border: 1px solid var(--line); border-radius: var(--r-sm); padding: 13px 15px; box-shadow: var(--sh-1); }
+    .lp-trust .t i { color: var(--brand-500); margin-top: 3px; }
+    .lp-trust .t strong { display: block; font-family: var(--font-display); font-size: .96rem; color: var(--ink-900); }
     .lp-trust .t span { font-size: .82rem; color: var(--muted); }
-    @media (max-width: 900px) { .lp-hero .container { grid-template-columns: 1fr; } .lp-hero .appt-card { order: -1; } }
-    @media (max-width: 440px) { .lp-trust { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) { .lp-hero .container { grid-template-columns: minmax(0, 1fr); } .lp-hero .appt-card { order: -1; } }
+    @media (max-width: 440px) { .lp-trust { grid-template-columns: minmax(0, 1fr); } }
 
-    .lp-strip { background: var(--ink); color: #e7e2e6; }
+    .lp-strip { background: var(--ink-900); color: #e7e2e6; }
     .lp-strip .container { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 30px; padding: 16px 0; text-align: center; }
     .lp-strip .s { display: inline-flex; align-items: center; gap: 9px; font-size: .92rem; font-weight: 600; }
-    .lp-strip .s i { color: var(--magenta); }
+    .lp-strip .s i { color: var(--brand-500); }
 
-    .lp-footer { background: var(--ink); color: #a49ea3; padding: 34px 0; border-top: 1px solid rgba(255,255,255,.1); }
+    .lp-footer { background: var(--ink-900); color: #a49ea3; padding: 34px 0; border-top: 1px solid rgba(255,255,255,.1); }
     .lp-footer .container { display: flex; flex-wrap: wrap; gap: 18px 30px; align-items: center; justify-content: space-between; }
     .lp-footer .nap { display: grid; gap: 6px; font-size: .9rem; }
     .lp-footer .nap .row { display: flex; gap: 10px; align-items: flex-start; }
-    .lp-footer .nap i { color: var(--magenta); margin-top: 4px; }
+    .lp-footer .nap i { color: var(--brand-500); margin-top: 4px; }
     .lp-footer a { color: #c9c3c8; }
     .lp-footer a:hover { color: #fff; }
     .lp-footer .legal { font-size: .84rem; color: #948e93; }
@@ -323,9 +331,9 @@
           <span class="eyebrow">Visit us</span>
           <h2>Ramakrishna Multispeciality Hospital</h2>
           <div class="side-contact" style="display:grid;gap:14px;margin-top:14px">
-            <div class="row" style="display:flex;gap:11px;align-items:flex-start"><svg class="ico" aria-hidden="true" style="color:var(--magenta);margin-top:4px"><use href="#i-pin"/></svg><span>203/1, Ghoshpara Road, Airport Area, Barrackpore, Barrackpur Cantonment, Kolkata, West Bengal 700120</span></div>
-            <div class="row" style="display:flex;gap:11px;align-items:flex-start"><svg class="ico" aria-hidden="true" style="color:var(--magenta);margin-top:4px"><use href="#i-phone"/></svg><span><a href="tel:+918240842519">+91 82408 42519</a> · <a href="tel:+918777424002">+91 87774 24002</a></span></div>
-            <div class="row" style="display:flex;gap:11px;align-items:flex-start"><svg class="ico" aria-hidden="true" style="color:var(--magenta);margin-top:4px"><use href="#i-ambulance"/></svg><span>Emergency open 24×7</span></div>
+            <div class="row" style="display:flex;gap:11px;align-items:flex-start"><svg class="ico" aria-hidden="true" style="color:var(--brand-500);margin-top:4px"><use href="#i-pin"/></svg><span>203/1, Ghoshpara Road, Airport Area, Barrackpore, Barrackpur Cantonment, Kolkata, West Bengal 700120</span></div>
+            <div class="row" style="display:flex;gap:11px;align-items:flex-start"><svg class="ico" aria-hidden="true" style="color:var(--brand-500);margin-top:4px"><use href="#i-phone"/></svg><span><a href="tel:+918240842519">+91 82408 42519</a> · <a href="tel:+918777424002">+91 87774 24002</a></span></div>
+            <div class="row" style="display:flex;gap:11px;align-items:flex-start"><svg class="ico" aria-hidden="true" style="color:var(--brand-500);margin-top:4px"><use href="#i-ambulance"/></svg><span>Emergency open 24×7</span></div>
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:22px">
             <a class="btn btn--primary" href="#lp-form"><svg class="ico" aria-hidden="true"><use href="#i-calendar-check"/></svg> Book Appointment</a>
