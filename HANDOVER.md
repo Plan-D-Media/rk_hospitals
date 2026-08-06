@@ -167,16 +167,32 @@ Each of these exists because the alternative would mislead a patient.
 | Gate | Result |
 |---|---|
 | Horizontal scroll, 46 pages × 8 widths | **none** (368 combos) |
+| Mobile sweep, 18 templates × 6 viewports | **none** (108 screens, portrait + landscape) |
+| WCAG 1.4.10 Reflow @ 320px | **10/10 pass** |
+| WCAG 1.4.4 Text @ 200% | **10/10 pass** |
 | Console errors / 404s | **clean** |
 | Broken links / sitemap / anchors | **0 / 0 / 0** |
-| CLS | **0.0010** |
-| LCP | **2.54s** — misses the 2.5s gate by 0.04s |
+| One crimson fill per viewport | **23/23 pages** |
+| Lighthouse mobile — Accessibility | **100** on all four page types |
+| Lighthouse mobile — Best Practices / SEO | **100 / 100** |
+| Lighthouse mobile — Performance | 93 / 89 / 94 / 94 |
+| CLS | **≤ 0.001** |
 
-LCP is measured at 360px, DPR 2, 4× CPU throttle, Fast 3G, 9 runs, median.
-The spread is 2.01–3.54s. Above-fold CSS is inlined and the rest deferred;
-that took LCP from 3.41s. **The remaining gap was not bought by degrading the
-hero image** — a doctor's face and a hospital interior are the wrong place to
-trade visible quality for ~150ms.
+Lighthouse was run on `index`, a Tier A doctor page, `appointment` and
+`timetable` — deliberately not the homepage alone, which is the most
+optimised page on the site and flatters the rest.
+
+**Read the Lighthouse byte and timing numbers with one correction.** They were
+measured against `vercel dev`, which sends **no `content-encoding` at all**.
+Production returns `Content-Encoding: br` (verified against the live
+deployment). So Lighthouse's "142 KiB of text-compression savings" does not
+exist in production, and every LCP figure below is pessimistic.
+
+LCP by the project's own harness is **2.54s** at 360px, DPR 2, 4× CPU throttle,
+Fast 3G, 9 runs, median — 0.04s over the 2.5s gate. The spread is 2.01–3.54s.
+**The remaining gap was not bought by degrading the hero image** — a doctor's
+face and a hospital interior are the wrong place to trade visible quality for
+~150ms.
 
 ---
 
@@ -188,11 +204,39 @@ trade visible quality for ~150ms.
   sending nothing. Deploy the Apps Script (`apps-script/README.md`) and paste the
   `/exec` URL. This is the single thing standing between a finished form and a
   captured lead.
-- **A full accessibility pass** — keyboard and screen-reader — has not been run
-  end to end. Individual components were verified (drawer focus trap holds
-  through 40 tabs, Esc returns focus, modal traps and restores, contrast
-  measured on every hero and card element), but the site has not had a complete
-  manual pass.
+- **CRITICAL CSS IS ON `index.html` ONLY.** The other 45 pages load four
+  blocking stylesheets. Lighthouse measures ~1,000–1,130 ms of render-blocking
+  CSS on `doctor-5`, `appointment` and `timetable`, against **0 ms** on the
+  homepage. This is the largest remaining performance item on the site and the
+  most valuable thing the Lighthouse run produced — the homepage was the only
+  page ever optimised, and it hid the state of every other page.
+  `scratchpad/crit2.py` is written for `index.html` specifically; generalising
+  it needs a per-template above-fold range, not a single line range.
+
+- **A HUMAN SCREEN-READER PASS HAS NOT BEEN RUN. THIS IS OPEN.**
+  What *has* been run is an **accessibility tree audit** — it reads the name,
+  role and state Chrome computes for each node, with a negative control
+  proving the probe detects nameless links, icon-only buttons, "click here",
+  unlabelled inputs and alt-less images. It found and fixed four real defects
+  (see below). Lighthouse Accessibility is 100 on all four page types.
+
+  **None of that shows the page is comprehensible read aloud, in order, by a
+  real screen reader.** A tree audit proves a name exists and is not generic.
+  It cannot tell you that the reading order makes sense, that an announcement
+  lands at a useful moment, or that a device like the live Open-Now card is
+  helpful rather than merely correct. Those diverge exactly where this site is
+  most unusual. Run NVDA or VoiceOver over: the homepage hero and Open-Now
+  card, the empanelment marquee and its hidden list, a doctor page, the
+  appointment form including a failed submit, and the mobile drawer.
+
+  Fixed during the tree audit, for context on what to re-check:
+  - the header emergency call link had **no accessible name at all** below
+    420px — both its label and its number are `display:none` there
+  - the Open-Now clock re-announced the whole card **every 30 seconds**,
+    because it re-rendered inside a `role="status"` live region
+  - form fields had `aria-invalid` but no `aria-describedby` — "invalid
+    entry" with no reason given
+  - the mobile drawer trapped focus but announced as an unnamed group
 - **Analytics.** The placeholder GTM container was removed rather than shipped.
   Nothing is tracked. `dataLayer` events still fire and are ready to wire.
 - Everything in `DEFERRED.md`, most urgently the **doctor identity questions**.
@@ -210,3 +254,21 @@ scratchpad that throw on impossible measurements rather than reporting them.
 The lesson worth carrying: **verifying that a CSS property was applied is not
 the same as verifying the relationship it was supposed to produce.** Measure the
 relationship.
+
+The second lesson, learned later and more expensively: **a clean result from an
+unvalidated probe says nothing.** Three separate probes in this build returned
+"no problems" because they were broken, not because the site was sound — a
+selector extractor that found 0 selectors and would have cleared a stylesheet
+for deletion on 9 pages; a colour sampler reading mid-transition; a visibility
+test using bounding boxes that counted elements 683px off-screen. Every probe
+that gates a decision here now carries a **negative control**: it injects a
+defect it must catch, and aborts if it does not. If you add a check, give it
+one.
+
+Two more shapes worth knowing, because both passed every test while broken:
+- `.btn--ghost` was defined *above* the `.btn` base rule at equal specificity,
+  so the base won and every ghost button rendered as a solid crimson primary —
+  19 uses, 14 pages, the whole build.
+- An edit script emptied a multi-line selector's block and left the selector
+  list dangling with a trailing comma, which silently swallowed the next rule.
+  `scratchpad/css-integrity.js` exists to catch that class of damage.
