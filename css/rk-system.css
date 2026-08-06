@@ -281,6 +281,25 @@ img { height: auto; }
 a { color: var(--brand-600); text-decoration: none; }
 a:hover { color: var(--brand-700); }
 
+/* WCAG 1.4.1 Use of Color. A link INSIDE a paragraph is distinguished from
+   the surrounding text by colour alone, which fails for anyone who cannot
+   perceive the hue difference — and crimson-on-ink is exactly the pair that
+   goes. Links that are their own block (nav items, cards, buttons, list
+   rows) are identifiable by position and are correctly left undecorated.
+   Underline offset keeps it off the descenders of the phone numbers this
+   mostly affects. */
+p > a:not(.btn):not(.chip),
+li > a:not(.btn):not(.chip):not(.side-nav a),
+dd > a:not(.btn) {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .18em;
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+}
+p > a:not(.btn):hover, li > a:not(.btn):hover, dd > a:not(.btn):hover {
+  text-decoration-color: currentColor;
+}
+
 ul, ol { margin: 0; padding: 0; }
 p { margin: 0 0 1rem; }
 p:last-child { margin-bottom: 0; }

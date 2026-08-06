@@ -117,7 +117,12 @@
       '<svg class="ico" aria-hidden="true"><use href="#i-user-md"/></svg>' +
       '<span>Booking with <strong></strong></span>' +
     '</span>' +
-    '<button type="button" class="scoped-note__change">Change</button>';
+    /* "Change" alone is meaningless out of context, and a screen-reader user
+       listing the page's buttons hears exactly that word with nothing to
+       anchor it. The visible label stays "Change" — aria-label carries the
+       object, and it starts with the visible text so WCAG 2.5.3 holds. */
+    '<button type="button" class="scoped-note__change" ' +
+      'aria-label="Change who this appointment is for">Change</button>';
   box.querySelector("strong").textContent = doc ? doc.name : deptLabel;
 
   box.querySelector(".scoped-note__change").addEventListener("click", function () {

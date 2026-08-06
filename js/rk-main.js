@@ -54,6 +54,11 @@
     return /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/.test(String(value || "").trim());
   }
 
+  /* aria-invalid alone announces "invalid entry" and nothing else — the
+     message sitting next to the field is not associated with it, so a screen
+     reader user is told the field is wrong but never why. aria-describedby
+     is what carries the reason. The id is derived from the field's own id so
+     it is stable across re-validation. */
   function fieldError(input, message) {
     if (!input) return;
     input.setAttribute("aria-invalid", "true");
@@ -63,12 +68,30 @@
     if (!note) {
       note = document.createElement("p");
       note.className = "field-error";
+      note.id = (input.id || input.name || "field") + "-error";
       field.appendChild(note);
     }
     note.textContent = message;
+
+    var described = (input.getAttribute("aria-describedby") || "").split(/\s+/).filter(Boolean);
+    if (described.indexOf(note.id) === -1) {
+      described.push(note.id);
+      input.setAttribute("aria-describedby", described.join(" "));
+      input.setAttribute("data-error-describedby", note.id);
+    }
   }
   function clearErrors(form) {
     form.querySelectorAll("[aria-invalid]").forEach(function (el) { el.removeAttribute("aria-invalid"); });
+    /* Remove ONLY the id this script added — a field may legitimately be
+       described by a hint that must survive. */
+    form.querySelectorAll("[data-error-describedby]").forEach(function (el) {
+      var mine = el.getAttribute("data-error-describedby");
+      var kept = (el.getAttribute("aria-describedby") || "").split(/\s+/)
+        .filter(function (id) { return id && id !== mine; });
+      if (kept.length) el.setAttribute("aria-describedby", kept.join(" "));
+      else el.removeAttribute("aria-describedby");
+      el.removeAttribute("data-error-describedby");
+    });
     form.querySelectorAll(".field-error").forEach(function (el) { el.remove(); });
   }
 
