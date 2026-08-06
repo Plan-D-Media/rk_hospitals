@@ -203,8 +203,15 @@
   --header-h-stuck: 68px;
 }
 
+/* Beyond 1560px the side margin stopped scaling with the viewport and
+   started dominating it: 320px of empty left margin at 1920 against a
+   0px right gutter, because the hero photo bleeds. Growing the container
+   holds the margin near 140px instead of letting it track half the
+   viewport. Applied to the shared token, not the hero, so the header logo
+   and the hero copy keep the same left edge. Capped at 1720px so content
+   does not stretch indefinitely on very wide displays. */
 @media (min-width: 1560px) {
-  :root { --container: 1360px; }
+  :root { --container: min(1720px, calc(100vw - 200px)); }
 }
 
 /* ------------------------------------------------------------

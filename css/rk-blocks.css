@@ -508,8 +508,13 @@
 /* J1c — the card straddles the photo's left edge: ~40% on the canvas,
    ~60% on the image. One element crossing one boundary is what creates
    the depth; a gradient cannot do it. */
+/* bottom must clear the quick-actions row, which overlaps the hero by 44px.
+   At 34px the card's bottom edge sat 10px INSIDE the row and obscured the
+   third card's top-left corner. 76px leaves 32px of clearance. The fix is to
+   raise the CARD, never to drop the row's overlap — that overlap is what
+   grounds the hero. */
 .hero .open-now {
-  position: absolute; left: 0; bottom: 34px;
+  position: absolute; left: 0; bottom: 76px;
   transform: translateX(-40%);
   width: min(340px, 78%);
   z-index: 2;
