@@ -435,11 +435,11 @@
 .hero__grid > * { min-width: 0; }
 
 .hero__copy .eyebrow { color: var(--brand-600); }
-.hero h1 { margin: 0 0 16px; max-width: 15ch; }
+.hero h1 { margin: 0 0 16px; max-width: 18ch; }
 .hero h1 .accent { color: var(--brand-500); }
 .hero__sub {
   font-size: var(--fs-lg); line-height: 1.55;
-  color: var(--muted); max-width: 44ch; margin: 0 0 26px;
+  color: var(--muted); max-width: 52ch; margin: 0 0 26px;
 }
 .hero__cta { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 26px; }
 
@@ -472,6 +472,11 @@
   position: relative;
   align-self: stretch;
   min-height: 460px;
+  /* The frame stopped at the grid row's bottom, 72px clear of the band, so
+     the -44px quick-actions overlap engaged the padding and never touched
+     the photo. Pulling the column down by the band's own padding-bottom
+     makes the overlap structural instead of incidental. */
+  margin-bottom: calc(-1 * clamp(64px, 8vh, 96px));
   margin-right: calc(-1 * (max(0px, (min(100vw, 2100px) - var(--container)) / 2) + var(--gutter)));
 }
 /* Absolutely positioned so the photo FILLS the row rather than defining it.
@@ -484,6 +489,14 @@
   border-radius: var(--r-xl) 0 0 var(--r-xl);
   box-shadow: var(--sh-3);
   background: var(--surface-2);
+}
+/* Soft left edge: the photo merges into the canvas instead of starting on a
+   hard vertical line, so the one-sided bleed reads as the band continuing
+   rather than the image escaping the grid. */
+.hero__frame::before {
+  content: ""; position: absolute; inset: 0 auto 0 0; width: 96px; z-index: 1;
+  background: linear-gradient(90deg, var(--surface), rgba(246,248,250,0));
+  pointer-events: none;
 }
 .hero__frame img { width: 100%; height: 100%; object-fit: cover; object-position: 62% center; }
 .hero__scrim {
