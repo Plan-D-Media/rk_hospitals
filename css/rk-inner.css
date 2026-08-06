@@ -24,8 +24,8 @@
    pushed the whole page sideways. The flex li needs min-width:0 for the same
    reason — its own floor would re-impose the width the track just gave up. */
 .prose ul:not([class]) { padding-left: 0; list-style: none; display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; margin: 1rem 0 1.4rem; }
-.prose ul:not([class]) li { display: flex; gap: 11px; align-items: flex-start; min-width: 0; }
-.prose ul:not([class]) li > * { min-width: 0; overflow-wrap: break-word; }
+.prose ul:not([class]) li { display: flex; gap: 11px; align-items: flex-start; }
+.prose ul:not([class]) li > * { overflow-wrap: break-word; }
 /* Tick bullet. Was a Font Awesome glyph (\f058) in a pseudo-element; a
    pseudo-element cannot host an <svg><use>, so it is an inline data URI.
    Colour is baked into the URI (stroke %23A32148 = --brand-600) because a

@@ -435,7 +435,6 @@
   padding-top: clamp(112px, 13vh, 150px);
   padding-bottom: clamp(64px, 8vh, 96px);
 }
-.hero__grid > * { min-width: 0; }
 
 .hero__copy .eyebrow { color: var(--brand-600); }
 .hero h1 { margin: 0 0 16px; max-width: 18ch; }
@@ -531,6 +530,10 @@
     padding-bottom: 72px;
     gap: 34px;
   }
+  /* min-height:0 here is NOT the min-width:auto default — it overrides the
+     explicit `min-height: 460px` on the desktop rule, which the stacked
+     mobile layout must not inherit. Removing it grew the hero 148px at
+     360x800. The system default cannot cover this one. */
   .hero__media { order: -1; margin-right: calc(-1 * var(--gutter)); align-self: auto; min-height: 0; }
   .hero__frame { position: relative; inset: auto; aspect-ratio: 16 / 10; border-radius: var(--r-lg) 0 0 var(--r-lg); }
   .hero h1 { max-width: none; }
@@ -727,8 +730,8 @@
 /* minmax(0,1fr), not 1fr — 1fr is minmax(auto,1fr) and `auto` floors at the
    longest label's min-content, which at 200% text overshot the container. */
 .stats-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.stat { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 4px clamp(12px, 2vw, 28px); text-align: center; min-width: 0; }
-.stat__n, .stat__l { min-width: 0; overflow-wrap: break-word; }
+.stat { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 4px clamp(12px, 2vw, 28px); text-align: center; }
+.stat__n, .stat__l { overflow-wrap: break-word; }
 .stat + .stat { border-left: 1px solid rgba(255,255,255,.14); }
 .stat__n {
   font-family: var(--font-mono); font-weight: 500;
@@ -745,7 +748,6 @@
    11. ABOUT — layered composition
    ------------------------------------------------------------ */
 .about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(36px, 5vw, 72px); align-items: center; }
-.about > * { min-width: 0; }
 .about__media { position: relative; padding: 0 40px 56px 18px; }
 .about__big { box-shadow: var(--sh-2); }
 /* Inset photo overlaps the big one's bottom-right corner with a paper border,
@@ -793,7 +795,7 @@
 .spec-card { display: grid; align-content: start; gap: 12px; padding: 28px; color: var(--ink-800); }
 .spec-card h3 { margin: 0; font-size: var(--fs-lg); }
 .spec-card p { margin: 0; font-size: var(--fs-sm); color: var(--muted); }
-.spec-card .link-arrow { margin-top: 4px; font-size: var(--fs-sm); min-height: 0; }
+.spec-card .link-arrow { margin-top: 4px; font-size: var(--fs-sm); }
 /* The eighth tile inverts so it reads as the terminal action, not a peer. */
 .spec-card--all { background: var(--ink-800); border-color: transparent; }
 .spec-card--all h3 { color: var(--paper); }
@@ -822,7 +824,6 @@
    14. DIAGNOSTICS
    ------------------------------------------------------------ */
 .diag { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(32px, 5vw, 64px); align-items: center; }
-.diag > * { min-width: 0; }
 .diag__copy .eyebrow { color: var(--care-700); }
 .diag-chips { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 26px; }
 .diag-chip {
@@ -942,7 +943,6 @@
    18. APPOINTMENT + MAP
    ------------------------------------------------------------ */
 .appt { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 4vw, 48px); align-items: start; }
-.appt > * { min-width: 0; }
 .appt__card { background: var(--paper); border-radius: var(--r-xl); box-shadow: var(--sh-3); padding: clamp(26px, 3vw, 40px); }
 .appt__map { position: relative; padding-bottom: 92px; }
 .map-frame { border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--sh-2); background: var(--surface-2); aspect-ratio: 4 / 3; }
@@ -973,7 +973,7 @@
 .post__cat { margin-bottom: 12px; }
 .post h3 { font-family: var(--font-display); font-variation-settings: "opsz" 144, "SOFT" 0, "WONK" 0; font-weight: 600; font-size: var(--fs-xl); margin: 0 0 8px; letter-spacing: var(--tr-display); }
 .post p { font-size: var(--fs-sm); color: var(--muted); margin: 0 0 12px; }
-.post__more { font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: var(--tr-mono); text-transform: uppercase; min-height: 0; }
+.post__more { font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: var(--tr-mono); text-transform: uppercase; }
 @media (max-width: 900px) { .post-grid { grid-template-columns: minmax(0, 1fr); } }
 
 /* Scoped-booking note — injected by rk-scoped-booking.js, never in the HTML. */
@@ -1092,10 +1092,8 @@
    At 200% text an email address renders ~380px wide and, with the default
    min-width:auto on grid and flex children, dragged the sidebar past the
    viewport. Contact links must be allowed to break. */
-.sidebar, .side-card, .side-contact, .side-contact .row,
-.side-nav, .side-nav a, .map-card, .map-card__row, .footer-nap, .footer-nap .row,
-.doc-hero, .doc-hero > *, .doc-meta, .doc-meta .row, .hero-cta,
-.appt > *, .map-frame, .content-split > * { min-width: 0; }
+/* The long min-width:0 selector list that used to be here is gone — the
+   :where(*) default in rk-system.css covers all of it. */
 /* An <iframe> carries a 300px intrinsic width, which overflowed a 320px
    viewport through the same min-width:auto path. */
 iframe { max-width: 100%; }

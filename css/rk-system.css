@@ -219,6 +219,43 @@
    ------------------------------------------------------------ */
 *, *::before, *::after { box-sizing: border-box; }
 
+/* ------------------------------------------------------------
+   THE min-width:auto DEFAULT — read this before removing it
+   ------------------------------------------------------------
+   Grid and flex children compute min-width/min-height to `auto`, which
+   floors them at their content's minimum size. One wide descendant — a
+   nowrap button, a <select> sized to its longest option, a long word at
+   200% text — therefore inflates its track past the viewport and scrolls
+   the whole page sideways.
+
+   This was patched instance by instance FIVE separate times during the
+   build (hero, doc-hero, sidebar, appt/map/content-split, prose lists)
+   and it kept reappearing somewhere new, because the patch only ever
+   covered the containers that had already failed.
+
+   This is the default instead. It is not as broad as it looks: `auto`
+   only differs from 0 for flex and grid children, so for every other
+   element this is a no-op. In effect it reads "grid and flex children
+   get min-width: 0 / min-height: 0".
+
+   :where() gives it ZERO specificity, so any rule that needs the content
+   floor back simply states it and wins with no !important and no
+   specificity contest. The genuine exceptions are listed immediately
+   below, so they are visible rather than buried. */
+:where(*) { min-width: 0; min-height: 0; }
+
+/* Exceptions. There is currently ONE, in rk-blocks.css: the stacked mobile
+   .hero__media must reset the explicit `min-height: 460px` from its desktop
+   rule — that is not the auto floor, so this default cannot absorb it.
+   Removing it grew the hero 148px at 360x800.
+
+   Two further exceptions were written speculatively and then MEASURED and
+   deleted: the wordmark (.brand img) and the doctor carousel cards. Both
+   already carry flex-shrink:0 (`flex: none` and `flex: 0 0 78%`), so no
+   min-width can collapse them. Verified at 320/360/390/414/1440: logo 159px
+   and card 78% unchanged. An exception nobody needs hides the ones that
+   matter — do not add them on suspicion. */
+
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
@@ -373,13 +410,8 @@ a[href^="tel:"] { word-break: keep-all; }
 .section--neutral { background: var(--surface); }
 .section--wash { background: var(--brand-050); }
 
-/* Grid and flex children default to min-width:auto, so a single wide
-   descendant — a nowrap button, a table with min-width, a <select> sized
-   to its longest option — inflates its track past the viewport and scrolls
-   the whole page sideways. Reset it on every layout container we own.
-   (These selectors shrink as each container is rebuilt.) */
-.content-split > *, .split-2 > *, .loc-split > *, .grid > *,
-.about-split > *, .diag-split > *, .hero .container > * { min-width: 0; }
+/* The per-container min-width:0 list that used to sit here is gone — the
+   :where(*) default near the top of this file covers every one of them. */
 
 /* Long unbreakable tokens (a URL, a registration number) must wrap rather
    than push the layout. */
@@ -454,7 +486,6 @@ p, li, h1, h2, h3, h4, dd, dt, td, th, figcaption { overflow-wrap: break-word; }
 }
 /* min-width:0 so a button never forces its container wider than the
    viewport. Safe because .btn already wraps below 560px. */
-.btn { min-width: 0; }
 .btn:active { transform: scale(.985); }
 .btn[disabled], .btn[aria-disabled="true"] { opacity: .55; cursor: not-allowed; transform: none; }
 
@@ -496,7 +527,7 @@ p, li, h1, h2, h3, h4, dd, dt, td, th, figcaption { overflow-wrap: break-word; }
 /* A block button already spans its container, so nowrap buys nothing and
    costs a min-content floor (label + 68px padding) that propagates up the
    grid and scrolls the page sideways at 360px. Let it wrap. */
-.btn--block { display: flex; width: 100%; min-width: 0; white-space: normal; }
+.btn--block { display: flex; width: 100%; white-space: normal; }
 
 /* Text link with an arrow that travels on hover. Not a button — used where
    a filled control would add another competing CTA. */
@@ -591,12 +622,10 @@ p, li, h1, h2, h3, h4, dd, dt, td, th, figcaption { overflow-wrap: break-word; }
 .field select,
 .field textarea {
   width: 100%;
-  /* min-width:0 is load-bearing. A <select> takes its min-content width from
-     its widest <option> ("General & Laparoscopic Surgery"), and grid/flex
-     children default to min-width:auto — so without this the department
-     select forces its whole grid track wider than the 360px viewport and
-     the page scrolls sideways. */
-  min-width: 0;
+  /* A <select> takes its min-content width from its widest <option>
+     ("General & Laparoscopic Surgery"), which forced its grid track wider
+     than a 360px viewport. Handled by the :where(*) min-width default now,
+     not by a rule here. */
   min-height: 52px;
   padding: 14px 16px;
   font-family: var(--font-body);
@@ -655,7 +684,6 @@ p, li, h1, h2, h3, h4, dd, dt, td, th, figcaption { overflow-wrap: break-word; }
 }
 
 .form-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 18px; }
-.form-row > * { min-width: 0; }
 @media (max-width: 560px) { .form-row { grid-template-columns: minmax(0, 1fr); } }
 
 .form-note { font-size: var(--fs-sm); color: var(--muted); }

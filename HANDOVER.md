@@ -31,7 +31,32 @@ that and every page 404s. Use `vercel dev` (port 3000) or `npx serve .`.
 | `rk-home.css` | **Landing page only** (`.lp-*`). Safe to rename `rk-landing.css`. |
 
 Two files were retired during the build (`rk-theme.css`, `rk-home-v2.css`) and
-the legacy token alias shim is gone. **Zero legacy token references remain.**
+the legacy token alias shim is gone.
+
+**Correction.** An earlier version of this file said "zero legacy token
+references remain". That was true of `css/` and false of the site. The cascade
+audit only ever read stylesheets, so **8 undefined custom properties survived
+in 30 HTML files** — in inline `style` attributes and in the embedded `<style>`
+blocks on `landing.html` and `timetable.html`. Two of them produced *invisible
+text*: a `color:#fff` button on a background that resolved to nothing. All 57
+references were remapped in `5cdb227`; the count is **now genuinely zero**,
+verified across `css/` **and** all 46 HTML files.
+
+Four pages carry an embedded `<style>` block — `index.html` (the generated
+critical CSS), `landing.html`, `timetable.html`, `404.html` — and there are
+248 inline `style` attributes. **Anything in either is outside the stylesheets
+and will be missed by any audit that globs `css/*.css`.**
+
+### The `min-width: auto` default
+
+`:where(*) { min-width: 0; min-height: 0 }` near the top of `rk-system.css`.
+Grid and flex children floor at their content's minimum size, so one wide
+descendant scrolls the whole page sideways. This was patched instance by
+instance five times before becoming a default; it absorbed 17 of the 18
+individual patches. **There is exactly one exception**, on the stacked mobile
+`.hero__media`, and it is not the same problem — it resets an explicit
+`min-height: 460px`, which no default can cover. Removing it grows the hero
+148px at 360×800.
 
 ### The one rule that must not be broken
 
