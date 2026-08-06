@@ -318,17 +318,21 @@ h5, h6 { font-size: var(--fs-base); }
 .eyebrow--brand { color: var(--brand-600); }
 .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
 
-/* Phone numbers are set in mono and must NEVER break across lines — a number
-   split mid-digit is unreadable, and on this site it is the most important
-   string on the page. Apply .tel to every rendered number sitewide. */
+/* Phone numbers must never split MID-GROUP — that is what makes a number
+   unreadable. nowrap was too strong: at 200% text a 15-character number
+   cannot fit a 360px screen and forced the page to scroll sideways
+   (WCAG 1.4.4). word-break:keep-all breaks only at the spaces that already
+   separate digit groups, which stays legible, and normal wrapping only
+   breaks when the line genuinely does not fit. */
 .tel {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
   font-weight: 500;
   letter-spacing: .02em;
-  white-space: nowrap;
+  white-space: normal;
+  word-break: keep-all;
 }
-a[href^="tel:"] { white-space: nowrap; }
+a[href^="tel:"] { word-break: keep-all; }
 
 .prose-measure, .section-head p { max-width: var(--measure); }
 
@@ -453,6 +457,9 @@ p, li, h1, h2, h3, h4, dd, dt, td, th, figcaption { overflow-wrap: break-word; }
               color var(--dur-fast) var(--ease-card),
               transform 90ms ease;
 }
+/* min-width:0 so a button never forces its container wider than the
+   viewport. Safe because .btn already wraps below 560px. */
+.btn { min-width: 0; }
 .btn:active { transform: scale(.985); }
 .btn[disabled], .btn[aria-disabled="true"] { opacity: .55; cursor: not-allowed; transform: none; }
 

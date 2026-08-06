@@ -152,9 +152,12 @@
   .nav-emg .tel { display: none; }
   .nav-emg__l { display: inline; }
 }
+@media (max-width: 640px) { .brand img { height: 36px; } }
 @media (max-width: 420px) {
   .nav-emg__l { display: none; }
-  .nav-emg { padding: 8px 12px; }
+  /* min-width keeps the icon-only pill at the 44px tap minimum;
+     padding alone left it 40px wide. */
+  .nav-emg { padding: 8px 12px; min-width: 44px; justify-content: center; }
 }
 
 /* ------------------------------------------------------------
@@ -534,7 +537,7 @@
   /* Card overlaps the photo's bottom edge by ~32px. */
   .hero .open-now {
     position: relative; left: auto; bottom: auto; transform: none;
-    width: auto; margin: -32px var(--gutter) 0 0;
+    width: auto; margin: -32px var(--gutter) 32px 0;
   }
 }
 @media (max-width: 560px) {
@@ -839,7 +842,8 @@
 }
 .doc-card__foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 16px 18px 18px; }
 .doc-card__foot .chip { font-size: var(--fs-xs); padding: 6px 12px; }
-.doc-card__foot .link-arrow { font-size: var(--fs-sm); min-height: 0; }
+/* A card foot link is a real tap target, not inline prose. */
+.doc-card__foot .link-arrow { font-size: var(--fs-sm); min-height: 44px; }
 
 @media (max-width: 1024px) { .docs-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) {
@@ -985,7 +989,9 @@
   .mobile-bar__a--book { background: var(--brand-500); color: var(--paper); border-left-color: var(--brand-500); }
   .mobile-bar__a--book .ico { color: var(--paper); }
   /* The bar must never cover the footer. */
-  body { padding-bottom: calc(60px + env(safe-area-inset-bottom)); }
+  /* 62px, not 60: the bar is 60px of content plus a 1px border-top,
+     so a 60px reservation left it covering the footer by 1px. */
+  body { padding-bottom: calc(62px + env(safe-area-inset-bottom)); }
 }
 
 
@@ -1034,3 +1040,19 @@
 .breadcrumb a { color: var(--muted); }
 .breadcrumb a:hover { color: var(--brand-600); }
 .breadcrumb li[aria-current] { color: var(--ink-900); font-weight: 500; }
+
+
+/* ------------------------------------------------------------
+   24. TEXT-RESIZE RESILIENCE (WCAG 1.4.4)
+   ------------------------------------------------------------
+   At 200% text an email address renders ~380px wide and, with the default
+   min-width:auto on grid and flex children, dragged the sidebar past the
+   viewport. Contact links must be allowed to break. */
+.sidebar, .side-card, .side-contact, .side-contact .row,
+.side-nav, .side-nav a, .map-card, .map-card__row, .footer-nap, .footer-nap .row,
+.doc-hero, .doc-hero > *, .doc-meta, .doc-meta .row, .hero-cta,
+.appt > *, .map-frame, .content-split > * { min-width: 0; }
+/* An <iframe> carries a 300px intrinsic width, which overflowed a 320px
+   viewport through the same min-width:auto path. */
+iframe { max-width: 100%; }
+.side-contact a, .map-card a, .footer-nap a, .footer-col a { overflow-wrap: anywhere; }

@@ -159,8 +159,11 @@
     window.setTimeout(function () {
       if (!drawer.classList.contains("is-open")) drawer.hidden = true;
     }, 240);
-    // Focus must return to the control that opened the drawer.
-    if (lastFocused && lastFocused.focus) lastFocused.focus();
+    // Focus must return to the control that opened the drawer. A synthetic
+    // or touch activation can leave activeElement on <body>, so fall back to
+    // the burger rather than dropping focus to the top of the document.
+    var back = (lastFocused && lastFocused !== document.body) ? lastFocused : burger;
+    if (back && back.focus) back.focus();
   }
 
   if (burger) burger.addEventListener("click", openDrawer);
