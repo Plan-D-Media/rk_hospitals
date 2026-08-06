@@ -954,3 +954,31 @@
   font: inherit; font-weight: 600; color: var(--brand-600); text-decoration: underline;
 }
 .scoped-note__change:hover { color: var(--brand-700); }
+
+/* ------------------------------------------------------------
+   20. MOBILE STICKY BAR — one bar, three segments
+   ------------------------------------------------------------
+   Replaces a two-button call bar PLUS a floating WhatsApp bubble that
+   duplicated the same action a thumb-width away. */
+.mobile-bar { display: none; }
+@media (max-width: 720px) {
+  .mobile-bar {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 820;
+    background: var(--paper);
+    border-top: 1px solid var(--line);
+    box-shadow: 0 -4px 20px rgba(14,31,51,.10);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .mobile-bar__a {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    min-height: 60px; padding: 10px 6px;
+    font-size: var(--fs-sm); font-weight: 600; color: var(--ink-800);
+  }
+  .mobile-bar__a + .mobile-bar__a { border-left: 1px solid var(--line); }
+  .mobile-bar__a .ico { color: var(--care-600); }
+  .mobile-bar__a--book { background: var(--brand-500); color: var(--paper); border-left-color: var(--brand-500); }
+  .mobile-bar__a--book .ico { color: var(--paper); }
+  /* The bar must never cover the footer. */
+  body { padding-bottom: calc(60px + env(safe-area-inset-bottom)); }
+}

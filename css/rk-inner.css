@@ -101,7 +101,11 @@
 .filter-bar { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
 .filter-btn { font: inherit; font-weight: 600; font-size: .92rem; cursor: pointer; background: #fff; border: 1.5px solid var(--line); border-radius: 999px; padding: 9px 18px; color: var(--ink-soft); transition: .14s; }
 .filter-btn:hover { border-color: var(--magenta); color: var(--magenta); }
-.filter-btn.active { background: var(--magenta); border-color: var(--magenta); color: #fff; }
+/* A selected filter is a STATE, not a call to action, and it is crimson for
+   as long as anyone is using this page — competing with the header's Book
+   CTA the entire time. Ink fill: unambiguously "selected", zero competition. */
+.filter-btn.active { background: var(--ink-800); border-color: var(--ink-800); color: #fff; }
+.filter-btn.active:hover { background: var(--ink-900); border-color: var(--ink-900); color: #fff; }
 .dir-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 @media (max-width: 900px) { .dir-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .dir-grid { grid-template-columns: 1fr; } }

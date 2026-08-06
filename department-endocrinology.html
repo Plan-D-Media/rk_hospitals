@@ -604,10 +604,12 @@
   </div>
 </footer>
 
-<a class="wa-float" href="https://wa.me/918240842519?text=Hi%2C%20I%27d%20like%20to%20book%20an%20endocrinology%20appointment" aria-label="Chat on WhatsApp" target="_blank" rel="noopener"><svg class="ico ico--solid" aria-hidden="true"><use href="#i-whatsapp"/></svg></a>
-<div class="mobile-callbar">
-  <a class="mc-book" href="/appointment?dept=department-endocrinology"><svg class="ico" aria-hidden="true"><use href="#i-calendar-check"/></svg> Book Appointment</a>
-  <a class="mc-call" href="tel:+918240842519"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg> Emergency</a>
+<!-- One consolidated bar: Call / WhatsApp / Book. The separate WhatsApp
+     float is removed - it doubled the same action a thumb-width away. -->
+<div class="mobile-bar">
+  <a class="mobile-bar__a" href="tel:+918240842519"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg> Call</a>
+  <a class="mobile-bar__a" href="https://wa.me/918240842519?text=Hi%2C%20I%27d%20like%20to%20book%20an%20appointment%20at%20Ramakrishna%20Hospital" target="_blank" rel="noopener"><svg class="ico ico--solid" aria-hidden="true"><use href="#i-whatsapp"/></svg> WhatsApp</a>
+  <a class="mobile-bar__a mobile-bar__a--book" href="/appointment"><svg class="ico" aria-hidden="true"><use href="#i-calendar-check"/></svg> Book</a>
 </div>
 
 <script src="js/rk-ui.js" defer></script>

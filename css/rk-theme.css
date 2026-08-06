@@ -82,30 +82,8 @@
 .doc-body .qual { font-size: var(--fs-sm); color: var(--muted); margin: 0 0 14px; }
 .doc-body .btn { min-height: 40px; padding: 10px 18px; font-size: var(--fs-sm); }
 
-/* ============================================================
-   FLOATING ACTIONS  (WhatsApp + mobile call bar)
-                                             [rebuilt in step 7]
-   ============================================================ */
-.wa-float {
-  position: fixed; right: 20px; bottom: 20px; z-index: 800;
-  width: 58px; height: 58px; border-radius: 50%; background: var(--wa);
-  display: grid; place-items: center; color: #fff; font-size: 1.7rem;
-  box-shadow: 0 8px 24px rgba(37,211,102,.4);
-}
-.wa-float:hover { color: #fff; }
-
-.mobile-callbar { display: none; }
-@media (max-width: 720px) {
-  .mobile-callbar {
-    display: grid; grid-template-columns: 1fr 1fr; position: fixed; bottom: 0; left: 0; right: 0;
-    z-index: 810; box-shadow: 0 -4px 20px rgba(14,31,51,.12);
-  }
-  .mobile-callbar a { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 15px; font-weight: 600; color: #fff; }
-  .mobile-callbar .mc-book { background: var(--brand-500); }
-  .mobile-callbar .mc-call { background: var(--emergency); }
-  .wa-float { bottom: 74px; }
-  body { padding-bottom: 56px; }
-}
+/* FLOATING ACTIONS — replaced in step 7 by the single .mobile-bar in
+   rk-blocks.css; the WhatsApp float is gone. */
 
 /* ============================================================
    BREADCRUMB (inner pages)                  [rebuilt in step 8]
