@@ -225,12 +225,34 @@ adds an API key, a service-account JSON, or a webhook with a secret in it, a
 public repo becomes a live exposure — and Git history keeps it even after the
 file is deleted.
 
-**If `npx vercel --prod` hangs**, the CLI reads **`.vercelignore`, not
-`.gitignore`**. An unexcluded `node_modules` or scratch directory will upload
-thousands of files and appear to hang. Current `.vercelignore` excludes
-`node_modules`, `.vercel`, `scratch`, `screenshots`, `*.log`. Keep it in sync
-as directories are added — the two ignore files are unrelated and diverge
-silently.
+**`.vercelignore`, not `.gitignore`, governs what is deployed** — by the CLI
+and by Git deploys alike. The two files are unrelated and diverge silently.
+
+This has already caused one production-only outage. Excluding `images/interim`
+wholesale removed the **processed hero crops**, which live in that folder
+alongside the AI master, and **broke the homepage hero in production while
+every local test passed**. A deploy-time exclusion is invisible to anything
+that reads the working tree.
+
+Exclude the master file only, never the folder:
+
+```
+images/interim/hero-reception-master.png
+```
+
+**As of this writing that line is NOT in `.vercelignore`**, so the 1.68 MB
+master PNG is being deployed. Nothing references it, so this is dead weight
+rather than breakage — but it is the exclusion that was intended.
+
+If `npx vercel --prod` appears to hang, an unexcluded `node_modules` or scratch
+directory is uploading thousands of files. Current `.vercelignore` excludes
+`node_modules`, `.vercel`, `scratch`, `screenshots`, `*.log`.
+
+`scratchpad/assert-prod-assets.js` exists because of this: it loads all 46
+pages **against the deployed URL** and requests every image the HTML names —
+including `srcset` candidates the browser did not pick, the favicon and the
+og:image — asserting 200 on each. It carries a negative control and exits
+non-zero. Run it after every deploy.
 
 ---
 
