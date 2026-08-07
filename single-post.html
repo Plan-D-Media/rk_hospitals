@@ -439,42 +439,23 @@
           <p>Ramakrishna Multispeciality Hospital in Barrackpore runs a 24×7 emergency department with triage, supported by ICU and HDU critical care and in-house diagnostics. That means urgent problems can be assessed at any hour and, where needed, patients can be admitted for closer observation without being moved elsewhere.</p>
           <p>For non-urgent concerns, you can book an OPD appointment and our team will call you back to confirm a slot with the right specialist.</p>
 
-          <!-- Comment form -->
-          <section class="comment-block" aria-labelledby="comment-heading">
-            <h2 id="comment-heading">Leave a comment</h2>
-            <p class="form-note">Our team reads every comment. If you have asked a question, we will reply by email. Please do not share medical details or reports here — for anything urgent, call our emergency line.</p>
-
-            <form id="comment-form" data-lead-form="comment" novalidate>
-              <!-- honeypot -->
-              <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
-            <p class="form-lead-in">Send us a request and our desk will call you to confirm a time.</p>
-
-              <div class="form-row">
-                <div class="field">
-                  <label for="cf-name">Name <span class="req">*</span></label>
-                  <input id="cf-name" name="name" type="text" required autocomplete="name" placeholder="Your name">
-                </div>
-                <div class="field">
-                  <label for="cf-email">Email <span class="req">*</span></label>
-                  <input id="cf-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com">
-                </div>
-              </div>
-
-              <div class="field">
-                <label for="cf-msg">Comment <span class="req">*</span></label>
-                <textarea id="cf-msg" name="message" required placeholder="Your comment or question about this article"></textarea>
-              </div>
-
-              <button class="btn btn--primary" type="submit"><svg class="ico" aria-hidden="true"><use href="#i-send"/></svg> Post Comment</button>
-
-              <div class="form-success" role="status">
-                <strong>Thank you — comment received.</strong> Our team will read it and reply by email if you have asked a question.
-              </div>
-              <div class="form-error" role="alert">
-                <strong>Sorry — we couldn&rsquo;t send your comment.</strong> Please check your connection and try again, or call us on <a data-fallback-phone href="tel:+918240842519">+91 82408 42519</a>.
-              </div>
-            </form>
-          </section>
+          <!-- Comments removed. There is no comment backend, no storage and no
+         moderation, so the form's confirmation ("our team will read it and
+         reply by email") was a promise nothing could keep — the same fake
+         confirmation the appointment flow was rebuilt to remove. It also
+         carried data-lead-form, so once the leads webhook went live it would
+         have written blog comments into the hospital's lead Sheet and emailed
+         the front desk for each one.
+         DEFERRED.md records how to re-enable it if a backend is ever added. -->
+    <section class="comment-block" aria-labelledby="comment-heading">
+          <h2 id="comment-heading">Questions about this article?</h2>
+          <p>We do not take comments on the site. For anything clinical, please
+            speak to us directly &mdash; call
+            <a class="tel" href="tel:+918240842519">+91 82408 42519</a>, open
+            24&times;7 for emergencies, or use the
+            <a href="/contacts-1">contact page</a> to send an enquiry and the
+            desk will call you back.</p>
+        </section>
         </article>
 
         <!-- Sidebar -->

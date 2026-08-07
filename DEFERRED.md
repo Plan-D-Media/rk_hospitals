@@ -28,3 +28,32 @@ Cleared items are struck through and kept for one step, then removed.
 | `rk-theme.css` is a holding file (footer, doctor card, floating actions, breadcrumb) and should not exist at the end. | Each remaining block is owned by a later step; deleting the file early would strip live styling. | 7–8 |
 | Superlatives on `index.html` only: `<title>`, `og:title`, `twitter:title` still lead with "Best Multispeciality Hospital in Barrackpore". The h1 was replaced in step 4; `landing.html`'s three were removed in step 5's prep (noindex, no search cost). | Changing index's title and OG tags is a real SEO trade on the site's primary head term. Client decision, page by page. | 10 — client decision |
 | `LEAD_WEBHOOK_URL` in `js/rk-main.js` is unset, so every form shows its guarded error state and no lead is captured. | Out of the visual scope; the guarded failure is the honest behaviour until the Apps Script URL exists. | Client action, flagged at handover |
+
+## Blog comments — removed, re-enableable
+
+The comment form on `single-post.html` was **removed** (commit in the lead-capture
+workstream). It is not deferred work; it is a deliberate deletion with a route back.
+
+**Why.** There is no comment backend, no storage and no moderation, so its
+confirmation — *"Our team reads every comment. If you have asked a question, we
+will reply by email"* — was a promise nothing could keep. That is the same fake
+confirmation the appointment flow was rebuilt to remove. Separately, it carried
+`data-lead-form="comment"`, so the moment the leads webhook went live it would
+have written blog comments into the hospital's lead Sheet and emailed the front
+desk for every one.
+
+**What replaced it.** A short honest block pointing at the two routes that do
+work: the 24×7 number and the contact page.
+
+**To re-enable**, all three are required — not just the markup:
+1. A comment backend that actually stores and moderates. The Apps Script leads
+   webhook is not it; do not point comments at `LEAD_WEBHOOK_URL`.
+2. Restore the form markup from git history (`single-post.html`, before the
+   lead-capture workstream). It had name, email and message plus the `company`
+   honeypot.
+3. Remove `"comment"` from `NON_LEAD_FORMS` in `js/rk-main.js` — the handler
+   refuses to submit it while that entry is present. That guard is the second
+   line of defence, deliberately kept even though the markup is gone.
+
+Only re-enable if someone has committed to reading and replying. A comment form
+nobody reads is worse than none.

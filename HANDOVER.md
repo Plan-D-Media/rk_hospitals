@@ -196,6 +196,78 @@ face and a hospital interior are the wrong place to trade visible quality for
 
 ---
 
+## Lead capture — how it works and who owns it
+
+**Every lead form POSTs to one Google Apps Script web app**, which appends a row
+to a Google Sheet and emails the recipients. Both channels are independent: if
+one fails the other still runs and the response reports the partial failure.
+
+**The `/exec` URL lives in `js/rk-main.js`**, at the top, in `LEAD_WEBHOOK_URL`.
+It is **public by design** — it ships in the JS bundle and is readable in
+DevTools. A private repo does not protect it. All protection is server-side:
+honeypot, Indian-mobile validation, a 3-second minimum fill time and length
+caps. There is deliberately **no shared secret in the payload**; it would sit in
+the same file and protect nothing while implying it does.
+
+### Ownership — open item
+
+The script is deployed under **plandleadtest@gmail.com** and bound to the
+"RK Hospitals — Website Leads" Sheet. Consequences:
+
+- Lead emails arrive **FROM that address**, not from the hospital.
+- **Only that account can edit or redeploy the script**, or change the Sheet.
+- **Transferring to the client is not just a settings change**: the Sheet must
+  be moved into their account and the script redeployed from there, which
+  produces a **new `/exec` URL** that must be pasted back into `rk-main.js`.
+
+Recipients are in a single `RECIPIENTS` constant at the top of the script:
+`gurukulsarbani@gmail.com` and `plandleadtest@gmail.com`, both on every lead.
+
+### Redeploying — the part that catches everyone
+
+**Editing the script code does NOT update the live URL.** You must:
+`Manage deployments` → edit the active deployment → **New version** → Deploy.
+Without the version bump the old code keeps serving.
+
+### Quota
+
+Consumer Gmail caps `MailApp` at **100 recipients per day**. Two recipients per
+lead is roughly **50 leads/day**. Below 10 remaining the script still writes the
+Sheet row and reports the shortfall in `warnings`, so a quota problem can never
+silently lose a lead. **First emails may land in spam — tell the client to mark
+them Not spam** or the front desk will not see them.
+
+### Three things that will silently break this
+
+1. **The honeypot field is `company`** — in the markup on all forms AND in
+   `HONEYPOT_FIELD` in the script. Changing one without the other disables the
+   honeypot **with no error anywhere**. It was `website` in the first draft of
+   the script and would have never fired.
+
+2. **Any new hidden field must actually reach the payload.** The builder now
+   copies **every `[name]` element in the form** (`js/rk-main.js`, in the submit
+   handler) rather than the six-key allowlist it used to use. That allowlist
+   silently dropped `doctor_slug` and `doctor_name` — the fields
+   `rk-scoped-booking.js` injects so a lead reaches the right clinician. They
+   were created and never sent, so **every doctor-scoped enquiry would have
+   arrived unattributed**. If you ever reintroduce an allowlist, this bug comes
+   back. Verify with a request capture, not by reading the code.
+
+3. **The in-flight flag, not the disabled button, prevents double submission.**
+   Disabling the submit button stops a second *click* only — Enter in a text
+   field, or any programmatic dispatch, goes straight past it. Measured: three
+   submits produced three POSTs before the flag existed, one after.
+
+### Fields the forms do NOT collect
+
+**No lead form has an email input.** The Sheet's `email` column exists but will
+always be blank until an email field is added to the forms. The only email input
+on the site was on the blog comment form, which has been removed. Phone is the
+only reply channel the forms collect, which is consistent with the confirmation
+text ("our desk will call you on the number you gave").
+
+---
+
 ## What is not done
 
 - **`LEAD_WEBHOOK_URL` is unset** (`js/rk-main.js`, ~line 14). Every form shows
