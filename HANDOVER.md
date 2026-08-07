@@ -244,9 +244,10 @@ them Not spam** or the front desk will not see them.
    honeypot **with no error anywhere**. It was `website` in the first draft of
    the script and would have never fired.
 
-2. **Any new hidden field must actually reach the payload.** The builder now
-   copies **every `[name]` element in the form** (`js/rk-main.js`, in the submit
-   handler) rather than the six-key allowlist it used to use. That allowlist
+2. **The payload builder copies EVERY named field — there is no allowlist.**
+   `js/rk-main.js`, in the submit handler, walks every `[name]` element in the
+   form. A new hidden field is therefore sent automatically and needs no code
+   change. It replaced a six-key allowlist. That allowlist
    silently dropped `doctor_slug` and `doctor_name` — the fields
    `rk-scoped-booking.js` injects so a lead reaches the right clinician. They
    were created and never sent, so **every doctor-scoped enquiry would have
@@ -258,13 +259,33 @@ them Not spam** or the front desk will not see them.
    field, or any programmatic dispatch, goes straight past it. Measured: three
    submits produced three POSTs before the flag existed, one after.
 
-### Fields the forms do NOT collect
+### The `email` column is empty on purpose — not a bug
 
-**No lead form has an email input.** The Sheet's `email` column exists but will
-always be blank until an email field is added to the forms. The only email input
-on the site was on the blog comment form, which has been removed. Phone is the
-only reply channel the forms collect, which is consistent with the confirmation
-text ("our desk will call you on the number you gave").
+**No lead form has an email input.** All five collect `name, phone, department,
+preferred_date, message` plus the `company` honeypot. The Sheet's `email` column
+exists and will stay blank until a form gains an email field. Anyone auditing the
+Sheet should read the blank column as "not asked for", not as "data lost".
+Phone is the only reply channel collected, which is what the confirmation
+promises ("our desk will call you on the number you gave"). `DEFERRED.md` has
+the ~6-line change if the client wants it.
+
+### Phone must be written to a plain-text column
+
+Google Sheets parses a leading `+` as the start of a formula, so `+919876543210`
+was stored as **`#ERROR!`** — the number destroyed on the way in. This is fixed
+at both levels: the phone column is formatted as plain text, **and** the script
+forces that format before writing. If the column is ever reformatted, or a new
+Sheet is created without it (for instance when ownership moves to the client),
+**the bug comes straight back**.
+
+It is worth understanding why nothing caught it. The append genuinely succeeded,
+so the script correctly returned `{"ok":true,"sheet":true}` and the front end
+correctly showed success. Every status flag in the system was accurate; the
+stored value was still wrong. **No server-side check can catch this** — only
+reading the cell back can. `scratchpad/assert-sheet.js` does that: run it against
+a Sheet export (`File → Download → TSV`) after any write test. It carries a
+negative control and exits non-zero on failure. Do **not** make it automatic by
+publishing the Sheet to the web; it holds patient PII.
 
 ---
 

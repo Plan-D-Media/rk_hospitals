@@ -57,3 +57,28 @@ work: the 24×7 number and the contact page.
 
 Only re-enable if someone has committed to reading and replying. A comment form
 nobody reads is worse than none.
+
+## Optional email field on the contact forms — ~6 lines, column already exists
+
+The Sheet has an `email` column and it is **intentionally blank**. No lead form
+collects an email address: all five collect `name, phone, department,
+preferred_date, message` plus the `company` honeypot. The only email input on
+the site was on the blog comment form, which has been removed.
+
+This is not a bug and should not be "fixed" by anyone reading the Sheet and
+assuming data is being lost. Nothing is lost; nothing is being asked for.
+
+**To add it** (deliberately not done before delivery — it changes the primary
+conversion form):
+1. Add one `.field` block with `<label for="cf-email">` and
+   `<input id="cf-email" name="email" type="email" autocomplete="email">` to
+   `contacts-1.html` and `contacts-2.html`. Roughly 6 lines each.
+2. Nothing else. The payload builder in `js/rk-main.js` copies **every**
+   `[name]` element in the form, so a new field is sent automatically, and the
+   script already maps `email` to its column.
+3. Leave it **optional**. Phone is the channel the confirmation promises
+   ("our desk will call you on the number you gave"); making email required
+   would contradict that and cost completions.
+
+Deliberately NOT added to the appointment or hero forms: those are the primary
+conversion path and every extra field costs completions.
