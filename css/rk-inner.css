@@ -160,3 +160,51 @@
 .comment-block .form-note { margin-bottom: 22px; }
 .comment-block .form-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 16px; }
 @media (max-width: 560px) { .comment-block .form-row { grid-template-columns: minmax(0, 1fr); } }
+
+/* ------------------------------------------------------------
+   APPOINTMENT PAGE — reduced-scope pass
+   ------------------------------------------------------------ */
+
+/* The email that used to open "Why book with us" now sits with the phone
+   numbers, where a contact route belongs. */
+.call-card__mail {
+  display: flex; align-items: center; gap: 9px;
+  margin: 14px 0 0; font-size: var(--fs-sm);
+  color: rgba(255,255,255,.82); overflow-wrap: anywhere;
+}
+.call-card__mail a { color: #fff; text-decoration: underline;
+  text-decoration-color: rgba(255,255,255,.45); text-underline-offset: .18em; }
+.call-card__mail a:hover { text-decoration-color: #fff; }
+.call-card__mail .ico { flex: none; color: rgba(255,255,255,.6); }
+
+/* Two identical navy slabs in a column read as a duplication, not a
+   hierarchy. KEPT AS TWO and differentiated rather than merged: they are
+   different actions — "call the desk to book" is routine, "this is an
+   emergency" is not, and collapsing them would bury the emergency route
+   inside a booking block.
+   The emergency card takes the crimson FIELD treatment, which the action
+   hierarchy explicitly allows: the band carries the urgency and its button
+   stays .btn--white, so this is not a second crimson BUTTON competing with
+   the form's submit. */
+.side-card.emg-card {
+  background: linear-gradient(135deg, var(--brand-600), var(--brand-700));
+  border-color: transparent;
+  color: rgba(255,255,255,.92);
+  box-shadow: var(--sh-2);
+}
+.side-card.emg-card h3 { color: #fff; }
+.side-card.emg-card .btn--white { --btn-fg: var(--brand-700); }
+
+/* §4.15 — the form is the reason this page exists, so it reads as a card
+   lifted off the band rather than copy on a page. Token application only. */
+.appt-form-card {
+  background: var(--paper);
+  border-radius: var(--r-xl);
+  box-shadow: var(--sh-3);
+  padding: clamp(24px, 4vw, 40px);
+}
+@media (max-width: 560px) {
+  /* Full-bleed on a phone: 40px of card padding inside a 20px gutter wastes
+     a third of a 360px screen. */
+  .appt-form-card { border-radius: var(--r-lg); padding: 22px 18px; }
+}

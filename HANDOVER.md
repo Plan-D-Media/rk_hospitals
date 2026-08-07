@@ -396,6 +396,41 @@ publishing the Sheet to the web; it holds patient PII.
 
 ---
 
+## Known trap: generator scripts and raw strings
+
+**This build shipped the same bug twice**, in two unrelated scripts, and both
+times it was silent.
+
+1. The critical-CSS generator's replacement string was not raw, so its
+   backreference never expanded. It printed **"inlined 24.2 KB"** while
+   substituting **nothing at all**.
+2. A site-wide regex pass wrote a literal `''` — which in a non-raw Python
+   string is `chr(1)`, not a backreference. It replaced
+   `<div class="row"><svg …></svg>` with a **U+0001 control character on all 45
+   pages**, rendering as an empty box in the footer and on the appointment page.
+   It survived weeks of review because a control character is invisible in a
+   diff, in an editor, and in every automated check that reads text.
+
+Two rules for any script that edits site files:
+
+- **Use raw strings for every regex pattern AND every replacement.** `r''` is
+  a backreference; `''` is a control character. Python warns about some
+  invalid escapes and says nothing about this one.
+- **Verify the output on disk, then re-read it.** Never report success from
+  the fact that the script ran. `crit2.py` is the worked example: it re-opens
+  `index.html` after writing, checks six properties of what it actually wrote,
+  and reverts if any fail.
+
+A standing check for the control-character class:
+
+```
+grep -Pn '[ --]' *.html css/*.css js/*.js
+```
+
+Zero matches is the only acceptable result.
+
+---
+
 ## If you change one thing, know this
 
 The tooling in this build repeatedly reported things as passing that were not:

@@ -94,6 +94,20 @@ The same graphics also contain a doctor's personal email address
 (`rupshachowdhury@ymail.com`). **We have not published it.** Please confirm that
 was correct.
 
+### 2.4b Sarbani Das's title — which entity did she found?
+
+Her photograph is now on the homepage and the About page, captioned
+**"Founder, Ramakrishna Multispeciality Hospital"** — the wording your own
+About page already publishes.
+
+But the site also describes the hospital as *"a unit of Sarbani Hospitality and
+HealthCare Services Pvt Ltd"*, and says elsewhere that the **company** was
+founded by her. Those are two different claims and we did not reconcile them —
+a title attached to a named person should come from you, not from us.
+
+**What we need:** one line confirming the title as it should appear publicly —
+founder of the hospital, of the parent company, or both.
+
 ### 2.5 Three photographs that are not clinical portraits
 
 These publish as instructed, but on a hospital roster beside studio portraits
@@ -184,6 +198,18 @@ it**, because guessing wrong in either direction is costly.
 
 **What we need:** confirm the plan — switch rkhospitals.in to the new site, or
 keep them separate (in which case we change the settings).
+
+### 4.1b The appointment page had a reduced-scope pass
+
+Three things were fixed on the site's highest-intent page: the enquiry form now
+sits in a raised white card so it reads as finished; the "Why book with us"
+panel opens on the 24×7 emergency line instead of an email address; and the two
+identical dark blue blocks were differentiated so the emergency route no longer
+looks like a duplicate of the booking one.
+
+**Not done:** a full rework of the page's background rhythm. It was deliberately
+left rather than changed unverified on delivery day. Cosmetic only — nothing on
+the page is broken.
 
 ### 4.2 Page speed is marginally under target
 

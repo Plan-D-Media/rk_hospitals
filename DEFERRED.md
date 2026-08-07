@@ -82,3 +82,36 @@ conversion form):
 
 Deliberately NOT added to the appointment or hero forms: those are the primary
 conversion path and every extra field costs completions.
+
+## Sarbani Das — founder of WHICH entity? (client question)
+
+The site is captioned **"Founder, Ramakrishna Multispeciality Hospital"**,
+matching what `about-us.html` already publishes: *"Sarbani Das is the founder of
+Ramakrishna Multispeciality Hospital…"*. That is the client's own existing claim
+and is the safest wording to carry.
+
+But the site also says the hospital is *"a unit of Sarbani Hospitality and
+HealthCare Services Pvt Ltd"*, and elsewhere that the **company** was founded by
+her. Those are two different claims:
+
+- founder of the **hospital**, or
+- founder of the **parent company** that operates it, or
+- **both**, in which case which title should the homepage caption carry?
+
+Not reconciled in the build. It is a factual claim about a named person, and the
+correct title is not derivable from the markup — the two statements can both be
+true and still call for different captions.
+
+**What we need:** one line confirming her title as it should appear publicly.
+Then update: the homepage About caption, its `alt` text, the about-us Leadership
+caption and its `alt` text (4 places).
+
+## Appointment page — full surface-rhythm rework (deferred)
+
+The form card elevation, the "Why book with us" panel and the two dark blocks
+were fixed. **Not done:** the full surface-rhythm pass so no two adjacent
+sections share a background. Deliberately deferred rather than made as an
+unverified change on delivery day. Scope: audit every `<section>` on
+`appointment.html` and alternate `--paper` / `--surface`, then re-verify at
+360 / 768 / 1440.
+
