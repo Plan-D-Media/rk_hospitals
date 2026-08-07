@@ -176,6 +176,9 @@
       stamp.value = String(Date.now());
     })();
 
+    /* Three states, not two. "Sending…" left in place after a success reads
+       as a form that hung — and that is the last thing a visitor sees before
+       leaving the page. Done is disabled but SETTLED. */
     function setBusy(busy) {
       if (!btn) return;
       btn.disabled = busy;
@@ -185,6 +188,14 @@
       } else {
         btn.innerHTML = btn.getAttribute("data-label") || btn.innerHTML;
       }
+    }
+
+    function setDone() {
+      if (!btn) return;
+      btn.disabled = true;              // stays disabled: no second submission
+      btn.innerHTML = "Request sent";   // no spinner, nothing in progress
+      btn.setAttribute("aria-disabled", "true");
+      btn.classList.add("is-done");
     }
 
     function showSuccess() {
@@ -293,12 +304,33 @@
             department: payload.department || "",
             doctor_slug: payload.doctor_slug || ""
           });
-          /* Deliberately no setBusy(false): the button stays disabled after a
-             success so the form cannot be submitted twice. It is re-enabled
-             on failure only. */
-          if (data.warnings && data.warnings.length) {
+          /* The script returns only after BOTH the Sheet write and the email
+             have finished, so sheet/mail are settled facts by the time we
+             read them — not promises.
+
+             A partial failure still means the lead was captured by at least
+             one channel, so the visitor sees the ordinary confirmation. They
+             cannot act on "the notification email did not send", and telling
+             a patient something went wrong when their request is safely
+             recorded would be worse than saying nothing. It is logged for
+             whoever is watching the console, and the script separately
+             reports it in `warnings`. */
+          if (data.sheet === false || data.mail === false) {
+            console.warn(
+              "Lead captured with a PARTIAL delivery failure — " +
+              "sheet=" + data.sheet + " mail=" + data.mail + ". " +
+              "The visitor was shown the normal confirmation because at least " +
+              "one channel succeeded.", data.warnings || []
+            );
+            track("form_partial_delivery", {
+              form_type: formType, sheet: !!data.sheet, mail: !!data.mail
+            });
+          } else if (data.warnings && data.warnings.length) {
             console.warn("Lead accepted with warnings:", data.warnings);
           }
+          /* Not setBusy(false) — that would restore "Request appointment" and
+             invite a second submission. setDone() settles the button instead. */
+          setDone();
           showSuccess();
         })
         .catch(function (err) {

@@ -507,6 +507,16 @@ p, li, h1, h2, h3, h4, dd, dt, td, th, figcaption { overflow-wrap: break-word; }
    viewport. Safe because .btn already wraps below 560px. */
 .btn:active { transform: scale(.985); }
 .btn[disabled], .btn[aria-disabled="true"] { opacity: .55; cursor: not-allowed; transform: none; }
+/* Settled, not stuck. A disabled button at .55 opacity reads as "broken" when
+   it is the last thing on screen after a successful submission, so the done
+   state keeps full contrast and swaps to the care hue — the request landed. */
+.btn.is-done, .btn.is-done[disabled] {
+  opacity: 1;
+  --btn-bg: var(--care-600);
+  --btn-fg: var(--paper);
+  --btn-bd: transparent;
+  cursor: default;
+}
 
 .btn--primary { --btn-bg: var(--brand-500); --btn-fg: var(--paper); }
 .btn--primary:hover { --btn-bg: var(--brand-600); color: var(--paper); }

@@ -1104,3 +1104,23 @@
    viewport through the same min-width:auto path. */
 iframe { max-width: 100%; }
 .side-contact a, .map-card a, .footer-nap a, .footer-col a { overflow-wrap: anywhere; }
+
+/* Founder credit beside the About statement of intent.
+   Deliberately NOT styled as a pull-quote attribution: no rule above it, no
+   em-dash, no quote marks anywhere near the statement. It reads as "who runs
+   this", not as "who said that". */
+.founder { display: flex; align-items: center; gap: 16px; margin: 22px 0 26px; }
+.founder__photo {
+  width: 64px; height: 64px; flex: none;
+  border-radius: var(--r-pill); object-fit: cover;
+  box-shadow: var(--sh-1); border: 2px solid var(--paper);
+}
+.founder__cap { display: grid; gap: 2px; font-size: var(--fs-sm); line-height: 1.4; }
+.founder__cap strong { color: var(--ink-900); font-weight: 600; }
+.founder__cap span { color: var(--muted); }
+
+/* about-us Leadership slot */
+.founder-cap {
+  margin-top: 12px; font-size: var(--fs-sm); color: var(--muted); line-height: 1.5;
+}
+.founder-cap span { display: block; }
