@@ -380,6 +380,62 @@
     }
   }
 
+  // ---- DEFERRED MAP EMBED ---------------------------------------------
+  // A Google Maps embed is roughly a megabyte across a dozen requests.
+  // loading="lazy" alone does not hold it back far enough on the contact
+  // pages, where the map sits high enough to count as "near the viewport"
+  // while the LCP element is still painting. So the iframe ships with NO
+  // src and gets one only on intersection; until then rk-inner.css hides
+  // it and the --surface-2 frame stands in. <noscript> carries a plain
+  // src copy for scripting-off.
+  var deferredFrames = document.querySelectorAll("iframe[data-src]");
+  if (deferredFrames.length) {
+    var loadFrame = function (f) {
+      f.src = f.getAttribute("data-src");
+      f.removeAttribute("data-src");
+    };
+    var arm = function () {
+      // Observe the WRAPPER, not the iframe. A src-less iframe is
+      // display:none (rk-inner.css), and a display:none element never
+      // intersects — observing it directly means the map never loads at all.
+      // 300px of lead-in: the map is fetching by the time it is scrolled to,
+      // so deferring costs nothing visible.
+      var frameObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          frameObserver.unobserve(entry.target);
+          var f = entry.target.querySelector("iframe[data-src]");
+          if (f) loadFrame(f);
+        });
+      }, { rootMargin: "300px 0px" });
+      deferredFrames.forEach(function (f) {
+        if (f.parentElement) frameObserver.observe(f.parentElement);
+      });
+    };
+
+    // Armed on load and then on the first idle frame, not on
+    // DOMContentLoaded. On /contacts-2 the map sits AT the fold — 79px
+    // below it at 1440x900, inside it on a taller window — so intersection
+    // alone fires immediately and the embed goes out while the page is
+    // still painting. Waiting for load means every render-blocking
+    // resource and every image has finished first; the idle callback then
+    // keeps it off the main thread while text LCP settles behind a font
+    // swap. Deferred by 1200ms at the outside, so a page that never goes
+    // idle still gets its map.
+    var armWhenIdle = function () {
+      if (window.requestIdleCallback) window.requestIdleCallback(arm, { timeout: 1200 });
+      else window.setTimeout(arm, 200);
+    };
+
+    if (!("IntersectionObserver" in window)) {
+      deferredFrames.forEach(loadFrame);
+    } else if (document.readyState === "complete") {
+      armWhenIdle();
+    } else {
+      window.addEventListener("load", armWhenIdle, { once: true });
+    }
+  }
+
   // ---- CURRENT YEAR ----------------------------------------------------
   var y = document.getElementById("rk-year");
   if (y) y.textContent = new Date().getFullYear();

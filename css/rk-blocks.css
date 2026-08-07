@@ -976,8 +976,12 @@
 .post__more { font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: var(--tr-mono); text-transform: uppercase; }
 @media (max-width: 900px) { .post-grid { grid-template-columns: minmax(0, 1fr); } }
 
-/* Scoped-booking note — injected by rk-scoped-booking.js, never in the HTML. */
-.form-lead-in { font-size: var(--fs-sm); color: var(--muted); margin: 0 0 18px; }
+/* .form-lead-in is gone. The comment here claimed it was injected by
+   rk-scoped-booking.js and never written in the HTML; it was hand-written
+   into five pages, where it sat directly under an intro paragraph saying
+   the same thing twice. The intro paragraph now carries the one sentence.
+
+   Scoped-booking note — this one really is injected by rk-scoped-booking.js. */
 .scoped-note {
   display: flex; align-items: center; justify-content: space-between; gap: 14px;
   flex-wrap: wrap;

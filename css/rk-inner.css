@@ -61,6 +61,11 @@
 .pill-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 6px 0 8px; }
 .pill { display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 9px 16px; font-weight: 600; font-size: .9rem; }
 .pill i { color: var(--brand-500); }
+/* A pill can also be a link — WhatsApp, on the contact heroes. It has to
+   read as the same object as the plain pills beside it rather than as a
+   body-copy link, and it needs a real tap target. */
+a.pill { color: var(--ink-800); min-height: 44px; }
+a.pill:hover { color: var(--ink-900); border-color: var(--brand-600); }
 
 /* ---------- Feature grid (conditions/procedures) ---------- */
 .feature-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 1.2rem 0 1.6rem; }
@@ -207,4 +212,106 @@
   /* Full-bleed on a phone: 40px of card padding inside a 20px gutter wastes
      a third of a 360px screen. */
   .appt-form-card { border-radius: var(--r-lg); padding: 22px 18px; }
+}
+
+/* ------------------------------------------------------------
+   CONTACT PAGES — §4.15, applied
+   ------------------------------------------------------------
+   Measured before anything was touched. `.loc-split` and `.loc-map` were
+   referenced by the contact markup but DEFINED NOWHERE — no rule for
+   either exists in any stylesheet. So `.loc-split` computed display:block
+   (one stacked column, never a grid) and the iframe fell back to the UA
+   default 300x150, leaving 856px of empty band beside it at 1440 and
+   1376px at 1920. `.appt-card` is likewise a dead class: background none,
+   radius 0, shadow none, padding 0. §4.15 was never applied here — it was
+   not applied and overridden.
+
+   The homepage has carried this whole pattern since the start
+   (`.appt` / `.appt__card` / `.map-frame` / `.map-card`, rk-blocks.css
+   §18). The contact pages simply never received it.
+
+   The form re-uses `.appt-form-card` above verbatim — the /appointment
+   treatment, not a second one. Only the column geometry and the map side
+   are new here. */
+.contact-split {
+  display: grid;
+  grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
+  gap: clamp(28px, 3.4vw, 48px);
+  align-items: stretch;          /* the map column matches the form card */
+}
+
+/* A flex column, so the frame absorbs whatever height is left over: the
+   map ends up exactly as tall as the form card beside it, at any content
+   length, without a hard-coded height. */
+.contact-map { display: flex; flex-direction: column; min-width: 0; }
+.contact-map__frame {
+  flex: 1 1 auto;
+  min-height: 360px;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--sh-2);
+  background: var(--surface-2);
+}
+.contact-map__frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+/* The map is held back until it scrolls near the viewport, so its iframe
+   ships with no src at all. Hidden until one arrives, otherwise an empty
+   about:blank frame paints white over the --surface-2 placeholder. This
+   is also what makes the <noscript> copy of the map the only one visible
+   when scripting is off. */
+.contact-map__frame iframe:not([src]) { display: none; }
+
+/* The info card overlaps the map's lower-left corner. Negative margin in
+   normal flow, NOT absolute positioning: an out-of-flow card is exactly
+   what collided with the hero once already, and a card that stays in flow
+   cannot land on top of whatever follows it. */
+.contact-info {
+  position: relative; z-index: 1;
+  margin: -32px 12% 0 0;
+  display: grid; gap: 11px;
+  padding: 22px 24px;
+  background: var(--paper);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-2);
+}
+.contact-info__row {
+  display: flex; gap: 11px; align-items: flex-start;
+  font-size: var(--fs-sm); color: var(--body);
+}
+.contact-info__row .ico { color: var(--brand-600); margin-top: 3px; flex: none; }
+/* Two numbers on one row, each unbreakable: a phone number split across a
+   line break is a phone number nobody can read back. */
+.contact-info__tel { display: flex; flex-wrap: wrap; gap: 2px 14px; }
+.contact-info__tel a {
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+  font-weight: 500; letter-spacing: .02em; white-space: nowrap;
+}
+.contact-info__row--mail a { overflow-wrap: anywhere; }
+.contact-info .btn { justify-self: start; margin-top: 3px; }
+
+/* The live status device, slimmed to a single row so the card stays a
+   card. Same script and same [data-open-now] contract as the header strip
+   — a variant of the existing device, not a second one. flex, not the
+   base grid, so an OPD line wraps to its own row if hours are ever
+   configured instead of being forced into a third column. */
+.contact-info .open-now {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px;
+  padding: 0; border: 0; background: none; box-shadow: none;
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+.contact-info .open-now__clock {
+  margin-left: auto; font-size: var(--fs-sm);
+  /* Reserved so the clock arriving after first paint cannot shift the row. */
+  min-width: 9ch; justify-content: flex-end;
+}
+
+@media (max-width: 1023.98px) {
+  .contact-split { grid-template-columns: minmax(0, 1fr); }
+  /* Stacked, there is no column height left to fill, so the frame takes a
+     shape of its own instead of collapsing to its min-height. */
+  .contact-map__frame { flex: none; min-height: 0; aspect-ratio: 16 / 10; }
+  .contact-info { margin: -24px 0 0; }
+}
+@media (max-width: 560px) {
+  .contact-info { padding: 18px; gap: 10px; }
+  .contact-map__frame { aspect-ratio: 4 / 3; }
 }

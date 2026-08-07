@@ -352,7 +352,7 @@
       <p>Reach us on Ghoshpara Road, Barrackpore — by phone, WhatsApp or the callback form below. For anything urgent, our emergency department is open around the clock.</p>
       <div class="pill-row" style="margin-top:20px">
         <span class="pill"><svg class="ico" aria-hidden="true"><use href="#i-ambulance"/></svg> 24×7 emergency</span>
-        <span class="pill"><svg class="ico ico--solid" aria-hidden="true"><use href="#i-whatsapp"/></svg> WhatsApp us</span>
+        <a class="pill" href="https://wa.me/918240842519?text=Hi%2C%20I%27d%20like%20to%20book%20an%20appointment%20at%20Ramakrishna%20Hospital" target="_blank" rel="noopener"><svg class="ico ico--solid" aria-hidden="true"><use href="#i-whatsapp"/></svg> WhatsApp us</a>
         <span class="pill"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg> Barrackpore, Kolkata</span>
       </div>
     </div>
@@ -396,7 +396,7 @@
         <div class="card side-card">
           <h3><svg class="ico" aria-hidden="true" style="color:var(--brand-500)"><use href="#i-mail"/></svg> Email</h3>
           <div class="side-contact">
-            <div class="row"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg><span><!-- TODO: email --> Email address to be confirmed.</span></div>
+            <div class="row"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg><span><a href="mailto:gurukulsarbani@gmail.com">gurukulsarbani@gmail.com</a></span></div>
           </div>
         </div>
         <div class="card side-card">
@@ -417,21 +417,13 @@
         <h2>On the map, and a message away</h2>
         <p>We're on Ghoshpara Road in the Airport Area of Barrackpore. Send us your details and we'll call you back.</p>
       </div>
-      <div class="loc-split">
-        <div class="loc-map">
-          <iframe
-            title="Map to Ramakrishna Multispeciality Hospital, Barrackpore"
-            src="https://www.google.com/maps?q=203%2F1%20Ghoshpara%20Road%2C%20Barrackpore%2C%20Kolkata%20700120&output=embed"
-            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          <!-- TODO: confirm exact Google Maps pin -->
-        </div>
-
-        <div class="appt-card">
+      <div class="contact-split">
+        <!-- LEFT — the form, in the §4.15 card treatment used on /appointment -->
+        <div class="appt-card appt-form-card">
           <h2>Send us a message</h2>
-          <p class="form-note" style="margin:-6px 0 18px">Share a few details and our team will call you back. Fields marked <span class="req">*</span> are required.</p>
+          <p class="form-note" style="margin:-6px 0 18px">Share a few details and our desk will call you back to confirm a time. Fields marked <span class="req">*</span> are required.</p>
           <form id="contact-form" data-lead-form="contact" data-dept-required="false" novalidate>
             <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
-            <p class="form-lead-in">Send us a request and our desk will call you to confirm a time.</p>
             <div class="form-row">
               <div class="field">
                 <label for="af-name">Full name <span class="req">*</span></label>
@@ -476,6 +468,35 @@
               <strong>Sorry &mdash; we could not send your request.</strong> Please check your connection and try again, or call us on <a data-fallback-phone href="tel:+918240842519">+91 82408 42519</a> and we will book you in.
             </div>
           </form>
+        </div>
+
+        <!-- RIGHT — the map, with the address card over its lower-left corner.
+             The iframe carries data-src, not src: rk-main.js gives it one when
+             it scrolls near the viewport, so a ~1MB Google embed never competes
+             with the LCP element for bandwidth. -->
+        <div class="contact-map">
+          <div class="contact-map__frame">
+            <noscript><iframe
+              title="Map to Ramakrishna Multispeciality Hospital, Barrackpore"
+              src="https://www.google.com/maps?q=203%2F1%20Ghoshpara%20Road%2C%20Barrackpore%2C%20Kolkata%20700120&output=embed"
+              referrerpolicy="no-referrer-when-downgrade"></iframe></noscript>
+            <iframe
+              title="Map to Ramakrishna Multispeciality Hospital, Barrackpore"
+              data-src="https://www.google.com/maps?q=203%2F1%20Ghoshpara%20Road%2C%20Barrackpore%2C%20Kolkata%20700120&output=embed"
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <!-- TODO: confirm exact Google Maps pin -->
+          </div>
+
+          <div class="contact-info">
+            <div class="contact-info__row"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg><span>203/1 Ghoshpara Road, Barrackpore, Kolkata 700120</span></div>
+            <div class="contact-info__row"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg><span class="contact-info__tel"><a href="tel:+918240842519">+91 82408 42519</a><a href="tel:+918777424002">+91 87774 24002</a></span></div>
+            <div class="contact-info__row contact-info__row--mail"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg><span><a href="mailto:gurukulsarbani@gmail.com">gurukulsarbani@gmail.com</a></span></div>
+            <div class="contact-info__row open-now" data-open-now role="status" aria-live="polite">
+              <span class="open-now__status"><span class="open-now__dot" aria-hidden="true"></span> 24&times;7 Emergency</span>
+              <span class="open-now__clock" aria-hidden="true"><span data-on-clock>&nbsp;</span><span class="open-now__tz">IST</span></span>
+            </div>
+            <a class="btn btn--outline btn--sm" href="https://www.google.com/maps/dir/?api=1&amp;destination=203%2F1%20Ghoshpara%20Road%2C%20Barrackpore%2C%20Kolkata%20700120" target="_blank" rel="noopener">Get directions <span aria-hidden="true">&rarr;</span></a>
+          </div>
         </div>
       </div>
     </div>
