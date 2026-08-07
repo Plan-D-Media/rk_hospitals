@@ -10,14 +10,21 @@
   "use strict";
 
   // ---- CONFIG ----------------------------------------------------------
-  // Paste the deployed Apps Script web-app URL here (ends in /exec).
-  const LEAD_WEBHOOK_URL = "TODO_PASTE_DEPLOYED_APPS_SCRIPT_URL";
+  /* Deployed Apps Script web app. Public by design — this URL ships in the
+     JS bundle and is readable in DevTools; a private repo does not protect
+     it. All protection is server-side (honeypot, phone validation, minimum
+     fill time, length caps). Deliberately NO shared secret in the payload:
+     it would sit in this same file and protect nothing while implying it
+     does. Redeploying: Manage deployments -> edit -> NEW VERSION. Editing
+     the script alone does not change what this URL serves. */
+  const LEAD_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbyY4_py_DCsqr7YrnBxqCtXJB3-GnZE59hmcwjE7CqJyQyBLGjl7PSvJHeIKhqWWFktQA/exec";
+
+  // A hung fetch on a patchy connection is worse than a clear failure.
+  const LEAD_TIMEOUT_MS = 10000;
 
   // Shown to the user if the network call fails, so a lead is never lost.
   const FALLBACK_PHONE_DISPLAY = "+91 82408 42519";
   const FALLBACK_PHONE_TEL = "+918240842519";
-
-  var webhookReady = /^https:\/\/\S+$/.test(LEAD_WEBHOOK_URL);
 
   // dataLayer (GTM) — safe no-op if GTM is not yet installed.
   window.dataLayer = window.dataLayer || [];
@@ -131,8 +138,19 @@
   }
 
   // ---- LEAD FORMS: appointment | contact | hero | comment ---------------
+  /* The blog comment form carries data-lead-form="comment" but is NOT a lead
+     and must never reach the leads webhook: it would put blog comments in the
+     hospital's lead Sheet and email the front desk for each one. There is no
+     comment backend, no storage and no moderation, so it is disabled in the
+     markup as well — this is the second line of defence, not the only one. */
+  var NON_LEAD_FORMS = ["comment"];
+
   document.querySelectorAll("form[data-lead-form]").forEach(function (form) {
     var formType = form.getAttribute("data-lead-form") || "appointment";
+    if (NON_LEAD_FORMS.indexOf(formType) !== -1) {
+      form.addEventListener("submit", function (e) { e.preventDefault(); });
+      return;
+    }
     var btn = form.querySelector('button[type="submit"]');
     var success = form.querySelector(".form-success");
     var errorBox = form.querySelector(".form-error");
@@ -141,6 +159,22 @@
     form.addEventListener("input", function () {
       if (!started) { started = true; track("appointment_start", { form_type: formType }); }
     });
+
+    /* Minimum-fill timestamp for the server's 3-second check.
+       Set HERE, in JS, at render time — never as a value baked into the HTML.
+       These pages are static and edge-cached, so an HTML-authored timestamp
+       would be whatever it was when the page was built and every real
+       submission would look instant. Created once per form. */
+    (function stampRenderTime() {
+      var stamp = form.querySelector('input[name="form_rendered_at"]');
+      if (!stamp) {
+        stamp = document.createElement("input");
+        stamp.type = "hidden";
+        stamp.name = "form_rendered_at";
+        form.appendChild(stamp);
+      }
+      stamp.value = String(Date.now());
+    })();
 
     function setBusy(busy) {
       if (!btn) return;
@@ -175,52 +209,103 @@
       }
     }
 
+    /* Disabling the submit button stops a second CLICK, but not a second
+       submit event — Enter in a text field, or any programmatic dispatch,
+       bypasses the button entirely. Measured: three synthetic submits
+       produced three POSTs. This flag is the actual guard. */
+    var inFlight = false;
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
+      if (inFlight) return;
 
-      // Honeypot: real users never fill this. Pretend success, send nothing.
-      var hp = form.querySelector('input[name="company"]');
-      if (hp && hp.value) { showSuccess(); return; }
-
+      /* The honeypot is NOT short-circuited here any more. It is sent and the
+         server decides: it returns {ok:true} and writes nothing, so a bot
+         cannot tell a trapped submission from a real one by watching either
+         the response or the UI. Short-circuiting client-side would also make
+         the server's honeypot untestable through the real form. */
       var bad = validate(form);
       if (bad) { bad.focus(); return; }
 
-      // Flat payload. URLSearchParams => application/x-www-form-urlencoded,
-      // a "simple request" that skips the CORS preflight Apps Script rejects.
-      var body = new URLSearchParams();
-      body.set("form_type", formType);
-      ["name", "phone", "email", "department", "preferred_date", "message"].forEach(function (key) {
-        var input = form.querySelector('[name="' + key + '"]');
-        if (input && String(input.value).trim()) body.set(key, String(input.value).trim());
-      });
-      body.set("source_page", location.href);
-      body.set("page_title", document.title);
-      body.set("timestamp", new Date().toISOString());
+      /* JSON, posted as text/plain. Apps Script web apps send no CORS
+         headers on the response to an application/json POST, so the browser
+         blocks it and the fetch rejects EVEN WHEN THE SCRIPT RAN AND WROTE
+         THE ROW. text/plain is a CORS "simple request": no preflight, and
+         the response is readable. The script does JSON.parse(e.postData
+         .contents) at the other end.
 
+         mode:'no-cors' is deliberately NOT used. It makes the response
+         opaque, which means every request looks like a success — including
+         a validation rejection and a server error. The previous version of
+         this file did exactly that. */
+      var payload = { form_type: formType, form_id: form.getAttribute("id") || "lead_form" };
+
+      /* Copy every named field the form actually has, rather than an
+         allowlist. The allowlist here used to be six keys, which silently
+         dropped doctor_slug and doctor_name — the hidden fields
+         rk-scoped-booking.js injects so a lead is attributed to the right
+         clinician. They were created and then never sent. */
+      form.querySelectorAll("[name]").forEach(function (input) {
+        var key = input.name;
+        if (!key || key in payload) return;
+        if (input.type === "checkbox" || input.type === "radio") {
+          if (!input.checked) return;
+        }
+        payload[key] = String(input.value == null ? "" : input.value).trim();
+      });
+
+      payload.source_page = location.href;
+      payload.page_title = document.title;
+
+      inFlight = true;
       setBusy(true);
 
-      if (!webhookReady) {
-        console.warn("LEAD_WEBHOOK_URL is not set — nothing was sent.", Object.fromEntries(body));
-        setBusy(false);
-        showError();
-        return;
-      }
+      var controller = new AbortController();
+      var timedOut = false;
+      var timer = window.setTimeout(function () {
+        timedOut = true;
+        controller.abort();
+      }, LEAD_TIMEOUT_MS);
 
-      // no-cors: the response is opaque, so a resolved promise means the
-      // request reached Apps Script. A rejection means a real network failure.
-      fetch(LEAD_WEBHOOK_URL, { method: "POST", mode: "no-cors", body: body })
-        .then(function () {
+      fetch(LEAD_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload),
+        signal: controller.signal,
+        redirect: "follow"
+      })
+        .then(function (res) { return res.text(); })
+        .then(function (text) {
+          window.clearTimeout(timer);
+          /* An uncaught server error returns Apps Script's HTML error page,
+             not JSON. Parsing it must be a failure, never a success. */
+          var data;
+          try { data = JSON.parse(text); }
+          catch (err) {
+            throw new Error("Non-JSON response: " + String(text).slice(0, 120));
+          }
+          if (!data || data.ok !== true) {
+            throw new Error("Server rejected: " + ((data && data.error) || "unknown"));
+          }
           track("form_submit", {
             form_type: formType,
-            form_id: form.getAttribute("id") || "lead_form",
-            department: body.get("department") || ""
+            form_id: payload.form_id,
+            department: payload.department || "",
+            doctor_slug: payload.doctor_slug || ""
           });
-          setBusy(false);
+          /* Deliberately no setBusy(false): the button stays disabled after a
+             success so the form cannot be submitted twice. It is re-enabled
+             on failure only. */
+          if (data.warnings && data.warnings.length) {
+            console.warn("Lead accepted with warnings:", data.warnings);
+          }
           showSuccess();
         })
         .catch(function (err) {
-          console.error("Lead webhook failed:", err);
-          track("form_error", { form_type: formType });
+          window.clearTimeout(timer);
+          console.error("Lead webhook failed:", timedOut ? "timed out after " + LEAD_TIMEOUT_MS + "ms" : err);
+          track("form_error", { form_type: formType, reason: timedOut ? "timeout" : "error" });
+          inFlight = false;
           setBusy(false);
           showError();
         });
