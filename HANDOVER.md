@@ -196,6 +196,44 @@ face and a hospital interior are the wrong place to trade visible quality for
 
 ---
 
+## Deployment — READ THIS BEFORE ADDING ANY CREDENTIAL
+
+**The repository is PUBLIC, and that is a workaround, not a decision.**
+Vercel's Hobby plan refuses Git deploys from a private repo when the commit
+author does not match the GitHub account connected to the project. Making the
+repo public sidesteps that check.
+
+**Production is currently deployed with `npx vercel --prod`** from a linked
+local checkout — not by Git push. A push to `main` alone does **not** update
+the live site. This is why the site sat on a stale build for several hours
+while `origin/main` was many commits ahead: everything was pushed, nothing was
+deployed.
+
+Three permanent fixes, any one of which ends the workaround:
+1. **Upgrade to Vercel Pro** — private-repo Git deploys work normally.
+2. **Keep the repo public** — a deliberate choice, not a default, and only
+   safe while the rules below hold.
+3. **Set the commit author** to the GitHub account connected to the Vercel
+   project, and re-enable Git deploys.
+
+**This MUST be resolved before any credential of any kind enters the repo.**
+Today nothing sensitive is committed — `.env*` is gitignored (verified), no
+key, token, `.pem` or credential file is tracked (verified), and the Apps
+Script `/exec` URL is public by design with all protection server-side. That
+is the only reason a public repo is survivable right now. The moment anyone
+adds an API key, a service-account JSON, or a webhook with a secret in it, a
+public repo becomes a live exposure — and Git history keeps it even after the
+file is deleted.
+
+**If `npx vercel --prod` hangs**, the CLI reads **`.vercelignore`, not
+`.gitignore`**. An unexcluded `node_modules` or scratch directory will upload
+thousands of files and appear to hang. Current `.vercelignore` excludes
+`node_modules`, `.vercel`, `scratch`, `screenshots`, `*.log`. Keep it in sync
+as directories are added — the two ignore files are unrelated and diverge
+silently.
+
+---
+
 ## Lead capture — how it works and who owns it
 
 **Every lead form POSTs to one Google Apps Script web app**, which appends a row
